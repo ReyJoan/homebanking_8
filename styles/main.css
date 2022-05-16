@@ -3,7 +3,48 @@
     padding: 0;
 }
 
-body{
-    display: flex;
+.navbar {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr 1fr 200px;
+    align-items: center;
+    justify-content: space-around;
+    background-color: white;
+    
 }
 
+.navbar img {
+    height: 60px;
+    width: 100px;
+}
+
+main {
+    width: 100%;
+}
+
+main img {
+    width: 100%;
+    /* object-fit: lo que va acá */
+}
+
+main section {
+    position: center;
+}
+
+.final{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-evenly;
+    }
+.final a{
+    display: block;
+    text-decoration: none;
+    font-weight: 500; 
+    transition: all 25ms;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    background-color: red;
+}

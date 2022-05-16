@@ -3,6 +3,16 @@
     padding: 0;
 }
 
+html {
+    min-height: 100%;
+    position: relative;
+}
+
+body{
+    margin: 0;
+    margin-bottom: 40px;
+}
+
 .navbar {
     display: grid;
     grid-template-columns: 200px 1fr 1fr 1fr 200px;
@@ -17,8 +27,16 @@
     width: 100px;
 }
 
+/*=========== Main ===============*/
+
 main {
+     /* src="../public/img/foto_main.jpg" alt="" */
+    background-image: url(../img/foto_main.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
     width: 100%;
+    /* min-height: calc(100vh - 20px); */
+    height: 80vh;
 }
 
 main img {
@@ -30,12 +48,59 @@ main section {
     position: center;
 }
 
+.form-container{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    height: 100%;
+}
+
+.register-form {
+    justify-content: center;
+    padding: 20px 15px;
+    text-align: center;
+    margin-right: 20%;
+}
+
+.form-control {
+    margin-bottom: 15px;
+}
+
+.form-control label{
+    margin-bottom: 5px;
+    font-style: italic;
+    display: block;
+    width: 100%;
+}
+
+.control {
+    border-radius: 6px;
+    margin: 0.35rem;
+    height: 23px;
+}
+
+.button {
+    border-radius: 7px;
+    font-size: 16px;
+    color: white;
+    width: 5rem;
+    background-color: #333;
+}
+
+.button:hover{
+    background-color: #0F4C75;
+    transition: all 250ms;
+}
+
+/*================= FOOTER =================*/
+
 .final{
     display: flex;
     justify-content: center;
     align-items: center;
     justify-content: space-evenly;
-    }
+}
+
 .final a{
     display: block;
     text-decoration: none;
@@ -44,7 +109,10 @@ main section {
 }
 
 footer {
+    background-color: black;
     position: absolute;
     bottom: 0;
-    background-color: red;
+    width: 100%;
+    height: 40px;
+    color: white;
 }

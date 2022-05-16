@@ -4,25 +4,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estafa HomeBanking</title>
-    <link rel="stylesheet" href="styles/main.css">
+    <title>ITBANK Login</title>
+    <link rel="shortcut icon" href="../public/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../public/styles/main.css">
 </head>
 <body>
     <header class="navbar">
-        <img src="itbank_logo.jpg">
+        <img src="../public/img/itbank_logo.jpg">
         <a href="">FAQ</a>
         <a href="">Empresas</a>
         <a href="">Personas</a>
         <a href="/user.html">Usuario</a>
     </header>
-    <main>
-        <img src="foto_main.jpg" alt="">
-        <section>
-            <h5>Formulario Login</h5>
-            <input type="text" placeholder="Usuario">
-            <input type="password" placeholder="Contraseña">
-            <a href="">Submit</a>
-            
+    <main class="main">
+        <section class="form-container">
+            <form class="register-form">
+                <div class="form-control">
+                    <label>Nombre de usuario</label>
+                    <input type="text" name="name" class="control">
+                </div>
+                <div class="form-control">
+                    <label>Contraseña</label>
+                    <input type="password" name="name" class="control">
+                </div>
+                <button type="submit" class="button">Entrar</button>
+            </form>
             <!--<h5>Formulario Register</h5>
             <input type="text" placeholder="Usuario">
             <input type="password" placeholder="Contraseña">

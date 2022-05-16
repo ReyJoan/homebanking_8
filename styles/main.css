@@ -4,9 +4,6 @@
 }
 
 body{
-    background-color: blueviolet;
+    display: flex;
 }
 
-.titulo{
-    background-color: #000080;
-}

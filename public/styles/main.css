@@ -79,8 +79,8 @@ main section {
     margin-right: 10%;
     
     /* NEW */
-    width: 12rem;
-    height: 13rem;
+    width: 13rem;
+    height: 17rem;
     background-color:lightskyblue;
     border-radius: 5px;
     /* NEW */
@@ -108,6 +108,7 @@ main section {
     margin: 0.35rem;
     height: 23px;
 }
+
 
 .button {
     border-radius: 7px;

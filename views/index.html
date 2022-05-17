@@ -10,15 +10,19 @@
 </head>
 <body>
     <header class="navbar">
-        <img src="../public/img/itbank_logo.jpg">
-        <a href="">FAQ</a>
-        <a href="">Empresas</a>
-        <a href="">Personas</a>
-        <a href="/user.html">Usuario</a>
+        <img src="../public/img/itbank_logo.jpg" class="logo">
+        <a class="navbar-buttons" href="">FAQ</a>
+        <a class="navbar-buttons" href="">Empresas</a>
+        <a class="navbar-buttons" href="">Personas</a>
+        <div class="user-panel">
+            <a href="/user.html">Usuario</a>
+            <img src="../public/img/blank_avatar.png">
+        </div>
     </header>
     <main class="main">
         <section class="form-container">
             <form class="register-form">
+                <h1>Register</h1>
                 <div class="form-control">
                     <label>Nombre de usuario</label>
                     <input type="text" name="name" class="control">
@@ -29,14 +33,39 @@
                 </div>
                 <button type="submit" class="button">Entrar</button>
             </form>
-            <!--<h5>Formulario Register</h5>
-            <input type="text" placeholder="Usuario">
-            <input type="password" placeholder="Contraseña">
-            <a href="">Submit</a> -->
             
             <!--
-            <a href="">Login</a>
-            <a href="">Sing Up</a> -->
+            NEW
+
+            <form class="register-form">
+                <h1>Log In</h1>
+                <div class="form-control">
+                    <label>Nombre de usuario</label>
+                    <input type="text" name="name" class="control">
+                </div>
+                <div class="form-control">
+                    <label>Contraseña</label>
+                    <input type="password" name="name" class="control">
+                </div>
+                <button type="submit" class="button">Entrar</button>
+            </form>
+
+            <form class="register-form">
+                <h1>Bienvenido</h1>
+                <div class="account-choices">
+                    <div class="form-control">
+                        <label>Ingresar</label>
+                        <button type="button" class="button">Log In</button>
+                    </div>
+                    <div class="form-control">
+                        <label>Crear una cuenta</label>
+                        <button type="button" class="button">Register</button>
+                    </div>
+                </div>
+            </form>
+
+            NEW
+            -->
         </section>
     </main>
     <footer class="final">

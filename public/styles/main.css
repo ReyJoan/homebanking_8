@@ -115,7 +115,30 @@ main section {
 }
 
 .slider{
+    padding: 2em 0;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
     position: relative;
+    margin: 0 auto;
+}
+.fa-solid{
+    text-align: center;
+    transition: 0.25s;
+}
+
+.slider a{
+    text-align: center;
+    text-decoration: none;
+    transition: 0.25s;
+}
+
+.slider a:hover{
+    color: blue;
+}
+
+.slider a:hover i{
+    transform: translateY(-16px);
 }
 
 /*================= FOOTER =================*/

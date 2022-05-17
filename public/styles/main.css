@@ -15,33 +15,52 @@ body{
 
 .navbar {
     display: grid;
-    grid-template-columns: 200px 1fr 1fr 1fr 200px;
+    grid-template-columns: 11rem 1fr 1fr 1fr 6rem;
     align-items: center;
     justify-content: space-around;
     background-color: white;
-    
 }
 
-.navbar img {
-    height: 60px;
-    width: 100px;
+.navbar .logo {
+    /* outline-color: #0F4C75; outline-style: dashed; */
+    height: 60px; /*1150px*/
+    width: 175px; /*3360px*/
+}
+
+/* NEW */
+.navbar .navbar-buttons {
+    /* outline-color: #0F4C75; outline-style: dashed; */
+    text-align: center;
+}
+
+.navbar .user-panel {
+    /* outline-color: #0F4C75; outline-style: dashed; */
+    margin-right: 10%;
+    text-align: right;
+}
+/* NEW */
+
+.user-panel img {
+    height: 30px;
+    width: 30px;
 }
 
 /*=========== Main ===============*/
 
 main {
-     /* src="../public/img/foto_main.jpg" alt="" */
     background-image: url(../img/foto_main.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
-    /* min-height: calc(100vh - 20px); */
     height: 80vh;
+
+    /* NEW */
+    background-position: 40% 0;
+    /* NEW */
 }
 
 main img {
     width: 100%;
-    /* object-fit: lo que va acá */
 }
 
 main section {
@@ -60,7 +79,20 @@ main section {
     padding: 20px 15px;
     text-align: center;
     margin-right: 20%;
+    
+    /* NEW */
+    width: 12rem;
+    height: 13rem;
+    background-color:lightskyblue;
+    border-radius: 5px;
+    /* NEW */
 }
+
+/* NEW */
+.account-choices {
+    margin-top: 35px;
+}
+/* NEW */
 
 .form-control {
     margin-bottom: 15px;

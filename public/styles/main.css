@@ -3,14 +3,15 @@
     padding: 0;
 }
 
-html {
-    min-height: 100%;
-    position: relative;
+html, body {
+    height: 100%;
 }
 
 body{
     margin: 0;
     margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
 }
 
 .navbar {
@@ -36,7 +37,6 @@ body{
 
 .navbar .user-panel {
     /* outline-color: #0F4C75; outline-style: dashed; */
-    margin-right: 10%;
     text-align: right;
 }
 /* NEW */
@@ -47,6 +47,10 @@ body{
 }
 
 /*=========== Main ===============*/
+
+main {
+    flex: 1 0 auto;
+}
 
 main section {
     position: center;
@@ -152,6 +156,5 @@ main section {
 }
 
 .footerb {
-    position: absolute;
-    bottom: 0;
+    flex-shrink: 0;
 }

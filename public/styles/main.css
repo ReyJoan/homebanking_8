@@ -23,6 +23,7 @@ body{
 }
 
 .user-panel img {
+    margin-left: 1rem;
     height: 30px;
     width: 30px;
 }
@@ -35,6 +36,13 @@ main {
 
 main section {
     position: center;
+}
+
+main p {
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif;
+    text-decoration: white;
+    size: 50px;
 }
 
 .form-container{
@@ -67,6 +75,8 @@ main section {
 
 .register-form h1 {
     margin-bottom: 1rem;
+    font-family: 'Times New Roman';
+    font-size: 80;
 }
 
 .account-choices {
@@ -74,6 +84,7 @@ main section {
 }
 
 .form-control {
+    padding-left: 0.4rem;
     margin-bottom: 15px;
 }
 

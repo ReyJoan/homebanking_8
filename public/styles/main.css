@@ -13,7 +13,7 @@ body{
     flex-direction: column;
 }
 
-.navbar .logo {
+.navbar-brand img {
     height: 60px; /*1150px*/
     width: 175px; /*3360px*/
 }
@@ -176,8 +176,6 @@ main p {
 }
 
 p{
-    font-family: 'Lato', sans-serif;
-    font-family: 'Raleway', sans-serif;
     color: rgb(30, 30, 30);
 }
 

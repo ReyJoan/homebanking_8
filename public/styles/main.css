@@ -191,6 +191,64 @@ main p {
 .color-red{
     color: red;
 }
+
+.balance-display {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.balance-display h1 {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    min-width: 25rem;
+    display:inline-block;
+    border-width: 0.1rem;
+    border-color: #333333;
+    border-radius: 1rem;
+    border-style: solid;
+    text-align: center;
+}
+
+.movements-display {
+    display: grid;
+    margin: 1rem 10% 0 10%;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+}
+
+.movements-display div {
+    border-width: 0.2rem;
+    border-color: #333333;
+    border-radius: 1rem;
+    border-style: solid;
+    overflow: hidden;
+    width: 90%;
+    height: 60vh;
+}
+
+.movements-display div div {
+    padding: 0.75rem 14% 0.75rem 14%;
+    border-width: 0.1rem;
+    border-radius: 0rem;
+    margin: -0.09rem -0.09rem -0.09rem -0.09rem;
+    width: 102%;
+    text-align: center;
+    height: auto;
+}
+
+.movements-display p {
+    margin: 0 0 0 0;
+    text-align: center;
+    justify-self: center;
+}
+
+.movements-display .title {
+    background-color: antiquewhite;
+}
+
+.movements-display .title h4 {
+    margin: 0.5rem 0 0.5rem 0;
+}
+
 /*================= FOOTER =================*/
 
 .footerb {

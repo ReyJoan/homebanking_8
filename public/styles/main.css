@@ -62,7 +62,15 @@ main p {
     background-position: 100% 0;
 }
 
+.logIn-form {
+    display: none;
+    }
+
 .register-form {
+display: none;
+}
+
+.register-form, .logIn-form, .main-form {
     justify-content: center;
     padding: 20px 15px;
     text-align: center;
@@ -248,6 +256,8 @@ main p {
 .movements-display .title h4 {
     margin: 0.5rem 0 0.5rem 0;
 }
+
+
 
 /*================= FOOTER =================*/
 

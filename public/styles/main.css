@@ -3,8 +3,30 @@
     padding: 0;
 }
 
+/* VARIABLES */
+
+:root{
+    /* Colores */
+    --clr-azul-osc: #000814;
+    --clr-blanco: rgb(255, 255, 255);
+    --clr-amarillo:  #FFC300;
+    --clr-gris: #D5D5D5;
+    --clr-red: #DB0916;
+    /* Tipografia */
+    --tipografia: 'Maven Pro', sans-serif;
+    /* Grosor Letra */
+    --grosor-normal: 400;
+    --grosor-grueso: 700;
+    --grosor-guresoXL: 800;
+}
+
 p, h1, h2, h3, h4, h5, h6{
     color: rgb(30, 30, 30);
+}
+
+li, a{
+    list-style: none;
+    text-decoration: none;
 }
 
 html, body {
@@ -16,6 +38,100 @@ body{
     margin-bottom: 40px;
     display: flex;
     flex-direction: column;
+}
+
+/*========================== */
+/*========= NAVBAR =========*/
+/*======================== */
+
+.navbar{
+    height: 82px;
+    width: 100%;
+    /* max-width: 1582px; */
+    background-color: var(--clr-azul-osc);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--tipografia);
+    padding: 0 60px;
+    font-weight: 700;
+}
+
+/* navbar izq */
+.logo-img{
+    height: 60px; /*1150px*/
+    width: 175px; /*3360px*/
+}
+
+/* navbar centro */
+
+.nav-links{
+}
+
+.link-list{
+    display: flex;
+    margin-bottom: 0;
+}
+
+.link-list a{
+    color: var(--clr-blanco);
+    position: relative;
+    margin-right: 1em;
+}
+
+.link-list a::after{
+    content: "";
+    left: 0;
+    bottom: -5px;
+    position: absolute;
+    width: 100%;
+    background-color: var(--clr-amarillo);
+    height: 2px;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 250ms ease-in-out;
+}
+
+.link-list a:hover::after{
+    transform-origin: center;
+    transform: scaleX(1);
+}
+
+/* navbar derecha */
+
+.nav-usuario{
+
+}
+
+.nav-user{
+    color: var(--clr-amarillo);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-user i {
+    color: var(--clr-blanco);
+    font-size: 20px;
+}
+
+/* .user-img{
+    color: white;
+    position: relative;
+    height: 30px;
+    width: 30px;
+} */
+
+.user-img::after{
+    position: absolute;
+    content: "";
+    top: 0;
+    bottom: 0;
+    background-color: var(--clr-blanco);
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
 }
 
 .navbar-brand img {
@@ -32,6 +148,9 @@ body{
     height: 30px;
     width: 30px;
 }
+
+
+
 
 /*=========== Main ===============*/
 
@@ -64,27 +183,29 @@ main p {
 
 .logIn-form {
     display: none;
-    }
+}
 
 .register-form {
 display: none;
 }
 
-.register-form, .logIn-form, .main-form {
+.register-form, 
+.logIn-form, 
+.main-form {
     justify-content: center;
     padding: 20px 15px;
     text-align: center;
     margin-right: 10%;
     width: 15rem;
     height: 21rem;
-    background-color:lightskyblue;
+    background-color: var(--clr-blanco);
     border-radius: 5px;
 }
 
-.register-form h1 {
-    margin-bottom: 1rem;
-    font-family: 'Times New Roman';
-    font-size: 80;
+.register-form h1,
+.logIn-form h1 {
+    margin-bottom: 2rem;
+    /* font-size: 80; */
 }
 
 .account-choices {
@@ -94,6 +215,7 @@ display: none;
 .form-control {
     padding-left: 0.4rem;
     margin-bottom: 15px;
+    border: 0;
 }
 
 .form-control label{
@@ -102,35 +224,44 @@ display: none;
     width: 100%;
 }
 
-.register-form .checkbox{
+.main-label{
+    font-family: var(--tipografia);
+    font-weight: 700;
+    margin-bottom: 0.5em;
+}
+
+.register-form .checkbox,
+.logIn-form .checkbox{
     justify-content: center;
     display: flex;
     align-items: center;
     padding: 0 0 0 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
-.register-form .checkbox input{
+.register-form .checkbox input,
+.logIn-form .checkbox input{
     margin-left: 1rem;
 }
 
 .control {
-    border-radius: 6px;
-    margin: 0.35rem;
-    height: 23px;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #828282;
+    border-radius: 20px;
 }
 
 .button {
-    border-radius: 7px;
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
     font-size: 16px;
     color: white;
-    width: 5rem;
-    background-color: #333;
+    background-color: var(--clr-red);
+    border: none;
 }
 
-.button:hover{
+/* .button:hover{
     background-color: #0F4C75;
     transition: all 250ms;
-}
+} */
 
 .slider{
     padding: 2em 0;

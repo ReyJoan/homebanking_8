@@ -1,195 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ITBANK Login</title>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="shortcut icon" href="../public/img/banco.png" type="image/x-icon"/>
+    <title>ITBANK Login</title>
+
+    <!-- CDN Font Awesome (Imagenes iconos) -->
+    <link 
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" 
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" 
+    />
+    <!-- Bootstrap  -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
       crossorigin="anonymous"
     />
-    <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Google Fonts CDN -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;700;800&display=swap" rel="stylesheet">
     <!-- CSS  -->
-    <link rel="stylesheet" href="../public/styles/main.css" />
+    <link rel="stylesheet" href="../public/styles/main.css"/>
   </head>
 
   <body>
+    <p hidden id="htmlID">user</p>
     <header class="navbar-container">
-      <nav class="navbar">
-        <div class="nav-logo">
-          <a class="" href="home.html">
-            <img class="logo-img" src="../public/img/itbank_logo.jpg" alt=""/>
-          </a>
-        </div>
-        <div class="nav-links">
-          <ul class="link-list">
-            <li class="nav-link">
-              <a class="link" href="home.html">Home</a>
-            </li>
-            <li class="nav-link">
-              <a class="link" href="#">Turnos</a>
-            </li>
-            <li class="nav-link">
-              <a class="link" href="#">Personas</a>
-            </li>
-          </ul>
-        </div>
-        <div class="nav-usuario">
-          <a class="nav-user" href="user.html">Usuario
-            <i class="fa-solid fa-user"></i>
-            <!-- <img class="user-img" src="../public/img/blank_avatar.png" /> -->
-          </a>
-        </div>
-        <!-- <div class="container-fluid">
-          <a class="navbar-brand" href="home.html">
-            <img src="../public/img/itbank_logo.jpg" alt=""/>
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNavDropdown"
-            aria-controls="navbarNavDropdown"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="home.html">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="user.html">Usuario</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Turnos</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdownMenuLink"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  Personas
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <li><a class="dropdown-item" href="#">Empresas</a></li>
-                  <li><a class="dropdown-item" href="#">PYMES</a></li>
-                  <li>
-                    <a class="dropdown-item" href="#">Corporativas</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          <div class="user-panel">
-            <a href="user.html">Usuario<img src="../public/img/blank_avatar.png" /></a>
-          </div>
-        </div> -->
-      </nav>
+      <nav class='navbar' id="navbar"></nav>
     </header>
-    
-
     <main>
       <section class="form-container">
 
-      <!---->
-        <form class="register-form">
+        <!--Register form-->
+        <form class="register-form forms hidden" id="registerForm">
           <h1>Register</h1>
           <div class="form-control">
-            <input type="text" required="" name="name" class="control" id="user" placeholder="User Name" />
+            <input type="text" required="" name="name" class="input-field" id="register-name" placeholder="User Name" />
           </div>
           <div class="form-control">
-            <input type="password" required="" name="name" class="control" id="clav" placeholder="Password"/>
+            <input type="password" required="" name="name" class="input-field" id="register-pass" placeholder="Password"/>
           </div>
           <div class="checkbox">
-            <label for="check">Recordar Usuario</label>
-            <input type="checkbox" name="name" id="check" />
+            <label for="checkReg">Recordar Usuario</label>
+            <input type="checkbox" name="name" id="checkReg" />
           </div>
-          <button type="submit" class="button" id="btn-registro">Registrarse</button>
+          <button type="submit" class="button" id="register-submit">Registrarse</button>
         </form>
-      <!---->
 
-      
-        <form class="logIn-form">
+        <!--Login form-->
+        <form class="login-form forms hidden" id="loginForm">
           <h1>Log In</h1>
           <div class="form-control">
-            <input type="text" name="name" class="control" required="" id="user-name" placeholder="User Name">
+            <input type="text" name="name" class="input-field" required="" id="login-name" placeholder="User Name">
           </div>
           <div class="form-control">
-            <input type="password" name="name" class="control" required="" id="user-pass" placeholder="Password">
+            <input type="password" name="name" class="input-field" required="" id="login-pass" placeholder="Password">
           </div>
           <div class="checkbox">
-            <label for="check">Recordar Usuario</label>
-            <input type="checkbox" name="name" id="check" />
+            <label for="checkLog">Recordar Usuario</label>
+            <input type="checkbox" name="name" id="checkLog" />
           </div>
-          <button type="submit" class="button" id="entry">Entrar</button>
+          <button type="submit" class="button" id="login-submit">Entrar</button>
         </form>
 
-      
-        <form class="main-form">
+        <!--Main form-->
+        <form class="main-form forms" id="mainForm">
           <h1>Bienvenido</h1>
-          <div class="account-choices">
             <div class="form-control">
               <label class="main-label">Ingresar</label>
-              <button type="button" class="button" id="Log">Log In</button>
+              <button type="button" class="button" id="main-login-btn">Log In</button>
             </div>
             <div class="form-control">
               <label class="main-label">Crear una cuenta</label>
-              <button type="button" class="button" id="Reg">Register</button>
+              <button type="button" class="button" id="main-register-btn">Register</button>
             </div>
-          </div>
         </form>
 
       </section>
     </main>
 
     <div class="container footerb">
-      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top" >
-        <p class="col-md-4 mb-0 text-muted">© 2022 Random, Inc.</p>
-        <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-          <svg class="bi me-2" width="40" height="32">
-            <use xlink:href="#bootstrap"></use>
-          </svg>
-        </a>
-
-        <ul class="nav col-md-4 justify-content-end">
-          <li class="nav-item">
-            <a href="home.html" class="nav-link px-2 text-muted">Home</a>
-          </li>
-          <li class="nav-item">
-            <a href="user.html" class="nav-link px-2 text-muted">Usuario</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link px-2 text-muted">Turnos</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link px-2 text-muted">FAQs</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link px-2 text-muted">About</a>
-          </li>
-        </ul>
-      </footer>
+      <footer id="footer" class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"></footer>
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
       crossorigin="anonymous"
     ></script>
-    <script type="module" src="../public/styles/firebase.js"></script>
+    <script type="module" src="../public/styles/main.js"></script>
   </body>
 </html>

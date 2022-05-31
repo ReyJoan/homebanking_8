@@ -23,9 +23,9 @@
         <i class='fa-solid fa-user'></i>
       </a>
       <div class='nav-menu'>
-        <span class='line1'></span>
-        <span class='line2'></span>
-        <span class='line3'></span>
+        <span class='menu-line1'></span>
+        <span class='menu-line2'></span>
+        <span class='menu-line3'></span>
       </div>
     </div>
     `;
@@ -193,13 +193,37 @@ switch (htmlDetect.textContent) {
     console.log("???");
     break;
 
-    //------------------------------------------------------------------------
-  case "Gastos":
-    console.log("???");
+  //------------------------------------------------------------------------
+  case "gastos":
+    let nombre = document.querySelector("#nombre");
+    let gasto = document.querySelector("#gasto");
+    let botonGasto = document.querySelector("#boton-gasto");
+    let padreColumna = document.querySelector("#padre-columna");
 
+    botonGasto.addEventListener("click", (e) => {
+      console.log("sadasdas");
+      let nombreGasto = nombre.value;
+      let gastoValor = gasto.value;
+
+      crearGasto(nombreGasto, gastoValor);
+    });
+
+    function crearGasto(name, valor) {
+      let nuevaColumna = document.createElement("div");
+      nuevaColumna.classList.add("columnas");
+      nuevaColumna.classList.add("columnas-elementos");
+      let valorColumna = `<p> ${name}</p><p>$ ${valor}</p>`;
+
+      nuevaColumna.addEventListener("click", (e) => {
+        nuevaColumna.remove();
+      });
+
+      nuevaColumna.innerHTML = valorColumna;
+      console.log(padreColumna);
+      padreColumna.appendChild(nuevaColumna);
+    }
 
     break;
-    
 }
 
 // Responsive MENU //
@@ -211,35 +235,3 @@ navBtn.addEventListener("click", () => {
   navBtn.classList.toggle("close-menu");
   navMenu.classList.toggle("nav-links-active");
 });
-
-// Gastos //
-
-let nombre = document.querySelector('#nombre');
-let gasto = document.querySelector('#gasto');
-let botonGasto = document.querySelector('#boton-gasto');
-let padreColumna = document.querySelector('#padre-columna');
-
-botonGasto.addEventListener("click", () => {
-  console.log("sadasdas");
-  let nombreGasto = nombre.value
-  let gastoValor = gasto.value
-
-  crearGasto(nombreGasto, gastoValor);
-})
-
-
-
-function crearGasto(name, valor) {
-  let nuevaColumna = document.createElement('div');
-  nuevaColumna.classList.add('columnas');
-  let valorColumna = `<p> ${name}</p><p>$ ${valor}</p>`
-
-  nuevaColumna.addEventListener("click", () => {
-    nuevaColumna.remove();
-  })
-  
-  nuevaColumna.innerHTML = valorColumna;
-  console.log(padreColumna);
-  padreColumna.appendChild(nuevaColumna);
- 
-}

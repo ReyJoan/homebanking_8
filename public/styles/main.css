@@ -30,6 +30,8 @@ h4,
 h5,
 h6 {
   color: rgb(30, 30, 30);
+  margin: 0;
+  padding: 0;
 }
 
 li,
@@ -45,7 +47,6 @@ body {
 
 body {
   margin: 0;
-  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
 }
@@ -68,8 +69,9 @@ body {
 
 /* navbar logo */
 .logo-img {
-  height: 4rem; /*60px; 1150px*/
-  width: 11rem; /*175px; 3360px*/
+  /*1150x3360*/
+  height: 4rem;
+  width: 11rem;
 }
 
 /* navbar centro */
@@ -88,11 +90,11 @@ body {
 .link-list a::after {
   content: "";
   left: 0;
-  bottom: -5px;
+  bottom: -0.25rem;
   position: absolute;
   width: 100%;
   background-color: var(--clr-amarillo);
-  height: 2px;
+  height: 0.1rem;
   transform: scaleX(0);
   transform-origin: center;
   transition: transform 250ms ease-in-out;
@@ -133,29 +135,30 @@ body {
   transition: transform 450ms ease-in-out;
 }
 
-.line1,
-.line2,
-.line3 {
+
+/*Menu hamburguesa*/
+.menu-line1,
+.menu-line2,
+.menu-line3 {
   display: block;
-  width: 29px;
-  height: 4px;
-  margin-bottom: 5px;
+  width: 2rem;
+  height: 0.25rem;
+  margin-bottom: 0.3rem;
   position: relative;
   background: #cdcdcd;
-  border-radius: 3px;
-  transform-origin: 4px 0px;
+  border-radius: 0.2rem;
+  transform-origin: 0.25rem 0;
   transition: all 450ms;
 }
 
 /* animation effect */
-
-.close-menu .line1 {
-  transform: translateX(3px) translateY(3px) rotate(45deg);
+.close-menu .menu-line1 {
+  transform: translateX(0.17rem) translateY(0.02rem) rotate(45deg);
 }
-.close-menu .line2 {
+.close-menu .menu-line2 {
   opacity: 0;
 }
-.close-menu .line3 {
+.close-menu .menu-line3 {
   transform: rotate(-45deg);
 }
 
@@ -238,7 +241,7 @@ main section {
 
 .form-control {
   padding-left: 0.4rem;
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
   border: 0;
 }
 
@@ -326,8 +329,8 @@ main section {
   margin-left: 3rem;
   margin-right: 3rem;
   margin-top: 4rem;
-  padding-left: 25px;
-  padding-right: 25px;
+  padding-left: 1%;
+  padding-right: 1%;
 }
 
 .row {
@@ -339,9 +342,9 @@ main section {
 
 .col-4 {
   flex-basis: 25%;
-  padding: 10px;
-  min-width: 250px;
-  margin-bottom: 50px;
+  padding: 1%;
+  min-width: 16rem;
+  margin-bottom: 3rem;
   transition: transform 0.7s;
 }
 
@@ -374,13 +377,12 @@ main section {
   border-radius: 1rem;
   border-style: solid;
   overflow: hidden;
-  /* width: 90%; */
+  width: 90%;
   height: 60vh;
 }
 
 .movements-display div div {
-  /* padding: 0.75rem 14% 0.75rem 14%; */
-  padding: 0;
+  padding: 0.75rem 14% 0.75rem 14%;
   border-width: 0.1rem;
   border-radius: 0rem;
   margin: -0.09rem -0.09rem -0.09rem -0.09rem;
@@ -403,43 +405,33 @@ main section {
   margin: 0.5rem 0 0.5rem 0;
 }
 
-.columnas {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-
-}
-
 #boton-gasto {
+  border-radius: 20px;
   background-color: green;
   color: white;
-  width: 65px;
-  height: 60px;
+  height: 2rem;
+  width: 5rem;
 }
 
-.columnas:hover {
-  text-decoration: line-through;
-}
-
-.columnas p {
-  display: inline-block;
-}
-
-.inputs { 
+.inputs {
   display: flex;
   flex-direction: column;
-  width: 200px;
+  width: 15rem;
 }
 
 .contenedor-inputs {
+  margin-top: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 2rem;
 }
 
+/*Tabla de gastos y espacio a los costados*/
 .tablita-gastos {
+  padding: 0;
+  text-align: center;
+  height: auto;
   display: flex;
   margin: 0 auto;
   width: 100%;
@@ -447,8 +439,53 @@ main section {
   margin-top: 1rem;
 }
 
+/*Tabla de gastos*/
 .tabla {
-  width: 600px;
+  border-color: #333333;
+  border-width: 0.2rem;
+  border-radius: 1rem;
+  border-style: solid;
+  overflow: hidden;
+  width: 90%;
+  height: 60vh;
+}
+
+/*Titulo*/
+.tablita-gastos .title {
+  background-color: antiquewhite;
+  padding: 0.5rem 0 0.5rem 0;
+}
+
+/*Elementos de tabla*/
+.columnas {
+  border-color: #333333;
+  border-style: solid;
+  border-width: 0.1rem;
+  text-align: center;
+  overflow: hidden;
+  width: 101%;
+  height: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 0 -0.5% 0 -0.5%;
+}
+
+/*Nombre/Gasto*/
+.columnas p {
+  border-color: #333333;
+  border-style: solid;
+  border-width: 0.1rem;
+  margin: -0.5% 0 -0.5% 0;
+  padding: 0.75rem 0 0.75rem 0;
+  width: 100.1%;
+}
+
+.columnas-elementos {
+  cursor: pointer;
+}
+
+.columnas-elementos:hover {
+  text-decoration: line-through;
 }
 
 /*================= FOOTER =================*/

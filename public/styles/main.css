@@ -272,12 +272,12 @@ main section {
   padding: 0.5rem 1.5rem;
   font-size: 1rem;
   color: var(--clr-blanco);
-  background-color: var(--clr-rojo);
+  background-color: #453bdb;
   border: none;
 }
 
 .button:hover {
-  background-color: var(--clr-rojo-osc);
+  background-color: blue;
   transition: 250ms;
 }
 
@@ -374,12 +374,13 @@ main section {
   border-radius: 1rem;
   border-style: solid;
   overflow: hidden;
-  width: 90%;
+  /* width: 90%; */
   height: 60vh;
 }
 
 .movements-display div div {
-  padding: 0.75rem 14% 0.75rem 14%;
+  /* padding: 0.75rem 14% 0.75rem 14%; */
+  padding: 0;
   border-width: 0.1rem;
   border-radius: 0rem;
   margin: -0.09rem -0.09rem -0.09rem -0.09rem;
@@ -400,6 +401,54 @@ main section {
 
 .movements-display .title h4 {
   margin: 0.5rem 0 0.5rem 0;
+}
+
+.columnas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+
+}
+
+#boton-gasto {
+  background-color: green;
+  color: white;
+  width: 65px;
+  height: 60px;
+}
+
+.columnas:hover {
+  text-decoration: line-through;
+}
+
+.columnas p {
+  display: inline-block;
+}
+
+.inputs { 
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.contenedor-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tablita-gastos {
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.tabla {
+  width: 600px;
 }
 
 /*================= FOOTER =================*/

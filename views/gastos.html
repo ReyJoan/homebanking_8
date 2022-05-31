@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="../public/img/banco.png" type="image/x-icon" />
+    <title>ITBANK HomeBanking</title>
+
+    <!-- CDN Font Awesome (Imagenes iconos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bootstrap  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+    <!-- CSS  -->
+    <link rel="stylesheet" href="../public/styles/main.css" />
+</head>
+
+<body>
+    <p hidden>Excelencia Asegurada 1959</p>
+    <p hidden id="htmlID">saldo</p>
+    <header class="navbar-container">
+        <nav class="navbar" id="navbar"></nav>
+    </header>
+
+    <main>
+        <section class="balance-display">
+            <h1>$3.000.000.000,00</h1>
+        </section>
+        <div class="contenedor-inputs">
+            <div class="inputs">
+                <input type="text" id="nombre" placeholder="Nombre">
+                <input type="text" id="gasto" placeholder="Gasto">
+            </div>
+                <button id="boton-gasto">Agregar</button>
+        </div>
+        <section class="movements-display tablita-gastos">
+            <div class="tabla">
+                <div class="title">
+                    <h4>Gastos</h4>
+                </div>
+                <div id="padre-columna">
+                    <div class="columnas">
+                        <p>Nombre</p>
+                        <p>Importe</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="container footerb">
+        <footer id="footer" class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+    <script type="module" src="../public/styles/main.js"></script>
+</body>
+
+</html>

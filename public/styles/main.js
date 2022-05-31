@@ -2,7 +2,7 @@
   document.getElementById("navbar").innerHTML = `
     <div class='nav-logo'> 
       <a href='home.html'> 
-        <img class='logo-img' src='../public/img/itbank_logo.jpg'/> 
+        <img class='logo-img' src='../public/img/ITBANK-Blanco.png'/> 
       </a> 
     </div> 
     <div class='nav-links'> 
@@ -192,6 +192,14 @@ switch (htmlDetect.textContent) {
   case "saldo":
     console.log("???");
     break;
+
+    //------------------------------------------------------------------------
+  case "Gastos":
+    console.log("???");
+
+
+    break;
+    
 }
 
 // Responsive MENU //
@@ -203,3 +211,35 @@ navBtn.addEventListener("click", () => {
   navBtn.classList.toggle("close-menu");
   navMenu.classList.toggle("nav-links-active");
 });
+
+// Gastos //
+
+let nombre = document.querySelector('#nombre');
+let gasto = document.querySelector('#gasto');
+let botonGasto = document.querySelector('#boton-gasto');
+let padreColumna = document.querySelector('#padre-columna');
+
+botonGasto.addEventListener("click", () => {
+  console.log("sadasdas");
+  let nombreGasto = nombre.value
+  let gastoValor = gasto.value
+
+  crearGasto(nombreGasto, gastoValor);
+})
+
+
+
+function crearGasto(name, valor) {
+  let nuevaColumna = document.createElement('div');
+  nuevaColumna.classList.add('columnas');
+  let valorColumna = `<p> ${name}</p><p>$ ${valor}</p>`
+
+  nuevaColumna.addEventListener("click", () => {
+    nuevaColumna.remove();
+  })
+  
+  nuevaColumna.innerHTML = valorColumna;
+  console.log(padreColumna);
+  padreColumna.appendChild(nuevaColumna);
+ 
+}

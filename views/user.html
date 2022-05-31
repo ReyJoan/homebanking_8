@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="shortcut icon" href="../public/img/banco.png" type="image/x-icon"/>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="../public/img/banco.png"
+      type="image/x-icon"
+    />
     <title>ITBANK Login</title>
 
     <!-- CDN Font Awesome (Imagenes iconos) -->
-    <link 
+    <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" 
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
       integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
       crossorigin="anonymous"
-      referrerpolicy="no-referrer" 
+      referrerpolicy="no-referrer"
     />
     <!-- Bootstrap  -->
     <link
@@ -23,41 +27,70 @@
       crossorigin="anonymous"
     />
     <!-- CSS  -->
-    <link rel="stylesheet" href="../public/styles/main.css"/>
+    <link rel="stylesheet" href="../public/styles/main.css" />
   </head>
 
   <body>
     <p hidden id="htmlID">user</p>
     <header class="navbar-container">
-      <nav class='navbar' id="navbar"></nav>
+      <nav class="navbar" id="navbar"></nav>
     </header>
     <main>
       <section class="form-container">
-
         <!--Register form-->
         <form class="register-form forms hidden" id="registerForm">
           <h1>Register</h1>
           <div class="form-control">
-            <input type="text" required="" name="name" class="input-field" id="register-name" placeholder="User Name" />
+            <input
+              type="text"
+              required=""
+              name="name"
+              class="input-field"
+              id="register-name"
+              placeholder="User Name"
+            />
           </div>
           <div class="form-control">
-            <input type="password" required="" name="name" class="input-field" id="register-pass" placeholder="Password"/>
+            <input
+              type="password"
+              required=""
+              name="name"
+              class="input-field"
+              id="register-pass"
+              placeholder="Password"
+            />
           </div>
           <div class="checkbox">
             <label for="checkReg">Recordar Usuario</label>
             <input type="checkbox" name="name" id="checkReg" />
           </div>
-          <button type="submit" class="button" id="register-submit">Registrarse</button>
+          <button type="submit" class="button" id="register-submit">
+            Registrarse
+          </button>
         </form>
 
         <!--Login form-->
         <form class="login-form forms hidden" id="loginForm">
           <h1>Log In</h1>
           <div class="form-control">
-            <input type="text" name="name" class="input-field" required="" id="login-name" placeholder="User Name">
+            <input
+              type="text"
+              name="name"
+              class="input-field"
+              required=""
+              id="login-name"
+              placeholder="User Name"
+            />
           </div>
           <div class="form-control">
-            <input type="password" name="name" class="input-field" required="" id="login-pass" placeholder="Password">
+            <input
+              type="password"
+              name="name"
+              class="input-field"
+              required=""
+              id="login-pass"
+              placeholder="Password"
+            />
           </div>
           <div class="checkbox">
             <label for="checkLog">Recordar Usuario</label>
@@ -69,21 +102,27 @@
         <!--Main form-->
         <form class="main-form forms" id="mainForm">
           <h1>Bienvenido</h1>
-            <div class="form-control">
-              <label class="main-label">Ingresar</label>
-              <button type="button" class="button" id="main-login-btn">Log In</button>
-            </div>
-            <div class="form-control">
-              <label class="main-label">Crear una cuenta</label>
-              <button type="button" class="button" id="main-register-btn">Register</button>
-            </div>
+          <div class="form-control">
+            <label class="main-label">Ingresar</label>
+            <button type="button" class="button" id="main-login-btn">
+              Log In
+            </button>
+          </div>
+          <div class="form-control">
+            <label class="main-label">Crear una cuenta</label>
+            <button type="button" class="button" id="main-register-btn">
+              Register
+            </button>
+          </div>
         </form>
-
       </section>
     </main>
 
     <div class="container footerb">
-      <footer id="footer" class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"></footer>
+      <footer
+        id="footer"
+        class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
+      ></footer>
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"

@@ -249,6 +249,7 @@ switch (htmlDetect.textContent) {
       return true;
     }
     break;
+
   //------------------------------------------------------------------------
   case "home":
     console.log("???");

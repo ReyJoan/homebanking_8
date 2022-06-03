@@ -447,6 +447,7 @@ main section {
   overflow: hidden;
   width: 90%;
   height: 60vh;
+  max-width: 800px;
 }
 
 /*Titulo*/
@@ -499,4 +500,64 @@ main section {
 
 .color-red {
   color: red;
+}
+
+
+/* PRUEBAS PARA EL NUEVO HOME */
+
+/* Total Balance */
+
+main .prueba{
+  margin-left: 200px;
+
+}
+
+.card-container {
+  display: grid;
+  grid-template-areas: 
+  'card-gasto card-appgasto'
+  'card-equisde card-pipo';
+  justify-content: center;
+}
+
+.card-equisde {
+  grid-area: card-equisde;
+}
+
+.card-appgasto {
+  grid-area: card-appgasto;
+}
+.card-gasto{
+  grid-area: card-gasto;
+}
+
+.card-pipo{
+  grid-area: card-pipo;
+}
+
+.card  {
+  overflow: hidden;
+  width: 530.43px;
+  height: 267.39px;
+  background: #FFFFFF;
+  box-shadow: 8px 13px 44px -6px #DFDBF7;
+  border-radius: 20px;
+  margin: 30px;
+}
+
+.card-saldo::after{  
+  z-index: 10;
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 304px;
+  right: -64.57px;
+  top: calc(50% - 304px/2 - 2.7px);
+  background: #4C49ED;
+  border-radius: 155px;
+
+}
+
+.indexar {
+  z-index: 20;
 }

@@ -219,28 +219,75 @@ switch (htmlDetect.textContent) {
     let gasto = document.querySelector("#gasto");
     let botonGasto = document.querySelector("#boton-gasto");
     let padreColumna = document.querySelector("#padre-columna");
+    let gastosDisplay = document.querySelector("#gastos-display");
+
+
+    let sumaGastosEntero = 0;
+    let sumaGastosDecimal = 0;
 
     botonGasto.addEventListener("click", (e) => {
-      console.log("sadasdas");
       let nombreGasto = nombre.value;
       let gastoValor = gasto.value;
-
-      crearGasto(nombreGasto, gastoValor);
+      if (gastoValor.match(/^[0-9]+$/)) { //En caso de no poner coma
+        updateSumaGastos(parseFloat(gastoValor), 0);
+        crearGasto(nombreGasto, gastoValor);
+      }
+      else {
+        if (gastoValor.match(/^[0-9]+([,.][0-9]{1,2})?$/)) { //En caso de que ingrese numero con 1-2 digitos despues de la coma
+          gastoValor = gastoValor.replace(',', '.'); //Poniendolo con punto en vez de coma para que el sistema funcione
+          updateSumaGastos(parseFloat(gastoValor.split('.')[0]), parseFloat((gastoValor.split('.')[1] + "00").slice(0, 2)));
+          crearGasto(nombreGasto, gastoValor);
+        }
+        else {
+          alert("Debe ingresar un numero");
+        }
+      }
     });
 
     function crearGasto(name, valor) {
       let nuevaColumna = document.createElement("div");
       nuevaColumna.classList.add("columnas");
       nuevaColumna.classList.add("columnas-elementos");
-      let valorColumna = `<p> ${name}</p><p>$ ${valor}</p>`;
+      let valorDisplay = "" + valor.replace('.', ',');
+      if (valor.match(/^[0-9]+$/)) {
+        valorDisplay += ",00";
+      }
+      else {
+        if (valor.match(/^[0-9]+([,.][0-9]{1})?$/)) {
+          valorDisplay += "0";
+        }
+      }
+      let valorColumna = `<p> ${name}</p><p>$ ${valorDisplay}</p>`;
 
       nuevaColumna.addEventListener("click", (e) => {
+        updateSumaGastos(-parseFloat(nuevaColumna.innerHTML.split('$')[1].split(',')[0]), -parseFloat((nuevaColumna.innerHTML.split('$')[1].split(',')[1].split('<')[0] + "00").slice(0, 2)));
         nuevaColumna.remove();
       });
 
       nuevaColumna.innerHTML = valorColumna;
-      console.log(padreColumna);
       padreColumna.appendChild(nuevaColumna);
+    }
+
+    function updateSumaGastos(entero, decimal) {
+      console.log("Entero: " + entero);
+      console.log("Decimal: " + decimal);
+      sumaGastosEntero += entero;
+      if (sumaGastosDecimal + decimal > 100) {
+        sumaGastosDecimal += decimal - 100;
+        sumaGastosEntero += 1;
+      }
+      else {
+        if (sumaGastosDecimal + decimal < 0) {
+          sumaGastosDecimal += decimal + 100;
+          sumaGastosEntero -= 1;
+        }
+        else {
+          sumaGastosDecimal += decimal;
+        }
+      }
+
+      let displayOutput = sumaGastosEntero + "," + ("00" + sumaGastosDecimal).slice(-2); //Poniendolo con coma en vez de punto y acortando a 2 decimales para mostrarlo a pantalla
+      gastosDisplay.innerHTML = "$" + displayOutput;
     }
 
     break;

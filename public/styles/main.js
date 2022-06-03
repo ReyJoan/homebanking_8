@@ -131,9 +131,7 @@ switch (htmlDetect.textContent) {
     //Register button
     submitReg.addEventListener("click", (e) => {
       e.preventDefault();
-      if (userRegister.value == "" || passwordRegister.value == "") {
-        alert("Debes ingresar un valor");
-      } else {
+      if (verifyUserPass(userRegister.value, passwordRegister.value)) {
         createUserWithEmailAndPassword(
           auth,
           userRegister.value + "@blablaestafas.com",
@@ -154,13 +152,18 @@ switch (htmlDetect.textContent) {
           .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            if (errorCode == "auth/email-already-in-use") {
+              alert("Ya existe una cuenta con ese usuario");
+            }
             console.log(
               userRegister.value +
                 "@blablaestafas.com" +
                 "\n" +
                 passwordRegister.value +
                 "\n" +
-                errorMessage
+                errorMessage +
+                "\n" +
+                errorCode
             );
           });
       }
@@ -169,9 +172,7 @@ switch (htmlDetect.textContent) {
     //Login button
     submitLog.addEventListener("click", (e) => {
       e.preventDefault();
-      if (userLogin.value == "" || passwordLogin.value == "") {
-        alert("Debes ingresar un valor");
-      } else {
+      if (verifyUserPass(userLogin.value, passwordLogin.value)) {
         signInWithEmailAndPassword(
           auth,
           userLogin.value + "@blablaestafas.com",
@@ -192,17 +193,61 @@ switch (htmlDetect.textContent) {
           .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            if (errorCode == "auth/email-already-in-use") {
+              alert("Ya existe una cuenta con ese usuario");
+            }
             console.log(
-              userLogin.value +
+              userRegister.value +
                 "@blablaestafas.com" +
                 "\n" +
-                passwordLogin.value +
+                passwordRegister.value +
                 "\n" +
-                errorMessage
+                errorMessage +
+                "\n" +
+                errorCode
             );
           });
       }
     });
+
+    function verifyUserPass(username, password) {
+      if (username == "" || password == "") {
+        alert("Debes ingresar un valor");
+        return false;
+      }
+      if (username.match(/[@]/)) {
+        alert("Tu usuario no puede contener '@'");
+        return false;
+      }
+      if (password.length < 8) {
+        alert("Tu contraseña debe tener al menos 8 caracteres");
+        return false;
+      }
+      if (!password.match(/[$@!%*#?&]/)) {
+        alert("Tu contraseña debe tener al menos 1 caracter especial '$@!%*#?&'");
+        return false;
+      }
+      if (!password.match(/[A-Z]/)) {
+        alert("Tu contraseña debe tener al menos 1 letra mayuscula");
+        return false;
+      }
+      if (!password.match(/[0-9]/)) {
+        alert("Tu contraseña debe tener al menos 1 numero");
+        return false;
+      }
+      if (!password.match(/[a-z]/)) {
+        alert("Tu contraseña debe tener al menos 1 letra minuscula");
+        return false;
+      }
+      if (password.includes(username)) {
+        alert("Tu contraseña no puede contener tu usuario");
+        return false;
+      }
+
+      //FALTA VERIFICAR SI EL USUARIO YA ESTA EN USO
+
+      return true;
+    }
     break;
   //------------------------------------------------------------------------
   case "home":
@@ -269,8 +314,6 @@ switch (htmlDetect.textContent) {
     }
 
     function updateSumaGastos(entero, decimal) {
-      console.log("Entero: " + entero);
-      console.log("Decimal: " + decimal);
       sumaGastosEntero += entero;
       if (sumaGastosDecimal + decimal > 100) {
         sumaGastosDecimal += decimal - 100;

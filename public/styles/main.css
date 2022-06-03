@@ -59,9 +59,6 @@ body {
   height: 5rem;
   width: 100%;
   background-color: var(--clr-azul-osc);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   font-family: var(--tipografia);
   padding: 0 2rem;
   font-weight: var(--grosor-grueso);
@@ -108,6 +105,8 @@ body {
 /* navbar user */
 
 .nav-usuario {
+  min-width: 10rem; /* Espacio para que cuando se carge el usuario no se corran las opciones del navbar (10rem permite usuarios de hasta 15 caracteres)*/
+  justify-content: right;
   display: flex;
   align-items: flex-start;
   gap: 2em;

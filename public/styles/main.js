@@ -1,3 +1,38 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  setPersistence,
+  browserLocalPersistence, //Usuario recordado hasta que haga sign out
+  browserSessionPersistence, //Usuario recordado hasta cerrar la pagina
+  inMemoryPersistence, //Usuario borrado al refrescar pagina
+  onAuthStateChanged,
+} from "https://www.gstatic.com/firebasejs/9.8.1/firebase-auth.js";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCBQUpEXLHA3ozDxBqFmY4Mjpkdowha7gM",
+  authDomain: "itbank-3edb0.firebaseapp.com",
+  projectId: "itbank-3edb0",
+  storageBucket: "itbank-3edb0.appspot.com",
+  messagingSenderId: "102444894055",
+  appId: "1:102444894055:web:6f94fd722fd23046a751c2",
+  measurementId: "G-2MB6CQWJ18",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth();
+
 (function () {
   document.getElementById("navbar").innerHTML = `
     <div class='nav-logo'> 
@@ -19,7 +54,7 @@
       </ul>
     </div>
     <div class='nav-usuario'> 
-      <a class='nav-user' href='user.html'>Usuario
+      <a class='nav-user' href='user.html' id='nav-username'>....
         <i class='fa-solid fa-user'></i>
       </a>
       <div class='nav-menu'>
@@ -49,46 +84,18 @@
       </li>
     </ul>
     `;
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        document.querySelector("#nav-username").innerHTML = auth.currentUser.email.split('@')[0] + "<i class='fa-solid fa-user'></i>"; // En main.css .nav-usuario define limite de 15 caracteres sin problemas
+        console.log("User signed in");
+      } else {
+        // User is signed out
+        console.log("User signed out");
+      }
+    })
 })();
-
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-} from "https://www.gstatic.com/firebasejs/9.8.1/firebase-auth.js";
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCBQUpEXLHA3ozDxBqFmY4Mjpkdowha7gM",
-  authDomain: "itbank-3edb0.firebaseapp.com",
-  projectId: "itbank-3edb0",
-  storageBucket: "itbank-3edb0.appspot.com",
-  messagingSenderId: "102444894055",
-  appId: "1:102444894055:web:6f94fd722fd23046a751c2",
-  measurementId: "G-2MB6CQWJ18",
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth();
-
-//Sign Out
-signOut(auth)
-  .then(() => {
-    // Sign-out successful.
-  })
-  .catch((error) => {
-    // An error happened.
-  });
 
 //Detecta el html activo y aplica diferente codigo dependiendo de eso
 const htmlDetect = document.querySelector("#htmlID");
@@ -104,6 +111,8 @@ switch (htmlDetect.textContent) {
     const userLogin = document.querySelector("#login-name");
     const passwordLogin = document.querySelector("#login-pass");
 
+    const rememberReg = document.querySelector("#checkReg");
+    const rememberLog = document.querySelector("#checkLog");
     const submitReg = document.querySelector("#register-submit");
     const submitLog = document.querySelector("#login-submit");
     const botonLog = document.querySelector("#main-login-btn");
@@ -134,6 +143,12 @@ switch (htmlDetect.textContent) {
             // Signed in
             const user = userCredential.user;
             console.log("Register complete");
+            if (rememberReg.checked == true) {
+              setPersistence(auth, browserLocalPersistence);
+            }
+            else {
+              setPersistence(auth, browserSessionPersistence);
+            }
             window.location.href = "home.html";
           })
           .catch((error) => {
@@ -147,7 +162,6 @@ switch (htmlDetect.textContent) {
                 "\n" +
                 errorMessage
             );
-            // ..
           });
       }
     });
@@ -167,6 +181,12 @@ switch (htmlDetect.textContent) {
             // Signed in
             const user = userCredential.user;
             console.log("Login complete");
+            if (rememberLog.checked == true) {
+              setPersistence(auth, browserLocalPersistence);
+            }
+            else {
+              setPersistence(auth, browserSessionPersistence);
+            }
             window.location.href = "home.html";
           })
           .catch((error) => {

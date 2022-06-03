@@ -1,26 +1,38 @@
-* {
-  margin: 0;
-  padding: 0;
-}
+
 
 /* VARIABLES */
 
 :root {
+  /* Colores Estandares */
+  /* No Usar En '.html' o '.js', Ni Tampoco Fuera De Este 'root' En Este '.css' */
+  --std-clr-azul-principal: #003d7a;
+
   /* Colores */
-  --clr-azul-osc: #003d7a;
-  --clr-blanco: #ffffff;
-  --clr-amarillo: #ffc300;
-  --clr-gris: #d5d5d5;
-  --clr-rojo: #db0916;
-  --clr-rojo-osc: #910912;
-  --clr-azul: #0000ff;
-  --clr-azul-claro: #006dac;
+  --clr-sider-seleccion: #0000ff;
+
+  --clr-nav-highlight: #ffc300;
+  --clr-nav-texto: #ffffff;
+  --clr-nav-icono: #ffffff;
+  --clr-nav-fondo: var(--std-clr-azul-principal);
+
+  --clr-form-fondo: #ffffff;
+  
+  --clr-boton: var(--std-clr-azul-principal);
+
+  --clr-home-card: #006dac;
+
   /* Tipografia */
   --tipografia: "Maven Pro", sans-serif;
   /* Grosor Letra */
   --grosor-normal: 400;
   --grosor-grueso: 700;
   --grosor-guresoXL: 800;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: var(--tipografia);
 }
 
 p,
@@ -37,7 +49,6 @@ h6 {
 
 li {
   list-style: none;
-
 }
 
 a {
@@ -62,8 +73,7 @@ body {
 .navbar {
   height: 5rem;
   width: 100%;
-  background-color: var(--clr-azul-osc);
-  font-family: var(--tipografia);
+  background-color: var(--clr-nav-fondo);
   padding: 0 2rem;
   font-weight: var(--grosor-grueso);
 }
@@ -83,7 +93,7 @@ body {
 }
 
 .link-list a {
-  color: var(--clr-blanco);
+  color: var(--clr-nav-texto);
   position: relative;
   margin-right: 1rem;
 }
@@ -94,7 +104,7 @@ body {
   bottom: -0.25rem;
   position: absolute;
   width: 100%;
-  background-color: var(--clr-amarillo);
+  background-color: var(--clr-nav-highlight);
   height: 0.1rem;
   transform: scaleX(0);
   transform-origin: center;
@@ -118,14 +128,14 @@ body {
 }
 
 .nav-user {
-  color: var(--clr-amarillo);
+  color: var(--clr-nav-highlight);
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
 .nav-user i {
-  color: var(--clr-blanco);
+  color: var(--clr-nav-icono);
   font-size: 1.25rem;
 }
 
@@ -172,12 +182,13 @@ body {
 
 @media screen and (max-width: 768px) {
 
-  /* .navbar{
-        padding: 0 1rem;
-    } */
   /* Desaparecen el user */
   .nav-menu {
     display: block;
+  }
+
+  .nav-usuario {
+    min-width: 0;
   }
 
   .nav-user {
@@ -243,7 +254,7 @@ main section {
   margin-right: 10%;
   width: 15rem;
   height: 21rem;
-  background-color: var(--clr-blanco);
+  background-color: var(--clr-form-fondo);
   border-radius: 15px;
 }
 
@@ -261,7 +272,6 @@ main section {
 .main-label {
   display: block;
   width: 100%;
-  font-family: var(--tipografia);
   font-weight: var(--grosor-grueso);
   margin-bottom: 0.5em;
 }
@@ -282,22 +292,23 @@ main section {
   padding: 0.25rem 0.5rem;
   border: 1px solid #828282;
   border-radius: 20px;
+  width: 100%;
 }
 
 .button {
   border-radius: 20px;
   padding: 0.5rem 1.5rem;
   font-size: 1rem;
-  color: var(--clr-blanco);
-  background-color: var(--clr-azul-osc);
+  color: var(--clr-form-fondo);
+  background-color: var(--clr-boton);
   border: none;
+  transition: 250ms;
 }
 
 .button:hover {
-  outline: 2px solid var(--clr-azul-osc);
+  outline: 0.2rem solid var(--clr-boton);
   background-color: white;
-  color: var(--clr-azul-osc);
-  transition: 250ms;
+  color: var(--clr-boton);
 }
 
 .slider {
@@ -308,7 +319,12 @@ main section {
   position: relative;
   margin: 0 auto;
   margin-top: 2rem;
-  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.slider-icon {
+  width: 40%;
+  height: 5rem;
 }
 
 .fa-solid {
@@ -323,7 +339,7 @@ main section {
 }
 
 .slider a:hover {
-  color: var(--clr-azul);
+  color: var(--clr-sider-seleccion);
 }
 
 .slider a p {
@@ -331,15 +347,22 @@ main section {
 }
 
 .slider a:hover {
-  color: var(--clr-azul);
+  color: var(--clr-sider-seleccion);
 }
 
 .slider a:hover p {
-  color: var(--clr-azul);
+  color: var(--clr-sider-seleccion);
 }
 
 .slider a:hover i {
   transform: translateY(-1rem);
+}
+
+@media screen and (max-width: 750px) {
+  .slider {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
 }
 
 .small-container {
@@ -372,7 +395,8 @@ main section {
 
 .balance-display h1 {
   padding: 0.5rem 1rem 0.5rem 1rem;
-  min-width: 25rem;
+  width: 35%;
+  min-width: 20rem;
   display: inline-block;
   border-width: 0.1rem;
   border-color: #333333;
@@ -465,7 +489,7 @@ main section {
   overflow: hidden;
   width: 90%;
   height: 60vh;
-  max-width: 800px;
+  max-width: 60rem;
 }
 
 /*Titulo*/
@@ -523,23 +547,16 @@ main section {
 
 /* PRUEBAS PARA EL NUEVO HOME */
 
-/* Total Balance */
-
-main .prueba {
-  padding: 0 50px;
-}
-
-
 .card {
-  min-width: 380px;
+  min-width: 24rem;
   overflow: hidden;
-  width: 530px;
-  height: 267px;
+  width: 33rem;
+  height: 16.5rem;
   background: #FFFFFF;
-  box-shadow: 8px 13px 44px -6px #DFDBF7;
+  box-shadow: 0.5rem 0.8rem 2.8rem -0.5rem #DFDBF7;
   border-radius: 20px;
-  margin: 30px;
-  padding: 0 50px 0 20px;
+  margin: 2rem;
+  padding: 0 1.5rem 0 1.5rem;
 }
 
 .card-container {
@@ -558,13 +575,13 @@ main .prueba {
 }
 
 .mini-card {
-  width: 258.75px;
-  height: 143.07px;
+  width: 16rem;
+  height: 9rem;
   background: #FFFFFF;
-  box-shadow: 8px 13px 44px -6px #DFDBF7;
+  box-shadow: 0.5rem 0.8rem 2.8rem -0.5rem #DFDBF7;
   border-radius: 20px;
-  margin: 15px;
-  padding: 0 50px 0 20px;
+  margin: 1rem;
+  padding: 0 1.5rem 0 1.5rem;
 }
 
 .card-equisde {
@@ -582,9 +599,10 @@ main .prueba {
 
 .card-appgasto p{
   position: absolute;
-  bottom: 92px;
-  left: 120px;
-  font-size: 25px;
+  bottom: 5.7rem;
+  left: 7rem;
+  font-size: 1.65rem;
+  font-weight: var(--grosor-grueso);
   color: red;
 }
 
@@ -594,6 +612,7 @@ main .prueba {
   justify-content: space-between;
   align-items: center;
   grid-area: card-saldo;
+  padding-right: 0;
 }
 
 .card-pipo {
@@ -604,11 +623,10 @@ main .prueba {
   z-index: 10;
   content: '';
   position: absolute;
-  width: 300px;
-  height: 304px;
-  right: -67.57px;
-  top: calc(50% - 304px/2 - 2.7px);
-  background: var(--clr-azul-claro);
+  width: 25rem;
+  height: 19rem;
+  right: -4.2rem;
+  background: var(--clr-home-card);
   border-radius: 155px;
 }
 
@@ -618,23 +636,24 @@ main .prueba {
 }
 
 .mostrar-saldo h3 {
+  text-align: center;
+  width: 20rem;
   color: white;
   font-style: normal;
-  font-weight: 800;
-  font-size: 45px;
-  line-height: 54px;
+  font-weight: var(--grosor-grueso);
+  font-size: 3rem;
 }
 
-.indexar>h3 {
-  font-weight: 700;
+.indexar h3 {
+  font-weight: var(--grosor-grueso);
   font-size: 2rem;
   margin-bottom: .75em;
 }
 
 .btn-gastos {
-  padding: 5px;
+  padding: 0.3rem 1rem 0.3rem 1rem;
   border-radius: 15px;
-  background-color: var(--clr-azul-claro);
+  background-color: var(--clr-home-card);
   border: none;
 }
 
@@ -642,7 +661,7 @@ main .prueba {
   color: white;
 }
 
-@media screen and (max-width: 1307px) {
+@media screen and (max-width: 1200px) {
   .card-container {
     grid-template-areas:
       'card-saldo'

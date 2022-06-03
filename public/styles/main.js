@@ -256,9 +256,15 @@ switch (htmlDetect.textContent) {
     break;
   //------------------------------------------------------------------------
   case "saldo":
-    console.log("???");
+    let valor = document.getElementById('saldo')
+    console.log(valor.innerHTML)
     break;
 
+  //------------------------------------------------------------------------
+
+  case "hometest":
+
+    break;
   //------------------------------------------------------------------------
   case "gastos":
     let nombre = document.querySelector("#nombre");

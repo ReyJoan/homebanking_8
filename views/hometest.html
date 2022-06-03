@@ -1,143 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="shortcut icon"
-      href="../public/img/banco.png"
-      type="image/x-icon"
-    />
-    <title>ITBANK HomeBanking</title>
 
-    <!-- CDN Font Awesome (Imagenes iconos) -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <!-- Bootstrap  -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
-      crossorigin="anonymous"
-    />
-    <!-- CSS  -->
-    <link rel="stylesheet" href="../public/styles/main.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="../public/img/banco.png" type="image/x-icon" />
+  <title>ITBANK HomeBanking</title>
+  <!-- animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- CDN Font Awesome (Imagenes iconos) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Bootstrap  -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+  <!-- CSS  -->
+  <link rel="stylesheet" href="../public/styles/main.css" />
+</head>
 
-  <body>
-    <p hidden>Excelencia Asegurada 1959</p>
-    <p hidden id="htmlID">home</p>
-    <header class="navbar-container">
-      <nav class="navbar" id="navbar"></nav>
-    </header>
+<body>
+  <p hidden>Excelencia Asegurada 1959</p>
+  <p hidden id="htmlID">hometest</p>
+  <header class="navbar-container">
+    <nav class="navbar" id="navbar"></nav>
+  </header>
 
-    <main class="prueba">
-       <div class="card-container">
-        <div class="card card-saldo" >
-            <div class="indexar">
-                <h3>Saldo total</h3>
-                <button class="Gastos">Ver transacciones</button>
-            </div>
-            <div class="mostrar-saldo">
-                <h3>200</h3>
-            </div>
+  <main class="prueba">
+    <div class="card-container">
+      <div class="card card-saldo" data-aos="fade-right" data-aos-duration="1000">
+        <div class="indexar">
+          <h3>Saldo total</h3>
+          <button class="btn-gastos"><a href="./saldo.html">Ver transacciones</a></button>
         </div>
-        <div class="card card-appgasto">
-
+        <div class="mostrar-saldo" >
+          <h3 id="saldo">$3000000</h3>
         </div>
-        <div class="card card-equisde">
+      </div>
+      <div class="card card-appgasto" data-aos="fade-left" data-aos-duration="1000">
+        <p>4507</p>
+      </div>
+      <!-- <div class="card card-equisde" data-aos="fade-right" data-aos-duration="1000">
+
+      </div>
+      <div class="card card-pipo" data-aos="fade-left" data-aos-duration="1000">
+
+      </div> -->
+      <div class="mini-cart-cont">
+        <div class="mini-card hola" data-aos="fade-left" data-aos-duration="1000">
 
         </div>
-        <div class="card card-pipo">
+        <div class="mini-card holas" data-aos="fade-left" data-aos-duration="1000">
+  
+        </div>
+        <div class="mini-card holasa" data-aos="fade-left" data-aos-duration="1000">
+  
+        </div>
+        <div class="mini-card holasas" data-aos="fade-left" data-aos-duration="1000">
 
         </div>
-       </div> 
-        
-      <section class="slider">
-        <a class="slider-icon" href="">
-          <i class="fa-solid fa-credit-card"></i>
-          <p>Solicitar tarjeta</p>
-        </a>
-        <a class="slider-icon" href="saldo.html">
-          <i class="fa-solid fa-money-bill-1"></i>
-          <p>Saldo</p>
-        </a>
-        <a class="slider-icon" href="">
-          <i class="fa-solid fa-money-bill-transfer"></i>
-          <p>Transferencia</p>
-        </a>
-        <a class="slider-icon" href="gastos.html">
-          <i class="fa-solid fa-chart-pie"></i>
-          <p>Aplicación de Gastos</p>
-        </a>
-        <a class="slider-icon" href="">
-          <i class="fa-solid fa-dollar"></i>
-          <p>Préstamos</p>
-        </a>
-        <a class="slider-icon" href="">
-          <i class="fa-solid fa-wifi"></i>
-          <p>Más servicios</p>
-        </a>
-      </section>
-      <section class="small-container">
-        <div class="row">
-          <div class="col-4">
-            <i class="fa-solid fa-lock fa-2x color-red"></i>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-              tempus felis a pharetra euismod. Interdum et malesuada fames ac
-              ante ipsum primis in faucibus. Duis nec elementum dolor. Nunc ut
-              ultrices justo, non interdum tortor.
-            </p>
-          </div>
-          <div class="col-4">
-            <i class="fa-brands fa-youtube fa-2x color-red"></i>
-            <p>
-              Fusce congue elit diam, nec placerat mauris rhoncus at. Nullam
-              convallis, quam non interdum scelerisque, ligula leo porta magna,
-              eget iaculis diam ipsum et neque. Vestibulum suscipit in felis id
-              rutrum. Phasellus pellentesque maximus rhoncus.
-            </p>
-          </div>
-          <div class="col-4">
-            <i class="fa-solid fa-arrow-trend-up fa-2x color-red"></i>
-            <p>
-              Proin pretium consectetur iaculis. Proin rutrum malesuada augue, a
-              facilisis est condimentum id. Nunc sed rutrum mi. Duis ultricies
-              arcu vel iaculis tempus. Suspendisse ac blandit ante. Nulla
-              hendrerit id enim in iaculis.
-            </p>
-          </div>
-          <div class="col-4">
-            <i class="fa-solid fa-bell fa-2x color-red"></i>
-            <p>
-              Ut volutpat massa dolor, in tincidunt est vulputate ut. Etiam ac
-              ligula lectus. Integer eu aliquam justo. Curabitur rhoncus
-              pulvinar purus nec auctor. Suspendisse a ex urna. Maecenas non
-              aliquet lectus.
-            </p>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <div class="container footerb">
-      <footer
-        id="footer"
-        class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
-      ></footer>
+      </div>
     </div>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-      crossorigin="anonymous"
-    ></script>
-    <script type="module" src="../public/styles/main.js"></script>
-  </body>
+    <section class="slider">
+      <a class="slider-icon" href="">
+        <i class="fa-solid fa-credit-card"></i>
+        <p>Solicitar tarjeta</p>
+      </a>
+      <a class="slider-icon" href="saldo.html">
+        <i class="fa-solid fa-money-bill-1"></i>
+        <p>Saldo</p>
+      </a>
+      <a class="slider-icon" href="">
+        <i class="fa-solid fa-money-bill-transfer"></i>
+        <p>Transferencia</p>
+      </a>
+      <a class="slider-icon" href="gastos.html">
+        <i class="fa-solid fa-chart-pie"></i>
+        <p>Aplicación de Gastos</p>
+      </a>
+      <a class="slider-icon" href="">
+        <i class="fa-solid fa-dollar"></i>
+        <p>Préstamos</p>
+      </a>
+      <a class="slider-icon" href="">
+        <i class="fa-solid fa-wifi"></i>
+        <p>Más servicios</p>
+      </a>
+    </section>
+    <section class="small-container">
+      <div class="row">
+        <div class="col-4">
+          <i class="fa-solid fa-lock fa-2x color-red"></i>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            tempus felis a pharetra euismod. Interdum et malesuada fames ac
+            ante ipsum primis in faucibus. Duis nec elementum dolor. Nunc ut
+            ultrices justo, non interdum tortor.
+          </p>
+        </div>
+        <div class="col-4">
+          <i class="fa-brands fa-youtube fa-2x color-red"></i>
+          <p>
+            Fusce congue elit diam, nec placerat mauris rhoncus at. Nullam
+            convallis, quam non interdum scelerisque, ligula leo porta magna,
+            eget iaculis diam ipsum et neque. Vestibulum suscipit in felis id
+            rutrum. Phasellus pellentesque maximus rhoncus.
+          </p>
+        </div>
+        <div class="col-4">
+          <i class="fa-solid fa-arrow-trend-up fa-2x color-red"></i>
+          <p>
+            Proin pretium consectetur iaculis. Proin rutrum malesuada augue, a
+            facilisis est condimentum id. Nunc sed rutrum mi. Duis ultricies
+            arcu vel iaculis tempus. Suspendisse ac blandit ante. Nulla
+            hendrerit id enim in iaculis.
+          </p>
+        </div>
+        <div class="col-4">
+          <i class="fa-solid fa-bell fa-2x color-red"></i>
+          <p>
+            Ut volutpat massa dolor, in tincidunt est vulputate ut. Etiam ac
+            ligula lectus. Integer eu aliquam justo. Curabitur rhoncus
+            pulvinar purus nec auctor. Suspendisse a ex urna. Maecenas non
+            aliquet lectus.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="container footerb">
+    <footer id="footer" class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+  <script type="module" src="../public/styles/main.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+
+</body>

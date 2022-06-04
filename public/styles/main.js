@@ -41,7 +41,13 @@ const auth = getAuth();
       </a> 
     </div> 
     <div class='nav-links'> 
-      <ul class='link-list'> 
+      <ul class='link-list'>
+        <li class='nav-link nav-link-usuario'> 
+          <a class='nav-link-user link' href='user.html' id='nav-link-username'>
+            <i class='fa-solid fa-user'></i>
+            ....
+          </a>
+        </li> 
         <li class='nav-link'> 
           <a class='link' href='home.html'>Home</a> 
         </li> 
@@ -88,11 +94,15 @@ const auth = getAuth();
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
-        document.querySelector("#nav-username").innerHTML = auth.currentUser.email.split('@')[0] + "<i class='fa-solid fa-user'></i>"; // En main.css .nav-usuario define limite de 15 caracteres sin problemas
+        // En main.css .nav-usuario define limite de 15 caracteres sin problemas
         console.log("User signed in");
+        document.querySelector("#nav-username").innerHTML = auth.currentUser.email.split('@')[0] + "<i class='fa-solid fa-user'></i>";
+        document.querySelector("#nav-link-username").innerHTML = "<i class='fa-solid fa-user'></i>" + auth.currentUser.email.split('@')[0];
       } else {
         // User is signed out
         console.log("User signed out");
+        document.querySelector("#nav-username").innerHTML = "Usuario" + "<i class='fa-solid fa-user'></i>";
+        document.querySelector("#nav-link-username").innerHTML = "<i class='fa-solid fa-user'></i>" + "Usuario";
       }
     })
 })();
@@ -272,20 +282,24 @@ switch (htmlDetect.textContent) {
     let botonGasto = document.querySelector("#boton-gasto");
     let padreColumna = document.querySelector("#padre-columna");
     let gastosDisplay = document.querySelector("#gastos-display");
+    let distribucionDisplay = document.querySelector("#distribucion-display");
 
 
     let sumaGastosEntero = 0;
     let sumaGastosDecimal = 0;
+    let cantidadEntradas = 0;
 
     botonGasto.addEventListener("click", (e) => {
       let nombreGasto = nombre.value;
       let gastoValor = gasto.value;
       if (gastoValor.match(/^[0-9]+$/)) { //En caso de no poner coma
+        cantidadEntradas++;
         updateSumaGastos(parseFloat(gastoValor), 0);
         crearGasto(nombreGasto, gastoValor);
       }
       else {
         if (gastoValor.match(/^[0-9]+([,.][0-9]{1,2})?$/)) { //En caso de que ingrese numero con 1-2 digitos despues de la coma
+          cantidadEntradas++;
           gastoValor = gastoValor.replace(',', '.'); //Poniendolo con punto en vez de coma para que el sistema funcione
           updateSumaGastos(parseFloat(gastoValor.split('.')[0]), parseFloat((gastoValor.split('.')[1] + "00").slice(0, 2)));
           crearGasto(nombreGasto, gastoValor);
@@ -312,6 +326,7 @@ switch (htmlDetect.textContent) {
       let valorColumna = `<p> ${name}</p><p>$ ${valorDisplay}</p>`;
 
       nuevaColumna.addEventListener("click", (e) => {
+        cantidadEntradas--;
         updateSumaGastos(-parseFloat(nuevaColumna.innerHTML.split('$')[1].split(',')[0]), -parseFloat((nuevaColumna.innerHTML.split('$')[1].split(',')[1].split('<')[0] + "00").slice(0, 2)));
         nuevaColumna.remove();
       });
@@ -338,6 +353,15 @@ switch (htmlDetect.textContent) {
 
       let displayOutput = sumaGastosEntero + "," + ("00" + sumaGastosDecimal).slice(-2); //Poniendolo con coma en vez de punto y acortando a 2 decimales para mostrarlo a pantalla
       gastosDisplay.innerHTML = "$" + displayOutput;
+      if (cantidadEntradas == 0) {
+        displayOutput = "0,00";
+      }
+      else {
+        let tempCountD =  Math.floor(((sumaGastosEntero % cantidadEntradas) * 100) / cantidadEntradas) + Math.floor(sumaGastosDecimal / cantidadEntradas);
+        let tempCountE =  Math.floor(sumaGastosEntero / cantidadEntradas);
+        displayOutput = tempCountE + "," +("00" + tempCountD).slice(-2);
+      }
+      distribucionDisplay.innerHTML = "$" + displayOutput;
     }
 
     break;

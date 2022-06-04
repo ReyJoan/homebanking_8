@@ -119,12 +119,27 @@ body {
 /* navbar user */
 
 .nav-usuario {
-  min-width: 10rem;
   /* Espacio para que cuando se carge el usuario no se corran las opciones del navbar (10rem permite usuarios de hasta 15 caracteres)*/
+  min-width: 10rem;
   justify-content: right;
   display: flex;
   align-items: flex-start;
-  gap: 2em;
+}
+
+.nav-link-usuario {
+  /* Espacio para que cuando se carge el usuario no se corran las opciones del navbar (14.5rem permite usuarios de hasta 15 caracteres)*/
+  min-width: 14.5rem;
+  display: flex;
+  align-items: flex-start;
+  margin-left: -16.5rem;
+}
+
+.nav-link-user {
+  color: var(--clr-nav-highlight);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  display: none;
 }
 
 .nav-user {
@@ -195,6 +210,14 @@ body {
     display: none;
   }
 
+  .nav-link-usuario {
+    margin-left: -1.5rem;
+  }
+
+  .nav-link-user {
+    display: flex;
+  }
+
   .link-list {
     padding: 2rem;
     flex-direction: column;
@@ -215,7 +238,7 @@ body {
     left: 0;
     position: absolute;
     height: 100vh;
-    width: 15em;
+    width: 15rem;
     background-color: #002e5c;
   }
 
@@ -488,7 +511,7 @@ main section {
   border-style: solid;
   overflow: hidden;
   width: 90%;
-  height: 60vh;
+  min-height: 51vh;
   max-width: 60rem;
 }
 
@@ -528,6 +551,20 @@ main section {
 
 .columnas-elementos:hover {
   text-decoration: line-through;
+}
+
+.output-gastos {
+  margin-top: 1rem;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+}
+
+.output-gastos div {
+  width: 90%;
+  max-width: 60rem;
+  justify-content: center;
+  text-align: center;
 }
 
 /*================= FOOTER =================*/

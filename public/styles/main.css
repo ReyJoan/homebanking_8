@@ -483,12 +483,36 @@ main section {
   width: 15rem;
 }
 
+#boton-gasto:hover {
+  cursor: pointer;
+  background-color: rgb(26, 164, 26);
+}
+
 .contenedor-inputs {
-  margin-top: 1rem;
+  margin-top: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 2rem;
+}
+
+.inputs #nombre, #gasto{
+  border-style: groove;
+  border-radius: 7px;
+}
+
+.principal, .output-gastos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+  justify-content: center;
+}
+
+.output-gastos{
+  padding-top: 15px;
+  padding-bottom: 0px;
+  margin-bottom: 1px;
 }
 
 /*Tabla de gastos y espacio a los costados*/
@@ -517,10 +541,14 @@ main section {
 
 /*Titulo*/
 .tablita-gastos .title {
-  background-color: antiquewhite;
+  background-color: #003d7a;
   padding: 0.5rem 0 0.5rem 0;
+
 }
 
+.title h4 {
+  color: white;
+}
 /*Elementos de tabla*/
 .columnas {
   border-color: #333333;

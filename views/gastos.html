@@ -20,27 +20,28 @@
 </head>
 
 <body>
-    <p hidden>Excelencia Asegurada 1959</p>
     <p hidden id="htmlID">gastos</p>
     <header class="navbar-container">
         <nav class="navbar" id="navbar"></nav>
     </header>
 
     <main>
-        <section class="balance-display">
-            <h1 id="gastos-display">$0,00</h1>
-        </section>
-        <section class="contenedor-inputs">
-            <div class="inputs">
-                <input type="text" id="nombre" placeholder="Nombre">
-                <input type="text" id="gasto" placeholder="Gasto">
-            </div>
-                <button id="boton-gasto">Agregar</button>
+        <section class="principal">
+            <section class="balance-display">
+                <h3 class="titulo-tot">Total:</h3>
+                <h1 id="gastos-display">$0,00</h1>
+            </section>
+            <section class="output-gastos">
+                <div>
+                    <h5>Distribución Equitativa:</h5>
+                    <h5 id="distribucion-display">$0,00</h5>
+                </div>
+            </section>
         </section>
         <section class="tablita-gastos">
             <div class="tabla">
                 <div class="title">
-                    <h4>Gastos</h4>
+                    <h4>Egresos de la cuenta</h4>
                 </div>
                 <div id="padre-columna">
                     <div class="columnas">
@@ -50,19 +51,20 @@
                 </div>
             </div>
         </section>
-        <section class="output-gastos">
-            <div>
-                <h5>Distribución Equitativa:</h5>
-                <h5 id="distribucion-display">$0,00</h5>
-            </div>
-        </section>
+        
     </main>
-
+    <section class="contenedor-inputs">
+        <div class="inputs">
+            <input type="text" id="nombre" placeholder="Nombre">
+            <input type="text" id="gasto" placeholder="Gasto">
+        </div>
+            <button id="boton-gasto">Agregar</button>
+    </section>
     <div class="container footerb">
         <footer id="footer" class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         </footer>
     </div>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>

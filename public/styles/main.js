@@ -90,21 +90,21 @@ const auth = getAuth();
       </li>
     </ul>
     `;
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        // En main.css .nav-usuario define limite de 15 caracteres sin problemas
-        console.log("User signed in");
-        document.querySelector("#nav-username").innerHTML = auth.currentUser.email.split('@')[0] + "<i class='fa-solid fa-user'></i>";
-        document.querySelector("#nav-link-username").innerHTML = "<i class='fa-solid fa-user'></i>" + auth.currentUser.email.split('@')[0];
-      } else {
-        // User is signed out
-        console.log("User signed out");
-        document.querySelector("#nav-username").innerHTML = "Usuario" + "<i class='fa-solid fa-user'></i>";
-        document.querySelector("#nav-link-username").innerHTML = "<i class='fa-solid fa-user'></i>" + "Usuario";
-      }
-    })
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      // En main.css .nav-usuario define limite de 15 caracteres sin problemas
+      console.log("User signed in");
+      document.querySelector("#nav-username").innerHTML = auth.currentUser.email.split('@')[0] + "<i class='fa-solid fa-user'></i>";
+      document.querySelector("#nav-link-username").innerHTML = "<i class='fa-solid fa-user'></i>" + auth.currentUser.email.split('@')[0];
+    } else {
+      // User is signed out
+      console.log("User signed out");
+      document.querySelector("#nav-username").innerHTML = "Usuario" + "<i class='fa-solid fa-user'></i>";
+      document.querySelector("#nav-link-username").innerHTML = "<i class='fa-solid fa-user'></i>" + "Usuario";
+    }
+  })
 })();
 
 //Detecta el html activo y aplica diferente codigo dependiendo de eso
@@ -144,7 +144,7 @@ switch (htmlDetect.textContent) {
       if (verifyUserPass(userRegister.value, passwordRegister.value)) {
         createUserWithEmailAndPassword(
           auth,
-          userRegister.value + "@blablaestafas.com",
+          userRegister.value + "@gmail.com",
           passwordRegister.value
         )
           .then((userCredential) => {
@@ -167,13 +167,13 @@ switch (htmlDetect.textContent) {
             }
             console.log(
               userRegister.value +
-                "@blablaestafas.com" +
-                "\n" +
-                passwordRegister.value +
-                "\n" +
-                errorMessage +
-                "\n" +
-                errorCode
+              "@gmail.com" +
+              "\n" +
+              passwordRegister.value +
+              "\n" +
+              errorMessage +
+              "\n" +
+              errorCode
             );
           });
       }
@@ -208,13 +208,13 @@ switch (htmlDetect.textContent) {
             }
             console.log(
               userRegister.value +
-                "@blablaestafas.com" +
-                "\n" +
-                passwordRegister.value +
-                "\n" +
-                errorMessage +
-                "\n" +
-                errorCode
+              "@blablaestafas.com" +
+              "\n" +
+              passwordRegister.value +
+              "\n" +
+              errorMessage +
+              "\n" +
+              errorCode
             );
           });
       }
@@ -357,9 +357,9 @@ switch (htmlDetect.textContent) {
         displayOutput = "0,00";
       }
       else {
-        let tempCountD =  Math.floor(((sumaGastosEntero % cantidadEntradas) * 100) / cantidadEntradas) + Math.floor(sumaGastosDecimal / cantidadEntradas);
-        let tempCountE =  Math.floor(sumaGastosEntero / cantidadEntradas);
-        displayOutput = tempCountE + "," +("00" + tempCountD).slice(-2);
+        let tempCountD = Math.floor(((sumaGastosEntero % cantidadEntradas) * 100) / cantidadEntradas) + Math.floor(sumaGastosDecimal / cantidadEntradas);
+        let tempCountE = Math.floor(sumaGastosEntero / cantidadEntradas);
+        displayOutput = tempCountE + "," + ("00" + tempCountD).slice(-2);
       }
       distribucionDisplay.innerHTML = "$" + displayOutput;
     }
@@ -376,3 +376,36 @@ navBtn.addEventListener("click", () => {
   navBtn.classList.toggle("close-menu");
   navMenu.classList.toggle("nav-links-active");
 });
+
+// -------------------- Cotizaciones en MINICARDS ------------------- //
+const url = 'https://www.dolarsi.com/api/api.php?type=valoresprincipales'
+
+function boxDolar(id, dataIndex, Dolar){
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      let dolarOficial = document.querySelector(id)
+      dolarOficial.innerHTML = ` <h3 class="titulo-D"><b>${Dolar}</b></h3>
+      <div class="Box-Content">  
+        <p><b>Compra</b>:</p><p class="values">$${data[dataIndex].casa.compra}</p>
+        <p><b>Venta</b>:</p><p class="values">$${data[dataIndex].casa.venta}</p>
+      </div>`
+      console.log(data)
+    })
+
+    .catch(err => console.log(err))
+}
+
+let dolarOficial = boxDolar('#Dolar-Oficial', 0, "Dólar Oficial");
+let dolarBolsa = boxDolar('#Dolar-Bolsa', 4, 'Dólar Bolsa');
+let dolarCont = boxDolar("#Dolar-Cont", 3, 'Dólar Contado');
+let dolarSoli = boxDolar("#Dolar-Soli", 7, 'Dólar Solidario');
+
+// Esto agrega la opcion de comprar dólares llevandonos a un link en otra ventan
+const btnBuy = document.querySelector('#Buy-D');
+btnBuy.addEventListener('click', ()=>{
+  window.open('https://www.bancogalicia.com/banca/online/web/Personas/ProductosyServicios/compra-y-venta-moneda-extranjera/')
+})
+
+// linea 407 --> HAY QUE CAMBIAR ESE LINK ANTES DE ENTREGAR EL SPRINT --//
+  

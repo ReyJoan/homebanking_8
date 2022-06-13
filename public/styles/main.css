@@ -8,18 +8,27 @@
   --std-clr-azul-principal: #003d7a;
 
   /* Colores */
+  --clr-texto: #1e1e1e;
+  
   --clr-sider-seleccion: #0000ff;
 
   --clr-nav-highlight: #ffc300;
   --clr-nav-texto: #ffffff;
   --clr-nav-icono: #ffffff;
   --clr-nav-fondo: var(--std-clr-azul-principal);
+  --clr-navmenu-fondo: #002e5c;
 
   --clr-form-fondo: #ffffff;
   
   --clr-boton: var(--std-clr-azul-principal);
+  --clr-boton-hover: #ffffff;
+  --clr-boton-text: #ffffff;
 
   --clr-home-card: #006dac;
+
+  --clr-gastos-border: #333333;
+
+  --clr-saldo-border: #333333;
 
   /* Tipografia */
   --tipografia: "Maven Pro", sans-serif;
@@ -42,7 +51,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: rgb(30, 30, 30);
+  color: var(--clr-texto);
   margin: 0;
   padding: 0;
 }
@@ -239,7 +248,7 @@ body {
     position: absolute;
     height: 100vh;
     width: 15rem;
-    background-color: #002e5c;
+    background-color: var(--clr-navmenu-fondo);
   }
 
   .nav-links-active {
@@ -322,7 +331,7 @@ main section {
   border-radius: 20px;
   padding: 0.5rem 1.5rem;
   font-size: 1rem;
-  color: var(--clr-form-fondo);
+  color: var(--clr-boton-text);
   background-color: var(--clr-boton);
   border: none;
   transition: 250ms;
@@ -330,7 +339,7 @@ main section {
 
 .button:hover {
   outline: 0.2rem solid var(--clr-boton);
-  background-color: white;
+  background-color: var(--clr-boton-hover);
   color: var(--clr-boton);
 }
 
@@ -422,7 +431,7 @@ main section {
   min-width: 20rem;
   display: inline-block;
   border-width: 0.1rem;
-  border-color: #333333;
+  border-color: var(--clr-saldo-border);
   border-radius: 1rem;
   border-style: solid;
   text-align: center;
@@ -437,7 +446,7 @@ main section {
 
 .movements-display div {
   border-width: 0.2rem;
-  border-color: #333333;
+  border-color: var(--clr-saldo-border);
   border-radius: 1rem;
   border-style: solid;
   overflow: hidden;
@@ -461,18 +470,10 @@ main section {
   justify-self: center;
 }
 
-.movements-display .title {
-  background-color: antiquewhite;
-}
-
-.movements-display .title h4 {
-  margin: 0.5rem 0 0.5rem 0;
-}
-
 #boton-gasto {
   border-radius: 20px;
-  background-color: green;
-  color: white;
+  background-color: var(--clr-boton);
+  color: var(--clr-boton-text);
   height: 2rem;
   width: 5rem;
 }
@@ -485,7 +486,8 @@ main section {
 
 #boton-gasto:hover {
   cursor: pointer;
-  background-color: rgb(26, 164, 26);
+  color: var(--clr-boton);
+  background-color: var(--clr-boton-hover);
 }
 
 .contenedor-inputs {
@@ -529,7 +531,7 @@ main section {
 
 /*Tabla de gastos*/
 .tabla {
-  border-color: #333333;
+  border-color: var(--clr-gastos-border);
   border-width: 0.2rem;
   border-radius: 1rem;
   border-style: solid;
@@ -540,7 +542,8 @@ main section {
 }
 
 /*Titulo*/
-.tablita-gastos .title {
+.tablita-gastos .title,
+.movements-display .title {
   background-color: #003d7a;
   padding: 0.5rem 0 0.5rem 0;
 

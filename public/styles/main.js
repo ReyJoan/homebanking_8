@@ -264,6 +264,7 @@ switch (htmlDetect.textContent) {
   case "home":
     console.log("???");
     break;
+    
   //------------------------------------------------------------------------
   case "saldo":
     let valor = document.getElementById('saldo')
@@ -276,24 +277,23 @@ switch (htmlDetect.textContent) {
 
     function boxDolar(id, dataIndex, Dolar){
       fetch(url)
-        .then(response => response.json())
+        .then(data => data.json())
         .then(data => {
-          let dolarOficial = document.querySelector(id)
-          dolarOficial.innerHTML = ` <h3 class="titulo-D"><b>${Dolar}</b></h3>
+          let boxElement = document.querySelector(id)
+          boxElement.innerHTML = ` <h3 class="titulo-D"><b>${Dolar}</b></h3>
           <div class="Box-Content">  
             <p><b>Compra</b>:</p><p class="values">$${data[dataIndex].casa.compra}</p>
             <p><b>Venta</b>:</p><p class="values">$${data[dataIndex].casa.venta}</p>
           </div>`
           console.log(data)
         })
-    
         .catch(err => console.log(err))
     }
     
-    let dolarOficial = boxDolar('#Dolar-Oficial', 0, "Dólar Oficial");
-    let dolarBolsa = boxDolar('#Dolar-Bolsa', 4, 'Dólar Bolsa');
-    let dolarCont = boxDolar("#Dolar-Cont", 3, 'Dólar Contado');
-    let dolarSoli = boxDolar("#Dolar-Soli", 7, 'Dólar Solidario');
+    boxDolar('#Dolar-Oficial', 0, "Dólar Oficial");
+    boxDolar('#Dolar-Bolsa', 4, 'Dólar Bolsa');
+    boxDolar("#Dolar-Cont", 3, 'Dólar Contado');
+    boxDolar("#Dolar-Soli", 7, 'Dólar Solidario');
     
     // Esto agrega la opcion de comprar dólares llevandonos a un link en otra ventan
     const btnBuy = document.querySelector('#Buy-D');
@@ -302,6 +302,7 @@ switch (htmlDetect.textContent) {
       window.open('https://www.bancogalicia.com/banca/online/web/Personas/ProductosyServicios/compra-y-venta-moneda-extranjera/')
     })
     break;
+
   //------------------------------------------------------------------------
   case "gastos":
     let nombre = document.querySelector("#nombre");

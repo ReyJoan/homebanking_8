@@ -24,7 +24,6 @@
     <header class="navbar-container">
         <nav class="navbar" id="navbar"></nav>
     </header>
-
     <main>
         <section class="principal">
             <section class="balance-display">
@@ -38,10 +37,17 @@
                 </div>
             </section>
         </section>
+        <section class="contenedor-inputs">
+            <div class="inputs">
+                <input type="text" id="nombre" placeholder="Nombre">
+                <input type="text" id="gasto" placeholder="Gasto">
+            </div>
+                <button id="boton-gasto">Agregar</button>
+        </section>
         <section class="tablita-gastos">
             <div class="tabla">
                 <div class="title">
-                    <h4>Egresos de la cuenta</h4>
+                    <h4>Gastos</h4>
                 </div>
                 <div id="padre-columna">
                     <div class="columnas">
@@ -51,15 +57,7 @@
                 </div>
             </div>
         </section>
-        
     </main>
-    <section class="contenedor-inputs">
-        <div class="inputs">
-            <input type="text" id="nombre" placeholder="Nombre">
-            <input type="text" id="gasto" placeholder="Gasto">
-        </div>
-            <button id="boton-gasto">Agregar</button>
-    </section>
     <div class="container footerb">
         <footer id="footer" class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         </footer>

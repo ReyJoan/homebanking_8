@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
 import {
@@ -13,11 +12,7 @@ import {
   onAuthStateChanged,
 } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-auth.js";
 
-// TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCBQUpEXLHA3ozDxBqFmY4Mjpkdowha7gM",
   authDomain: "itbank-3edb0.firebaseapp.com",
@@ -33,6 +28,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth();
 
+//Crear Header y Footer
 (function () {
   document.getElementById("navbar").innerHTML = `
     <div class='nav-logo'> 
@@ -264,7 +260,7 @@ switch (htmlDetect.textContent) {
   case "home":
     console.log("???");
     break;
-    
+
   //------------------------------------------------------------------------
   case "saldo":
     let valor = document.getElementById('saldo')
@@ -322,18 +318,27 @@ switch (htmlDetect.textContent) {
       let gastoValor = gasto.value;
       if (gastoValor.match(/^[0-9]+$/)) { //En caso de no poner coma
         cantidadEntradas++;
-        updateSumaGastos(parseFloat(gastoValor), 0);
+        gastoValor = gastoValor + ".00"
+        updateSumaGastos(gastoValor);
         crearGasto(nombreGasto, gastoValor);
       }
       else {
-        if (gastoValor.match(/^[0-9]+([,.][0-9]{1,2})?$/)) { //En caso de que ingrese numero con 1-2 digitos despues de la coma
+        if (gastoValor.match(/^[0-9]+([,.][0-9]{1})?$/)) { //En caso de que ingrese numero con 1 digitos despues de la coma
           cantidadEntradas++;
-          gastoValor = gastoValor.replace(',', '.'); //Poniendolo con punto en vez de coma para que el sistema funcione
-          updateSumaGastos(parseFloat(gastoValor.split('.')[0]), parseFloat((gastoValor.split('.')[1] + "00").slice(0, 2)));
+          gastoValor = gastoValor.replace(',', '.') + "0"; //Poniendolo con punto en vez de coma y metiendole un 0 al final para que el sistema funcione
+          updateSumaGastos(gastoValor);
           crearGasto(nombreGasto, gastoValor);
         }
         else {
-          alert("Debe ingresar un numero");
+          if (gastoValor.match(/^[0-9]+([,.][0-9]{2})?$/)) { //En caso de que ingrese numero con 2 digitos despues de la coma
+            cantidadEntradas++;
+            gastoValor = gastoValor.replace(',', '.'); //Poniendolo con punto en vez de coma para que el sistema funcione
+            updateSumaGastos(gastoValor);
+            crearGasto(nombreGasto, gastoValor);
+          }
+          else {
+            alert("Debe ingresar un numero");
+          }
         }
       }
     });
@@ -342,20 +347,13 @@ switch (htmlDetect.textContent) {
       let nuevaColumna = document.createElement("div");
       nuevaColumna.classList.add("columnas");
       nuevaColumna.classList.add("columnas-elementos");
-      let valorDisplay = "" + valor.replace('.', ',');
-      if (valor.match(/^[0-9]+$/)) {
-        valorDisplay += ",00";
-      }
-      else {
-        if (valor.match(/^[0-9]+([,.][0-9]{1})?$/)) {
-          valorDisplay += "0";
-        }
-      }
-      let valorColumna = `<p> ${name}</p><p>$ ${valorDisplay}</p>`;
-
+      let valorDisplay = "" + valor.replace('.', ','); //Poniendolo con coma en vez de punto para la lectura
+      let valorColumna = `<p>${name}</p><p>$ ${valorDisplay}</p>`;
+      
+      let valorEntrada = valor;
       nuevaColumna.addEventListener("click", (e) => {
         cantidadEntradas--;
-        updateSumaGastos(-parseFloat(nuevaColumna.innerHTML.split('$')[1].split(',')[0]), -parseFloat((nuevaColumna.innerHTML.split('$')[1].split(',')[1].split('<')[0] + "00").slice(0, 2)));
+        updateSumaGastos("-" + valorEntrada);
         nuevaColumna.remove();
       });
 
@@ -363,7 +361,9 @@ switch (htmlDetect.textContent) {
       padreColumna.appendChild(nuevaColumna);
     }
 
-    function updateSumaGastos(entero, decimal) {
+    function updateSumaGastos(valor) {
+      let entero = parseFloat(valor.split('.')[0]);
+      let decimal = (valor[0] == '-' ? -1 : 1) * parseFloat((valor.split('.')[1] + "00").slice(0, 2));
       sumaGastosEntero += entero;
       if (sumaGastosDecimal + decimal > 100) {
         sumaGastosDecimal += decimal - 100;

@@ -26,9 +26,9 @@
 
   --clr-home-card: #006dac;
 
-  --clr-gastos-border: #333333;
-
-  --clr-saldo-border: #333333;
+  --clr-tabla-border: #333333;
+  --clr-tabla-titulo: #003d7a;
+  --clr-tabla-titulo-text: #003d7a;
 
   /* Tipografia */
   --tipografia: "Maven Pro", sans-serif;
@@ -431,7 +431,7 @@ main section {
   min-width: 20rem;
   display: inline-block;
   border-width: 0.1rem;
-  border-color: var(--clr-saldo-border);
+  border-color: var(--clr-tabla-border);
   border-radius: 1rem;
   border-style: solid;
   text-align: center;
@@ -446,7 +446,7 @@ main section {
 
 .movements-display div {
   border-width: 0.2rem;
-  border-color: var(--clr-saldo-border);
+  border-color: var(--clr-tabla-border);
   border-radius: 1rem;
   border-style: solid;
   overflow: hidden;
@@ -531,7 +531,7 @@ main section {
 
 /*Tabla de gastos*/
 .tabla {
-  border-color: var(--clr-gastos-border);
+  border-color: var(--clr-tabla-border);
   border-width: 0.2rem;
   border-radius: 1rem;
   border-style: solid;
@@ -544,17 +544,17 @@ main section {
 /*Titulo*/
 .tablita-gastos .title,
 .movements-display .title {
-  background-color: #003d7a;
+  background-color: var(--clr-tabla-titulo);
   padding: 0.5rem 0 0.5rem 0;
 
 }
 
 .title h4 {
-  color: white;
+  color: var(--clr-tabla-titulo-text);
 }
 /*Elementos de tabla*/
 .columnas {
-  border-color: #333333;
+  border-color: var(--clr-tabla-border);
   border-style: solid;
   border-width: 0.1rem;
   text-align: center;
@@ -568,7 +568,7 @@ main section {
 
 /*Nombre/Gasto*/
 .columnas p {
-  border-color: #333333;
+  border-color: var(--clr-tabla-border);
   border-style: solid;
   border-width: 0.1rem;
   margin: -0.5% 0 -0.5% 0;

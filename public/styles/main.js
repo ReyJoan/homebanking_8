@@ -225,8 +225,8 @@ switch (htmlDetect.textContent) {
         alert("Debes ingresar un valor");
         return false;
       }
-      if (username.match(/[@]/)) {
-        alert("Tu usuario no puede contener '@'");
+      if (username.match(/[@ ]/)) {
+        alert("Tu usuario no puede contener ni espacio ni '@'");
         return false;
       }
       if (password.length < 8) {

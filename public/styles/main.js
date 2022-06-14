@@ -257,18 +257,14 @@ switch (htmlDetect.textContent) {
     break;
 
   //------------------------------------------------------------------------
-  case "home":
-    console.log("???");
-    break;
-
-  //------------------------------------------------------------------------
+ 
   case "saldo":
     let valor = document.getElementById('saldo')
     console.log(valor.innerHTML)
     break;
 
   //------------------------------------------------------------------------
-  case "hometest":
+  case "home":
     const url = 'https://www.dolarsi.com/api/api.php?type=valoresprincipales'
 
     function boxDolar(id, dataIndex, Dolar){
@@ -294,8 +290,7 @@ switch (htmlDetect.textContent) {
     // Esto agrega la opcion de comprar dólares llevandonos a un link en otra ventan
     const btnBuy = document.querySelector('#Buy-D');
     btnBuy.addEventListener('click', ()=>{
-      // ================================================ HAY QUE CAMBIAR ESTE LINK ANTES DE ENTREGAR EL SPRINT ================================================
-      window.open('https://www.bancogalicia.com/banca/online/web/Personas/ProductosyServicios/compra-y-venta-moneda-extranjera/')
+      window.location.href='home.html';
     })
     break;
 

@@ -36,6 +36,7 @@
   --clr-tabla-titulo: #003d7a;
   --clr-tabla-titulo-text: #ffffff;
   --clr-tabla-fondo: #ffffff;
+  --clr-slider-no-funciona: rgb(255, 0, 0);
 
   /* Tipografia */
   --tipografia: "Maven Pro", sans-serif;
@@ -608,6 +609,12 @@ main section {
   text-align: center;
 }
 
+.no-funciona {
+  color: var(--clr-slider-no-funciona);
+}
+
+
+
 /*================= FOOTER =================*/
 
 .footerb {
@@ -660,14 +667,18 @@ body {
 
 .mini-card {
   width: 16rem;
-  height: 9rem;
+  height: 12rem;
   background: var(--clr-home2-carta);
   box-shadow: 0.5rem 0.8rem 2.8rem -0.5rem var(--clr-home2-carta-sombra);
   border-radius: 20px;
   margin: 1rem;
-  padding: 0 1.5rem 0 1.5rem;
+  padding: 1.5rem;
   border: solid var(--clr-home2-carta-border);
   border-width: 2px;
+}
+
+.values {
+  margin-bottom: 0.5rem;
 }
 
 .card-equisde {
@@ -759,11 +770,6 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-}
-
-.titulo-D {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-style: oblique;
 }
 
 .comprar-btn-container {

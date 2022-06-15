@@ -134,6 +134,7 @@ switch (htmlDetect.textContent) {
       form1.style.display = "block";
     });
 
+   
     //Register button
     submitReg.addEventListener("click", (e) => {
       e.preventDefault();

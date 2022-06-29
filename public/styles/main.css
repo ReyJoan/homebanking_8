@@ -594,7 +594,7 @@ main {
 
 /* #endregion */
 
-/* #region SALDO.HTML + GASTOS.HTML */
+/* #region SALDO.HTML + GASTOS.HTML + CHEQUES.HTML */
 .balance-display {
   margin-top: 2rem;
   text-align: center;
@@ -611,6 +611,56 @@ main {
   border-radius: 1rem;
   border-style: solid;
   text-align: center;
+}
+
+.tabla-gastos,
+.tabla-cheques {
+  padding: 0;
+  text-align: center;
+  height: auto;
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.tabla {
+  border-color: var(--clr-tabla-border);
+  background-color: var(--clr-tabla-fondo);
+  border-width: 0.2rem;
+  border-radius: 1rem;
+  border-style: solid;
+  overflow: hidden;
+  width: 90%;
+  min-height: 44vh;
+  max-width: 60rem;
+}
+
+.tabla-gastos .title,
+.tabla-cheques .title,
+.movements-display .title {
+  background-color: var(--clr-tabla-titulo);
+  padding: 0.5rem 0 0.5rem 0;
+}
+
+.title h4 {
+  color: var(--clr-tabla-titulo-text);
+}
+
+.columnas {
+  border-color: var(--clr-tabla-border);
+  border-style: solid;
+  border-width: 0.1rem;
+  text-align: center;
+  overflow: hidden;
+  width: 101%;
+  height: auto;
+  display: grid;
+  margin: 0 -0.5% 0 -0.5%;
+}
+.columnas p {
+  min-width: 20%;
 }
 
 /* #region SALDO.HTML */
@@ -684,51 +734,8 @@ main {
   margin-bottom: 1px;
 }
 
-.tablita-gastos {
-  padding: 0;
-  text-align: center;
-  height: auto;
-  display: flex;
-  margin: 0 auto;
-  width: 100%;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
-.tabla {
-  border-color: var(--clr-tabla-border);
-  background-color: var(--clr-tabla-fondo);
-  border-width: 0.2rem;
-  border-radius: 1rem;
-  border-style: solid;
-  overflow: hidden;
-  width: 90%;
-  min-height: 44vh;
-  max-width: 60rem;
-}
-
-.tablita-gastos .title,
-.movements-display .title {
-  background-color: var(--clr-tabla-titulo);
-  padding: 0.5rem 0 0.5rem 0;
-
-}
-
-.title h4 {
-  color: var(--clr-tabla-titulo-text);
-}
-
-.columnas {
-  border-color: var(--clr-tabla-border);
-  border-style: solid;
-  border-width: 0.1rem;
-  text-align: center;
-  overflow: hidden;
-  width: 101%;
-  height: auto;
-  display: grid;
+.tabla-gastos .columnas {
   grid-template-columns: 1fr 1fr;
-  margin: 0 -0.5% 0 -0.5%;
 }
 
 .columnas p {
@@ -760,6 +767,35 @@ main {
   max-width: 60rem;
   justify-content: center;
   text-align: center;
+}
+/* #endregion */
+
+/* #region CHEQUES.HTML */
+.tabla-cheques .tabla {
+  max-width:none;
+  width: 100%;
+  min-height: 75vh;
+}
+
+.tabla-cheques .columnas {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+@media screen and (max-width: 1200px) {
+  .tabla-cheques .columnas {
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 0.1rem;
+    background-color: var(--clr-tabla-fondo);
+  }
+  .tabla-cheques .columnas p {
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: -0.2rem;
+    background-color: var(--clr-tabla-fondo);
+  }
+  
+  .tabla-cheques .tabla {
+    background-color: var(--clr-tabla-border);
+  }
 }
 /* #endregion */
 /* #endregion */

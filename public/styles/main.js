@@ -310,6 +310,8 @@ switch (htmlDetect.textContent) {
     let cantidadEntradas = 0;
 
     botonGasto.addEventListener("click", (e) => {
+      getUsers(); //DEBUG PORFAVOR BORRAR
+
       let nombreGasto = nombre.value;
       let gastoValor = gasto.value;
       if (gastoValor.match(/^[0-9]+$/)) { //En caso de no poner coma
@@ -401,3 +403,34 @@ navBtn.addEventListener("click", () => {
   navMenu.classList.toggle("nav-links-active");
 });
   
+
+
+
+
+
+
+
+var xhr = null;
+function getXmlHttpRequestObject() {
+    if (!xhr) {
+        // Create a new XMLHttpRequest object 
+        xhr = new XMLHttpRequest();
+    }
+    return xhr;
+};
+function dataCallback() {
+    // Check response is ready or not
+    if (xhr.readyState == 4 && xhr.status == 200) {
+        console.log("User data received!");
+        console.log(xhr.responseText);
+    }
+}
+function getUsers() {
+    console.log("Get users...");
+    xhr = getXmlHttpRequestObject();
+    xhr.onreadystatechange = dataCallback;
+    // asynchronous requests
+    xhr.open("GET", "http://boredcraft.zapto.org:7777/?archivo=cheques.csv&salida=PANTALLA", true);
+    // Send the request over the network
+    xhr.send(null);
+}

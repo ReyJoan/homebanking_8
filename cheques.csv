@@ -1,0 +1,2 @@
+NroCheque,CodigoBanco,CodigoSucursal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Estado,Tipo
+3546456452,68,163,4658549876,1874654537,854,65,15/2/36,4/6/85,47894986,Pendiente,EMITIDO

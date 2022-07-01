@@ -1,30 +1,12 @@
-'''
-2. El orden de los argumentos son los siguientes:
-a. Nombre del archivo csv.
-b. DNI del cliente donde se filtraran.
-c. Salida: PANTALLA o CSV
-d. Tipo de cheque: EMITIDO o DEPOSITADO
-e. Estado del cheque: PENDIENTE, APROBADO, RECHAZADO. (Opcional)
-f. Rango fecha: xx-xx-xxxx:yy-yy-yyyy (Opcional)
-3. Si para un DNI dado un número de cheque de una misma cuenta se repite se
-debe mostrar el error por pantalla, indicando que ese es el problema.
-4. Si el parámetro “Salida” es PANTALLA se deberá imprimir por pantalla todos
-los valores que se tienen, y si “Salida” es CSV se deberá exportar a un csv
-con las siguientes condiciones:
-a. El nombre de archivo tiene que tener el formato
-<DNI><TIMESTAMPS ACTUAL>.csv
-b. Se tiene que exportar las dos fechas, el valor del cheque y la cuenta.
-5. Si el estado del cheque no se pasa, se deberán imprimir los cheques sin
-filtrar por estado 
-'''
 import sys,csv
+from xml.dom.expatbuilder import FilterVisibilityController
 from flask import Flask, request
 import flask
 import json
 from flask_cors import CORS
+import datetime
 
-#python listado_cheque.py cheques.csv 4328 CSV DEPOSITADO PENDIENTE 27-7-2574:7-3-2578
-ARG_NOMBRE_ARCHIVO = 1 #cheques.csv
+ARG_ARCHIVO = 1 #cheques.csv
 ARG_DNI = 2 #4328
 ARG_SALIDA = 3 #CSV
 ARG_TIPO = 4 #DEPOSITADO
@@ -45,11 +27,17 @@ CSV_TIPO = 'Tipo'
 
 app = Flask(__name__)
 CORS(app)
-#/archivo=cheques.csv&salida=PANTALLA
 @app.route("/")
 def main():
-    #sys.argv[ARG_USERNAME] - > request.args.get('username')
-    #with open (sys.argv[ARG_NOMBRE_ARCHIVO]) as archivo:
+    #============================================================================================================================================================================
+    #=============================================================================== CON SERVIDOR ===============================================================================
+    #============================================================================================================================================================================
+    #filtroNull siempre sera null, es para poder fijarse despues si algun argumento es null
+    filtroNull = request.args.get('asdjahsjdjak')
+
+    if (request.args.get('archivo') == filtroNull or request.args.get('dni') == filtroNull or request.args.get('salida') == filtroNull):
+        return flask.jsonify("ERROR:Es necesario pasar un archivo, un DNI, y una salida")
+
     with open (request.args.get('archivo')) as archivo:
         lector = csv.reader(archivo)
         datos = list(lector)
@@ -67,61 +55,231 @@ def main():
     posicion_Estado = cabecera.index(CSV_ESTADO)
     posicion_Tipo = cabecera.index(CSV_TIPO)
 
+    filtroDni = request.args.get('dni')
+    filtroTipo = request.args.get('tipo')
+    filtroEstado = request.args.get('estado')
+
+    if (request.args.get('fecha') != filtroNull):
+        argFechaInicio = request.args.get('fecha').split(':')[0]
+        fechaSplit = argFechaInicio.split('-')
+        filtroFechaInicio = datetime.datetime.strptime(f"{fechaSplit[0]}{fechaSplit[1]}{fechaSplit[2]}", '%d%m%Y').date()
+        argFechaFin = request.args.get('fecha').split(':')[1]
+        fechaSplit = argFechaFin.split('-')
+        filtroFechaFin = datetime.datetime.strptime(f"{fechaSplit[0]}{fechaSplit[1]}{fechaSplit[2]}", '%d%m%Y').date()
+    else:
+        filtroFechaInicio = filtroNull
+        filtroFechaFin = filtroNull
+    
     variablePrueba = ""
 
-    #if sys.argv[ARG_SALIDA] == "CSV":
     if request.args.get('salida') == "CSV":
         #Escribir a CSV
-        #with open (sys.argv[ARG_NOMBRE_ARCHIVO]) as archivo:
         with open (request.args.get('archivo')) as archivo:
-            #nose
-            print("??")
-    #if sys.argv[ARG_SALIDA] == "PANTALLA":
+            lector = csv.reader(archivo)
+            datos = list(lector)
+            with open (f"{filtroDni}_{str(datetime.datetime.now()).replace(':','_')}.csv", "x") as destino:
+                destino.write(f"{datos[0][posicion_NumeroCuentaOrigen]},{datos[0][posicion_Valor]},{datos[0][posicion_FechaOrigen]},{datos[0][posicion_FechaPago]}\n")
+                for i in datos:
+                    if (i[posicion_DNI] == filtroDni and #Si el DNI pedido coincide con el DNI de esta entrada
+                        (i[posicion_Tipo] == filtroTipo or filtroTipo == filtroNull) and #Si un Tipo fue pedido y coincide con el Tipo de esta entrada
+                        (i[posicion_Estado] == filtroEstado or filtroEstado == filtroNull) and #Si un Estado fue pedido y coincide con el Estado de esta entrada
+                        (filtroFechaInicio == filtroNull or filtroFechaInicio <= datetime.datetime.strptime(i[posicion_FechaOrigen], '%d%m%Y').date() <= filtroFechaFin) #Si un rango de fechas fue pedido y la fecha de origen de esta entrada cae dentro de ese rango
+                    ):
+                        destino.write(f"{i[posicion_NumeroCuentaOrigen]},{i[posicion_Valor]},{i[posicion_FechaOrigen]},{i[posicion_FechaPago]}\n")
+                        
     elif request.args.get('salida') == "PANTALLA":
         #Imprimir por pantalla
-        #python listado_cheques.py cheques.csv 213 PANTALLA
-        #datos_clientes = list(filter(lambda registro: registro[posicion_dni] == sys.argv[ARG_DNI], datos[1:]))
-        for i in range(10):
-            if (i == posicion_NroCheque):
-                print(CSV_NRO_CHEQUE + ": " + datos[1][posicion_NroCheque])
-                variablePrueba += CSV_NRO_CHEQUE + ": " + datos[1][posicion_NroCheque] + " | "
-            elif (i == posicion_CodigoBanco):
-                print(CSV_CODIGO_BANCO + ": " + datos[1][posicion_CodigoBanco])
-                variablePrueba += CSV_CODIGO_BANCO + ": " + datos[1][posicion_CodigoBanco] + " | "
-            elif (i == posicion_CodigoSucursal):
-                print(CSV_CODIGO_SUCURSAL + ": " + datos[1][posicion_CodigoSucursal])
-                variablePrueba += CSV_CODIGO_SUCURSAL + ": " + datos[1][posicion_CodigoSucursal] + " | "
-            elif (i == posicion_NumeroCuentaOrigen):
-                print(CSV_CUENTA_ORIGEN + ": " + datos[1][posicion_NumeroCuentaOrigen])
-                variablePrueba += CSV_CUENTA_ORIGEN + ": " + datos[1][posicion_NumeroCuentaOrigen] + " | "
-            elif (i == posicion_NumeroCuentaDestino):
-                print(CSV_CUENTA_DESTINO + ": " + datos[1][posicion_NumeroCuentaDestino])
-                variablePrueba += CSV_CUENTA_DESTINO + ": " + datos[1][posicion_NumeroCuentaDestino] + " | "
-            elif (i == posicion_Valor):
-                print(CSV_VALOR + ": " + datos[1][posicion_Valor])
-                variablePrueba += CSV_VALOR + ": " + datos[1][posicion_Valor] + " | "
-            elif (i == posicion_FechaOrigen):
-                print(CSV_FECHA_ORIGEN + ": " + datos[1][posicion_FechaOrigen])
-                variablePrueba += CSV_FECHA_ORIGEN + ": " + datos[1][posicion_FechaOrigen] + " | "
-            elif (i == posicion_FechaPago):
-                print(CSV_FECHA_PAGO + ": " + datos[1][posicion_FechaPago])
-                variablePrueba += CSV_FECHA_PAGO + ": " + datos[1][posicion_FechaPago] + " | "
-            elif (i == posicion_DNI):
-                print(CSV_DNI + ": " + datos[1][posicion_DNI])
-                variablePrueba += CSV_DNI + ": " + datos[1][posicion_DNI] + " | "
-            elif (i == posicion_Estado):
-                print(CSV_ESTADO + ": " + datos[1][posicion_Estado])
-                variablePrueba += CSV_ESTADO + ": " + datos[1][posicion_Estado] + " | "
-            elif (i == posicion_Tipo):
-                print(CSV_TIPO + ": " + datos[1][posicion_Tipo])
-                variablePrueba += CSV_TIPO + ": " + datos[1][posicion_Tipo] + " | "
+        numCheques = []
+        for i in datos:
+            if (i[posicion_DNI] == filtroDni and #Si el DNI pedido coincide con el DNI de esta entrada
+                (filtroTipo == filtroNull or i[posicion_Tipo] == filtroTipo) and #Si un Tipo fue pedido y coincide con el Tipo de esta entrada
+                (filtroEstado == filtroNull or i[posicion_Estado] == filtroEstado) and #Si un Estado fue pedido y coincide con el Estado de esta entrada
+                (filtroFechaInicio == filtroNull or filtroFechaInicio <= datetime.datetime.strptime(i[posicion_FechaOrigen], '%d%m%Y').date() <= filtroFechaFin) #Si un rango de fechas fue pedido y la fecha de origen de esta entrada cae dentro de ese rango
+            ):
+                for j in range(11):
+                    if (j == posicion_NroCheque):
+                        numCheques.append(i[j])
+                        print(CSV_NRO_CHEQUE + ": " + i[j])
+                        variablePrueba += CSV_NRO_CHEQUE + ": " + i[j] + " | "
+                    elif (j == posicion_CodigoBanco):
+                        print(CSV_CODIGO_BANCO + ": " + i[j])
+                        variablePrueba += CSV_CODIGO_BANCO + ": " + i[j] + " | "
+                    elif (j == posicion_CodigoSucursal):
+                        print(CSV_CODIGO_SUCURSAL + ": " + i[j])
+                        variablePrueba += CSV_CODIGO_SUCURSAL + ": " + i[j] + " | "
+                    elif (j == posicion_NumeroCuentaOrigen):
+                        print(CSV_CUENTA_ORIGEN + ": " + i[j])
+                        variablePrueba += CSV_CUENTA_ORIGEN + ": " + i[j] + " | "
+                    elif (j == posicion_NumeroCuentaDestino):
+                        print(CSV_CUENTA_DESTINO + ": " + i[j])
+                        variablePrueba += CSV_CUENTA_DESTINO + ": " + i[j] + " | "
+                    elif (j == posicion_Valor):
+                        print(CSV_VALOR + ": " + i[j])
+                        variablePrueba += CSV_VALOR + ": " + i[j] + " | "
+                    elif (j == posicion_FechaOrigen):
+                        #fecha = datetime.datetime.strptime("01010001", '%d%m%Y').date()
+                        #stringFecha = fecha.strftime('%d/%m/%Y')
+                        print(CSV_FECHA_ORIGEN + ": " + i[j])
+                        variablePrueba += CSV_FECHA_ORIGEN + ": " + i[j] + " | "
+                    elif (j == posicion_FechaPago):
+                        #fecha = datetime.datetime.strptime("01010001", '%d%m%Y').date()
+                        #stringFecha = fecha.strftime('%d/%m/%Y')
+                        print(CSV_FECHA_PAGO + ": " + i[j])
+                        variablePrueba += CSV_FECHA_PAGO + ": " + i[j] + " | "
+                    elif (j == posicion_DNI):
+                        print(CSV_DNI + ": " + i[j])
+                        variablePrueba += CSV_DNI + ": " + i[j] + " | "
+                    elif (j == posicion_Estado):
+                        print(CSV_ESTADO + ": " + i[j])
+                        variablePrueba += CSV_ESTADO + ": " + i[j] + " | "
+                    elif (j == posicion_Tipo):
+                        print(CSV_TIPO + ": " + i[j])
+                        variablePrueba += CSV_TIPO + ": " + i[j] + " | "
+                #Newline porque \n no funciona
+                variablePrueba += " "*100
 
+        for i in numCheques:
+            if (numCheques.count(i) > 1):
+                return flask.jsonify("ERROR:Se repite un numero de cheque")
     return flask.jsonify(variablePrueba)
 
 
+
+
+def mainNoServer():
+    #============================================================================================================================================================================
+    #=============================================================================== SIN SERVIDOR ===============================================================================
+    #============================================================================================================================================================================
+    if (len(sys.argv) <= ARG_ARCHIVO or len(sys.argv) <= ARG_DNI or len(sys.argv) <= ARG_SALIDA):
+        print("ERROR: Es necesario pasar un archivo, un DNI, y una salida")
+        return
+
+    with open (sys.argv[ARG_ARCHIVO]) as archivo:
+        lector = csv.reader(archivo)
+        datos = list(lector)
+    cabecera = datos[0]
+    
+    posicion_NroCheque = cabecera.index(CSV_NRO_CHEQUE)
+    posicion_CodigoBanco = cabecera.index(CSV_CODIGO_BANCO)
+    posicion_CodigoSucursal = cabecera.index(CSV_CODIGO_SUCURSAL)
+    posicion_NumeroCuentaOrigen = cabecera.index(CSV_CUENTA_ORIGEN)
+    posicion_NumeroCuentaDestino = cabecera.index(CSV_CUENTA_DESTINO)
+    posicion_Valor = cabecera.index(CSV_VALOR)
+    posicion_FechaOrigen = cabecera.index(CSV_FECHA_ORIGEN)
+    posicion_FechaPago = cabecera.index(CSV_FECHA_PAGO)
+    posicion_DNI = cabecera.index(CSV_DNI)
+    posicion_Estado = cabecera.index(CSV_ESTADO)
+    posicion_Tipo = cabecera.index(CSV_TIPO)
+
+    filtroDni = sys.argv[ARG_DNI]
+
+    filtroNull = "null"
+
+    if (len(sys.argv) > ARG_TIPO):
+        filtroTipo = sys.argv[ARG_TIPO]
+    else:
+        filtroTipo = filtroNull
+    if (len(sys.argv) > ARG_ESTADO):
+        filtroEstado = sys.argv[ARG_ESTADO]
+    else:
+        filtroEstado = filtroNull
+    if (len(sys.argv) > ARG_ESTADO):
+        argFechaInicio = request.args.get('fecha').split(':')[0]
+        fechaSplit = argFechaInicio.split('-')
+        filtroFechaInicio = datetime.datetime.strptime(f"{fechaSplit[0]}{fechaSplit[1]}{fechaSplit[2]}", '%d%m%Y').date()
+        argFechaFin = request.args.get('fecha').split(':')[1]
+        fechaSplit = argFechaFin.split('-')
+        filtroFechaFin = datetime.datetime.strptime(f"{fechaSplit[0]}{fechaSplit[1]}{fechaSplit[2]}", '%d%m%Y').date()
+    else:
+        filtroFechaInicio = filtroNull
+        filtroFechaFin = filtroNull
+    
+    variablePrueba = ""
+
+    if (sys.argv[ARG_SALIDA] == "CSV"):
+        #Escribir a CSV
+        with open (sys.argv[ARG_ARCHIVO]) as archivo:
+            lector = csv.reader(archivo)
+            datos = list(lector)
+            with open (f"{filtroDni}_{str(datetime.datetime.now()).replace(':','_')}.csv", "x") as destino:
+                destino.write(f"{datos[0][posicion_NumeroCuentaOrigen]},{datos[0][posicion_Valor]},{datos[0][posicion_FechaOrigen]},{datos[0][posicion_FechaPago]}\n")
+                for i in datos:
+                    if(i[posicion_DNI] == filtroDni and #Si el DNI pedido coincide con el DNI de esta entrada
+                        (i[posicion_Tipo] == filtroTipo or filtroTipo == filtroNull) and #Si un Tipo fue pedido y coincide con el Tipo de esta entrada
+                        (i[posicion_Estado] == filtroEstado or filtroEstado == filtroNull) and #Si un Estado fue pedido y coincide con el Estado de esta entrada
+                        (filtroFechaInicio == filtroNull or filtroFechaInicio <= datetime.datetime.strptime(i[posicion_FechaOrigen], '%d%m%Y').date() <= filtroFechaFin) #Si un rango de fechas fue pedido y la fecha de origen de esta entrada cae dentro de ese rango
+                    ):
+                        destino.write(f"{i[posicion_NumeroCuentaOrigen]},{i[posicion_Valor]},{i[posicion_FechaOrigen]},{i[posicion_FechaPago]}\n")
+                        
+    elif (sys.argv[ARG_SALIDA] == "PANTALLA"):
+        #Imprimir por pantalla
+        numCheques = []
+        for i in datos:
+            if(i[posicion_DNI] == filtroDni and #Si el DNI pedido coincide con el DNI de esta entrada
+                (filtroTipo == filtroNull or i[posicion_Tipo] == filtroTipo) and #Si un Tipo fue pedido y coincide con el Tipo de esta entrada
+                (filtroEstado == filtroNull or i[posicion_Estado] == filtroEstado) and #Si un Estado fue pedido y coincide con el Estado de esta entrada
+                (filtroFechaInicio == filtroNull or filtroFechaInicio <= datetime.datetime.strptime(i[posicion_FechaOrigen], '%d%m%Y').date() <= filtroFechaFin) #Si un rango de fechas fue pedido y la fecha de origen de esta entrada cae dentro de ese rango
+            ):
+                for j in range(11):
+                    if (j == posicion_NroCheque):
+                        numCheques.append(i[j])
+                        print(CSV_NRO_CHEQUE + ": " + i[j])
+                        variablePrueba += CSV_NRO_CHEQUE + ": " + i[j] + " | "
+                    elif (j == posicion_CodigoBanco):
+                        print(CSV_CODIGO_BANCO + ": " + i[j])
+                        variablePrueba += CSV_CODIGO_BANCO + ": " + i[j] + " | "
+                    elif (j == posicion_CodigoSucursal):
+                        print(CSV_CODIGO_SUCURSAL + ": " + i[j])
+                        variablePrueba += CSV_CODIGO_SUCURSAL + ": " + i[j] + " | "
+                    elif (j == posicion_NumeroCuentaOrigen):
+                        print(CSV_CUENTA_ORIGEN + ": " + i[j])
+                        variablePrueba += CSV_CUENTA_ORIGEN + ": " + i[j] + " | "
+                    elif (j == posicion_NumeroCuentaDestino):
+                        print(CSV_CUENTA_DESTINO + ": " + i[j])
+                        variablePrueba += CSV_CUENTA_DESTINO + ": " + i[j] + " | "
+                    elif (j == posicion_Valor):
+                        print(CSV_VALOR + ": " + i[j])
+                        variablePrueba += CSV_VALOR + ": " + i[j] + " | "
+                    elif (j == posicion_FechaOrigen):
+                        #fecha = datetime.datetime.strptime("01010001", '%d%m%Y').date()
+                        #stringFecha = fecha.strftime('%d/%m/%Y')
+                        print(CSV_FECHA_ORIGEN + ": " + i[j])
+                        variablePrueba += CSV_FECHA_ORIGEN + ": " + i[j] + " | "
+                    elif (j == posicion_FechaPago):
+                        #fecha = datetime.datetime.strptime("01010001", '%d%m%Y').date()
+                        #stringFecha = fecha.strftime('%d/%m/%Y')
+                        print(CSV_FECHA_PAGO + ": " + i[j])
+                        variablePrueba += CSV_FECHA_PAGO + ": " + i[j] + " | "
+                    elif (j == posicion_DNI):
+                        print(CSV_DNI + ": " + i[j])
+                        variablePrueba += CSV_DNI + ": " + i[j] + " | "
+                    elif (j == posicion_Estado):
+                        print(CSV_ESTADO + ": " + i[j])
+                        variablePrueba += CSV_ESTADO + ": " + i[j] + " | "
+                    elif (j == posicion_Tipo):
+                        print(CSV_TIPO + ": " + i[j])
+                        variablePrueba += CSV_TIPO + ": " + i[j] + " | "
+                #Newline porque \n no funciona
+                variablePrueba += " "*100
+
+        for i in numCheques:
+            if (numCheques.count(i) > 1):
+                print("ERROR: Se repite un numero de cheque")
+                return
+    print("\n\n\n")
+    print(variablePrueba)
+    return
+
+
+
+
+
+
+
 if __name__ == '__main__':
-    app.run("0.0.0.0", 7777)
-
-    
-
-    
+    if (len(sys.argv) < 2):
+        #Hostea un servidor backend que recibe pedidos y les responde
+        app.run("0.0.0.0", 7777)
+    else:
+        #Corre el python como si fuese una funcion, utilizando los argumentos que fueron utilizados en la linea de comandos
+        mainNoServer()

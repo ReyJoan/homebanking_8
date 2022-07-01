@@ -422,7 +422,10 @@ function dataCallback() {
     // Check response is ready or not
     if (xhr.readyState == 4 && xhr.status == 200) {
         console.log("User data received!");
-        console.log(xhr.responseText);
+        console.log(xhr.response);
+        if (xhr.response.split(':')[0] == "ERROR") {
+          alert(xhr.response.split(':')[1])
+        }
     }
 }
 function getUsers() {
@@ -430,7 +433,8 @@ function getUsers() {
     xhr = getXmlHttpRequestObject();
     xhr.onreadystatechange = dataCallback;
     // asynchronous requests
-    xhr.open("GET", "http://boredcraft.zapto.org:7777/?archivo=cheques.csv&salida=PANTALLA", true);
+    xhr.open("GET", "http://boredcraft.zapto.org:7777/?archivo=cheques.csv&salida=PANTALLA&dni=11580999", true);
+    xhr.responseType = 'json';
     // Send the request over the network
     xhr.send(null);
 }

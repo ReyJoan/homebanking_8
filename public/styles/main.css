@@ -659,6 +659,7 @@ main {
   display: grid;
   margin: 0 -0.5% 0 -0.5%;
 }
+
 .columnas p {
   min-width: 20%;
 }

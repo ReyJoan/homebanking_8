@@ -310,8 +310,6 @@ switch (htmlDetect.textContent) {
     let cantidadEntradas = 0;
 
     botonGasto.addEventListener("click", (e) => {
-      getUsers(); //DEBUG PORFAVOR BORRAR
-
       let nombreGasto = nombre.value;
       let gastoValor = gasto.value;
       if (gastoValor.match(/^[0-9]+$/)) { //En caso de no poner coma
@@ -391,6 +389,139 @@ switch (htmlDetect.textContent) {
     }
 
     break;
+
+  //------------------------------------------------------------------------
+  case "cheques":
+    var xhr = null;
+    let botonCheques = document.querySelector("#boton-cheques");
+    let tablaCheques = document.querySelector("#tabla-cheques");
+    let filtroArchivo = document.querySelector("#archivo-cheques");
+    let filtroSalida = document.querySelector("#salida-cheques");
+    let filtroDNI = document.querySelector("#dni-cheques");
+    let filtroTipo = document.querySelector("#tipo-cheques");
+    let filtroEstado = document.querySelector("#estado-cheques");
+    let filtroFecha = document.querySelector("#fecha-cheques");
+
+
+    botonCheques.addEventListener("click", (e) => {
+      pedirInformacion(filtroArchivo.value, filtroSalida.value, filtroDNI.value, filtroTipo.value, filtroEstado.value, filtroFecha.value)
+    });
+
+    function pedirInformacion(baseDatos, salida, dni, tipo, estado, fecha) {
+      let pedido = "";
+      if (baseDatos != "" && salida != "" && dni != "") {
+        pedido = `http://boredcraft.zapto.org:7777/?archivo=${baseDatos}&salida=${salida}&dni=${dni}`;
+      }
+      else {
+        alert("Es necesario pasar un archivo, un DNI, y una salida");
+        return;
+      }
+      if (tipo != "") {
+        pedido += `&tipo=${tipo}`;
+      }
+      if (estado != "") {
+        pedido += `&estado=${estado}`;
+      }
+      if (fecha != "") {
+        pedido += `&fecha=${fecha}`;
+      }
+      
+      xhr = getXmlHttpRequestObject();
+      xhr.onreadystatechange = dataCallback;
+
+      xhr.open("GET", pedido, true);
+      xhr.responseType = 'json';
+      // Send the request over the network
+      xhr.send(null);
+    }
+
+    function getXmlHttpRequestObject() {
+      if (!xhr) {
+        // Create a new XMLHttpRequest object 
+        xhr = new XMLHttpRequest();
+      }
+      return xhr;
+    };
+
+    function dataCallback() {
+      // Check response is ready or not
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        console.log("Data received");
+        if (xhr.response.split(':')[0] == "ERROR") {
+          alert(xhr.response.split(':')[1]);
+        }
+        else {
+          // Recibio los datos pedidos
+          let entradasHTML = "";
+          let entradas = xhr.response.split("|##");
+          for (let e of entradas) {
+            // Por cada entrada
+            let entrada = e.replace('|#','').replace('#','').split('|');
+            let datosHTML = []
+            for (let d of entrada) {
+              let dato = d.split(':');
+              switch (dato[0]) {
+                case "NroCheque":
+                  datosHTML[0] = dato[1];
+                  break;
+                case "CodigoBanco":
+                  datosHTML[1] = dato[1];
+                  break;
+                case "CodigoSucursal":
+                  datosHTML[2] = dato[1];
+                  break;
+                case "NumeroCuentaOrigen":
+                  datosHTML[3] = dato[1];
+                  break;
+                case "NumeroCuentaDestino":
+                  datosHTML[4] = dato[1];
+                  break;
+                case "Valor":
+                  datosHTML[5] = dato[1];
+                  break;
+                case "FechaOrigen":
+                  datosHTML[6] = dato[1];
+                  break;
+                case "FechaPago":
+                  datosHTML[7] = dato[1];
+                  break;
+                case "DNI":
+                  datosHTML[8] = dato[1];
+                  break;
+                case "Tipo":
+                  datosHTML[9] = dato[1];
+                  break;
+                case "Estado":
+                  datosHTML[10] = dato[1];
+                  break;
+                default:
+                  alert("Informacion desconocida recibida (" + dato[0] + ")");
+                  return;
+              }
+            }
+
+            entradasHTML += `
+            <div class="columnas">
+              <p>${datosHTML[0]}</p>
+              <p>${datosHTML[1]}</p>
+              <p>${datosHTML[2]}</p>
+              <p>${datosHTML[3]}</p>
+              <p>${datosHTML[4]}</p>
+              <p>$${datosHTML[5]}</p>
+              <p>${datosHTML[6]}</p>
+              <p>${datosHTML[7]}</p>
+              <p>${datosHTML[8]}</p>
+              <p>${datosHTML[9]}</p>
+              <p>${datosHTML[10]}</p>
+            </div>
+            `
+          }
+
+          tablaCheques.innerHTML = entradasHTML;
+        }
+      }
+    }
+    break;
 }
 
 // Responsive MENU //
@@ -402,39 +533,3 @@ navBtn.addEventListener("click", () => {
   navBtn.classList.toggle("close-menu");
   navMenu.classList.toggle("nav-links-active");
 });
-  
-
-
-
-
-
-
-
-var xhr = null;
-function getXmlHttpRequestObject() {
-    if (!xhr) {
-        // Create a new XMLHttpRequest object 
-        xhr = new XMLHttpRequest();
-    }
-    return xhr;
-};
-function dataCallback() {
-    // Check response is ready or not
-    if (xhr.readyState == 4 && xhr.status == 200) {
-        console.log("User data received!");
-        console.log(xhr.response);
-        if (xhr.response.split(':')[0] == "ERROR") {
-          alert(xhr.response.split(':')[1])
-        }
-    }
-}
-function getUsers() {
-    console.log("Get users...");
-    xhr = getXmlHttpRequestObject();
-    xhr.onreadystatechange = dataCallback;
-    // asynchronous requests
-    xhr.open("GET", "http://boredcraft.zapto.org:7777/?archivo=cheques.csv&salida=PANTALLA&dni=11580999", true);
-    xhr.responseType = 'json';
-    // Send the request over the network
-    xhr.send(null);
-}

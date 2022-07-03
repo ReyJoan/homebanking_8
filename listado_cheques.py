@@ -74,6 +74,7 @@ def main():
 
     if request.args.get('salida') == "CSV":
         #Escribir a CSV
+        variablePrueba += "Datos escritos a CSV"
         with open (request.args.get('archivo')) as archivo:
             lector = csv.reader(archivo)
             datos = list(lector)
@@ -96,51 +97,45 @@ def main():
                 (filtroEstado == filtroNull or i[posicion_Estado] == filtroEstado) and #Si un Estado fue pedido y coincide con el Estado de esta entrada
                 (filtroFechaInicio == filtroNull or filtroFechaInicio <= datetime.datetime.strptime(i[posicion_FechaOrigen], '%d%m%Y').date() <= filtroFechaFin) #Si un rango de fechas fue pedido y la fecha de origen de esta entrada cae dentro de ese rango
             ):
+                variablePrueba += "#"
                 for j in range(11):
                     if (j == posicion_NroCheque):
                         numCheques.append(i[j])
-                        print(CSV_NRO_CHEQUE + ": " + i[j])
-                        variablePrueba += CSV_NRO_CHEQUE + ": " + i[j] + " | "
+                        variablePrueba += CSV_NRO_CHEQUE + ":" + i[j] + "|"
                     elif (j == posicion_CodigoBanco):
-                        print(CSV_CODIGO_BANCO + ": " + i[j])
-                        variablePrueba += CSV_CODIGO_BANCO + ": " + i[j] + " | "
+                        variablePrueba += CSV_CODIGO_BANCO + ":" + i[j] + "|"
                     elif (j == posicion_CodigoSucursal):
-                        print(CSV_CODIGO_SUCURSAL + ": " + i[j])
-                        variablePrueba += CSV_CODIGO_SUCURSAL + ": " + i[j] + " | "
+                        variablePrueba += CSV_CODIGO_SUCURSAL + ":" + i[j] + "|"
                     elif (j == posicion_NumeroCuentaOrigen):
-                        print(CSV_CUENTA_ORIGEN + ": " + i[j])
-                        variablePrueba += CSV_CUENTA_ORIGEN + ": " + i[j] + " | "
+                        variablePrueba += CSV_CUENTA_ORIGEN + ":" + i[j] + "|"
                     elif (j == posicion_NumeroCuentaDestino):
-                        print(CSV_CUENTA_DESTINO + ": " + i[j])
-                        variablePrueba += CSV_CUENTA_DESTINO + ": " + i[j] + " | "
+                        variablePrueba += CSV_CUENTA_DESTINO + ":" + i[j] + "|"
                     elif (j == posicion_Valor):
-                        print(CSV_VALOR + ": " + i[j])
-                        variablePrueba += CSV_VALOR + ": " + i[j] + " | "
+                        variablePrueba += CSV_VALOR + ":" + i[j] + "|"
                     elif (j == posicion_FechaOrigen):
                         #fecha = datetime.datetime.strptime("01010001", '%d%m%Y').date()
                         #stringFecha = fecha.strftime('%d/%m/%Y')
-                        print(CSV_FECHA_ORIGEN + ": " + i[j])
-                        variablePrueba += CSV_FECHA_ORIGEN + ": " + i[j] + " | "
+                        variablePrueba += CSV_FECHA_ORIGEN + ":" + i[j] + "|"
                     elif (j == posicion_FechaPago):
                         #fecha = datetime.datetime.strptime("01010001", '%d%m%Y').date()
                         #stringFecha = fecha.strftime('%d/%m/%Y')
-                        print(CSV_FECHA_PAGO + ": " + i[j])
-                        variablePrueba += CSV_FECHA_PAGO + ": " + i[j] + " | "
+                        variablePrueba += CSV_FECHA_PAGO + ":" + i[j] + "|"
                     elif (j == posicion_DNI):
-                        print(CSV_DNI + ": " + i[j])
-                        variablePrueba += CSV_DNI + ": " + i[j] + " | "
+                        variablePrueba += CSV_DNI + ":" + i[j] + "|"
                     elif (j == posicion_Estado):
-                        print(CSV_ESTADO + ": " + i[j])
-                        variablePrueba += CSV_ESTADO + ": " + i[j] + " | "
+                        variablePrueba += CSV_ESTADO + ":" + i[j] + "|"
                     elif (j == posicion_Tipo):
-                        print(CSV_TIPO + ": " + i[j])
-                        variablePrueba += CSV_TIPO + ": " + i[j] + " | "
-                #Newline porque \n no funciona
-                variablePrueba += " "*100
+                        variablePrueba += CSV_TIPO + ":" + i[j] + "|"
+                variablePrueba += "#"
 
         for i in numCheques:
             if (numCheques.count(i) > 1):
                 return flask.jsonify("ERROR:Se repite un numero de cheque")
+    if (variablePrueba == ""):
+        return flask.jsonify("ERROR:No se pudieron encontrar datos coincidentes")
+    elif (variablePrueba == "Datos escritos a CSV"):
+        #No es un error, pero mandarlo como error hace que la pagina lo muestre como una alerta
+        variablePrueba = "ERROR:Datos escritos a CSV"
     return flask.jsonify(variablePrueba)
 
 
@@ -198,6 +193,7 @@ def mainNoServer():
 
     if (sys.argv[ARG_SALIDA] == "CSV"):
         #Escribir a CSV
+        variablePrueba += "Datos escritos a CSV"
         with open (sys.argv[ARG_ARCHIVO]) as archivo:
             lector = csv.reader(archivo)
             datos = list(lector)
@@ -223,50 +219,42 @@ def mainNoServer():
                 for j in range(11):
                     if (j == posicion_NroCheque):
                         numCheques.append(i[j])
-                        print(CSV_NRO_CHEQUE + ": " + i[j])
                         variablePrueba += CSV_NRO_CHEQUE + ": " + i[j] + " | "
                     elif (j == posicion_CodigoBanco):
-                        print(CSV_CODIGO_BANCO + ": " + i[j])
                         variablePrueba += CSV_CODIGO_BANCO + ": " + i[j] + " | "
                     elif (j == posicion_CodigoSucursal):
-                        print(CSV_CODIGO_SUCURSAL + ": " + i[j])
                         variablePrueba += CSV_CODIGO_SUCURSAL + ": " + i[j] + " | "
                     elif (j == posicion_NumeroCuentaOrigen):
-                        print(CSV_CUENTA_ORIGEN + ": " + i[j])
                         variablePrueba += CSV_CUENTA_ORIGEN + ": " + i[j] + " | "
                     elif (j == posicion_NumeroCuentaDestino):
-                        print(CSV_CUENTA_DESTINO + ": " + i[j])
                         variablePrueba += CSV_CUENTA_DESTINO + ": " + i[j] + " | "
                     elif (j == posicion_Valor):
-                        print(CSV_VALOR + ": " + i[j])
                         variablePrueba += CSV_VALOR + ": " + i[j] + " | "
                     elif (j == posicion_FechaOrigen):
                         #fecha = datetime.datetime.strptime("01010001", '%d%m%Y').date()
                         #stringFecha = fecha.strftime('%d/%m/%Y')
-                        print(CSV_FECHA_ORIGEN + ": " + i[j])
                         variablePrueba += CSV_FECHA_ORIGEN + ": " + i[j] + " | "
                     elif (j == posicion_FechaPago):
                         #fecha = datetime.datetime.strptime("01010001", '%d%m%Y').date()
                         #stringFecha = fecha.strftime('%d/%m/%Y')
-                        print(CSV_FECHA_PAGO + ": " + i[j])
                         variablePrueba += CSV_FECHA_PAGO + ": " + i[j] + " | "
                     elif (j == posicion_DNI):
-                        print(CSV_DNI + ": " + i[j])
                         variablePrueba += CSV_DNI + ": " + i[j] + " | "
                     elif (j == posicion_Estado):
-                        print(CSV_ESTADO + ": " + i[j])
                         variablePrueba += CSV_ESTADO + ": " + i[j] + " | "
                     elif (j == posicion_Tipo):
-                        print(CSV_TIPO + ": " + i[j])
                         variablePrueba += CSV_TIPO + ": " + i[j] + " | "
                 #Newline porque \n no funciona
-                variablePrueba += " "*100
+                variablePrueba += "\n"
 
         for i in numCheques:
             if (numCheques.count(i) > 1):
                 print("ERROR: Se repite un numero de cheque")
                 return
-    print("\n\n\n")
+    
+    if (variablePrueba == ""):
+        print("ERROR: No se pudieron encontrar datos coincidentes")
+        return
     print(variablePrueba)
     return
 

@@ -664,6 +664,12 @@ main {
   min-width: 20%;
 }
 
+.input {
+  border-style: groove;
+  border-radius: 10px;
+  padding-left: 0.25rem;
+}
+
 /* #region SALDO.HTML */
 .movements-display {
   display: grid;
@@ -713,12 +719,6 @@ main {
   align-items: center;
   justify-content: center;
   gap: 2rem;
-}
-
-.inputs #nombre, #gasto{
-  border-style: groove;
-  border-radius: 10px;
-  padding-left: 0.25rem;
 }
 
 .principal, .output-gastos {
@@ -775,11 +775,11 @@ main {
 .tabla-cheques .tabla {
   max-width:none;
   width: 100%;
-  min-height: 75vh;
+  min-height: 68vh;
 }
 
 .tabla-cheques .columnas {
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 @media screen and (max-width: 1200px) {

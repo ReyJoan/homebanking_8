@@ -1,3 +1,5 @@
+#NADA DE ESTO ES UTILIZADO
+#ESTA EN EL DIAGRAMA QUE NOS DIERON, PERO NO PARECE ENCAJAR DE NINGUNA FORMA
 class Cuenta:
     def __init__(self, limite_extracion_diario, limite_transferencia_recibida, monto, costo_transferencia, saldo_descubierto_disponible):
         self.limite_extracion_diario = limite_extracion_diario

@@ -86,11 +86,16 @@ def get_reject_reason(archivo_cliente, transacciones):
         cliente = json.load(info)
         
     for tr in transacciones:
+
         if tr['estado'] == 'ACEPTADA':
             tipo = '-'
+
+
         elif tr['tipo'] == 'RETIRO_EFECTIVO_CAJERO_AUTOMATICO':
             if tr['monto'] > tr['cupoDiarioRestante'] or tr['monto'] > tr['saldoEnCuenta']:
                 tipo = 'RETIRO_EFECTIVO_CAJERO_AUTOMATICO: El monto excedía su Cupo Diario restante o su saldo en cuenta restante'
+
+
         elif tr['tipo'] == 'ALTA_TARJETA_CREDITO':
             if cliente['tipo'] == 'BLACK':
                 if tr['totalTarjetasDeCreditoActualmente'] == 5:
@@ -100,6 +105,8 @@ def get_reject_reason(archivo_cliente, transacciones):
                     tipo = 'ALTA_TARJETA_CREDITO: Ya alcanzó el límite de Tarjetas de Crédito posible'
             elif cliente['tipo'] == 'CLASSIC':
                 tipo = 'ALTA_TARJETA_CREDITO: No es posible solicitar tarjetas de crédito'
+
+
         elif tr['tipo'] == 'ALTA_CHEQUERA':
              if cliente['tipo'] == 'BLACK':
                 if tr['totalChequerasActualmente'] == 2:
@@ -109,21 +116,29 @@ def get_reject_reason(archivo_cliente, transacciones):
                     tipo = 'ALTA_CHEQUERA: Ya alcanzó el límite de Chequeras posibles'
              elif cliente['tipo'] == 'CLASSIC':
                tipo = 'ALTA_CHEQUERA: No es posible solicitar Chequeras'
-        elif tr['tipo'] == 'COMPRAR_DOLAR':
+
+
+        elif tr['tipo'] == 'COMPRA_DOLAR':
             if cliente['tipo'] == 'CLASSIC':
-                tipo = 'COMPRAR_DOLAR: La compra de dólares está restringida por el tipo de Cliente'
+                tipo = 'COMPRA_DOLAR: La compra de dólares está restringida por el tipo de Cliente'
             elif cliente['tipo'] == 'GOLD':
                 if tr['monto'] > tr['cupoDiarioRestante'] or tr['monto'] > tr['saldoEnCuenta']:
-                    tipo = 'COMPRAR_DOLAR: El monto excedía su Cupo Diario restante o su Saldo En Cuenta restante'
+                    tipo = 'COMPRA_DOLAR: El monto excedía su Cupo Diario restante o su Saldo En Cuenta restante'
             elif cliente['tipo'] == 'BLACK':
                 if tr['monto'] > tr['cupoDiarioRestante'] or tr['monto'] > tr['saldoEnCuenta']:
-                    tipo = 'COMPRAR_DOLAR: El monto excedía su Cupo Diario restante o su Saldo En Cuenta restante'
+                    tipo = 'COMPRA_DOLAR: El monto excedía su Cupo Diario restante o su Saldo En Cuenta restante'
+        
+        
         elif tr['tipo'] == 'TRANSFERENCIA_ENVIADA':
             if tr['monto'] > tr['cupoDiarioRestante'] or tr['monto'] > tr['saldoEnCuenta']:
                     tipo = 'TRANSFERENCIA_ENVIADA: El monto excedía su Cupo Diario restante o su Saldo En Cuenta restante'
+       
+       
         elif tr['tipo'] == 'TRANSFERENCIA_RECIBIDA':
             if tr['monto'] > tr['cupoDiarioRestante'] or tr['monto'] > tr['saldoEnCuenta']:
                     tipo = 'TRANSFERENCIA_RECIBIDA: El monto excedía su Cupo Diario restante o su Saldo En Cuenta restante'
+       
+       
         tr['motivo'] = tipo
     return transacciones
 
@@ -146,7 +161,7 @@ def set_reason(transacciones):
             razon = rz.RazonAltaTarjetaCredito(tr['motivo'])
         elif tr['tipo'] == 'ALTA_CHEQUERA':
             razon = rz.RazonAltaChequera(tr['motivo'])
-        elif tr['tipo'] == 'COMPRAR_DOLAR':
+        elif tr['tipo'] == 'COMPRA_DOLAR':
             razon = rz.RazonCompraDolar(tr['motivo'])
         elif tr['tipo'] == 'TRANSFERENCIA_ENVIADA':
             razon = rz.RazonTransferenciaEnviada(tr['motivo'])

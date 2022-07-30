@@ -1,0 +1,279 @@
+/* Primer problematica */
+/* 
+Eran todas modificaciones a la base de datos, 
+fuimos haciendolas como podiamos,
+reutilizando codigo y dejando cosas que no funcionaron.
+Despues vimos que en las demas hay que guardar el codigo,
+pero ya no nos quedaba nada util para guardar aca
+*/
+
+/* Segunda problematica */
+
+CREATE VIEW vista1
+AS
+SELECT cliente.customer_id, cliente.branch_id, cliente.propietario_id, cliente.tipo_id, cliente.branch_id, cliente.customer_name, cliente.customer_surname, cliente.customer_DNI, CAST((julianday('now') - julianday(cliente.dob)) / 365.25 AS int) AS customer_age
+FROM cliente
+
+SELECT *
+FROM vista1
+WHERE edad > 40
+ORDER BY customer_DNI ASC
+
+SELECT *
+FROM vista1
+WHERE customer_name = "Anne" OR customer_name = "Tyler"
+ORDER BY edad ASC
+
+INSERT INTO cliente (customer_name, customer_surname, customer_DNI, branch_id, dob, tipo_id, propietario_id)
+VALUES ('Lois', 'Stout', '466630534', 80, '1984-07-07', abs(random() % 3) + 1, abs(random() % 500) + 1), 
+('Hall', 'Mcconnel', '52055464', 45, '1968-04-30', abs(random() % 3) + 1, abs(random() % 500) + 1), 
+('Hilel', 'Mclean', '43625213', 77, '1993-*03-28', abs(random() % 3) + 1, abs(random() % 500) + 1), 
+('Jin', 'Cooley', '21207908', 96, '1959-08-24', abs(random() % 3) + 1, abs(random() % 500) + 1), 
+('Gabriel', 'Harmon', '57063950', 27, '1976-04-01', abs(random() % 3) + 1, abs(random() % 500) + 1)
+
+UPDATE cliente
+SET branch_id = 10
+WHERE cliente.customer_id IN (
+								SELECT cliente.customer_id
+								FROM cliente
+								ORDER BY cliente.customer_id DESC
+								LIMIT 5
+								)
+								
+DELETE FROM cliente 
+WHERE customer_name = 'Noel' and customer_surname = 'David'
+
+SELECT loan_type
+FROM (
+	SELECT loan_type, SUM(loan_total)
+	FROM prestamo
+	GROUP BY loan_type
+	)
+LIMIT 1
+
+/* Tercera problematica */
+
+SELECT *
+FROM cuenta
+WHERE balance < 0
+
+SELECT cliente.customer_name, cliente.customer_surname, CAST((julianday('now') - julianday(cliente.dob)) / 365.25 AS int) AS customer_age
+FROM cliente
+WHERE customer_surname LIKE '%Z%'
+
+SELECT cliente.customer_name, cliente.customer_surname, CAST((julianday('now') - julianday(cliente.dob)) / 365.25 AS int) AS customer_age, sucursal.branch_name
+FROM cliente
+INNER JOIN sucursal ON cliente.branch_id = sucursal.branch_id
+WHERE customer_name = 'Brendan'
+ORDER BY sucursal.branch_name
+
+SELECT *
+FROM prestamo
+WHERE loan_total > 8000000
+UNION
+SELECT *
+FROM prestamo
+WHERE loan_type = 'PRENDARIO'
+
+SELECT *
+FROM prestamo
+WHERE loan_total > (
+					SELECT AVG(loan_total)
+					FROM prestamo
+					)
+					
+SELECT COUNT(customer_id)
+FROM cliente
+WHERE CAST((julianday('now') - julianday(dob)) / 365.25 AS int) < 50
+
+SELECT *
+FROM cuenta
+WHERE balance > 800000
+LIMIT 5
+
+SELECT *
+FROM prestamo
+WHERE loan_id IN (
+				SELECT loan_id
+				FROM (
+					SELECT loan_id, strftime('%m', loan_date) AS Month
+					FROM prestamo
+					WHERE Month = '04' OR Month = '06' OR Month = '08'
+					)
+				)
+ORDER BY loan_total
+
+SELECT loan_type, SUM(loan_total) AS loan_total_accu
+FROM prestamo
+GROUP BY prestamo.loan_type
+
+/* Cuarta problematica */
+
+SELECT sucursal.branch_name, COUNT(cliente.customer_id) AS cantidad_clientes
+FROM sucursal
+INNER JOIN cliente ON cliente.branch_id = sucursal.branch_id
+GROUP BY cliente.branch_id
+ORDER BY cantidad_clientes DESC
+
+SELECT (cantidad_clientes * 1.0) / (cantidad_empleados * 1.0) as cantidad_empleados_por_cliente_por_sucursal, A.branch_id
+FROM (
+	SELECT COUNT(cliente.customer_id) AS cantidad_clientes, sucursal.branch_id
+	FROM sucursal
+	LEFT JOIN cliente ON cliente.branch_id = sucursal.branch_id
+	GROUP BY cliente.branch_id
+	) AS A, (
+			SELECT COUNT(empleado.employee_id) AS cantidad_empleados, sucursal.branch_id
+			FROM sucursal
+			LEFT JOIN empleado ON empleado.branch_id = sucursal.branch_id
+			GROUP BY empleado.branch_id
+			) AS B
+WHERE A.branch_id = B.branch_id
+
+
+
+SELECT COUNT(cliente.customer_id) AS cantidad_clientes, sucursal.branch_id
+FROM sucursal,
+		(
+		
+		)
+LEFT JOIN cliente ON cliente.branch_id = sucursal.branch_id
+GROUP BY cliente.branch_id
+
+SELECT SUM(cantidad_tarjetas) AS tarjetas_de_credito, sucursal.branch_name
+FROM (
+	SELECT COUNT(tarjeta.customer_id) AS cantidad_tarjetas, tarjeta.customer_id
+	FROM tarjeta
+	WHERE tarjeta.tipo_id IN (
+							SELECT tipo_tarjeta.tipo_id
+							FROM tipo_tarjeta
+							WHERE tipo_tarjeta.tipo_name = 'CREDITO'
+							)
+	GROUP BY customer_id
+	) AS tarjetas_por_persona
+LEFT JOIN cliente ON cliente.customer_id = tarjetas_por_persona.customer_id
+LEFT JOIN sucursal ON sucursal.branch_id = cliente.branch_id
+GROUP BY cliente.branch_id
+
+SELECT (SUM(cantidad_tarjetas_credito) * 1.0) / (SUM(cantidad_tarjetas_total) * 1.0) AS promedio_de_tarjetas_que_son_de_credito, sucursal.branch_name
+FROM(
+	SELECT cantidad_tarjetas_credito, cantidad_tarjetas_total, A.customer_id
+	FROM (	
+		SELECT COUNT(tarjeta.customer_id) AS cantidad_tarjetas_credito, tarjeta.customer_id
+		FROM tarjeta
+		WHERE tarjeta.tipo_id IN (
+								SELECT tipo_tarjeta.tipo_id
+								FROM tipo_tarjeta
+								WHERE tipo_tarjeta.tipo_name = 'CREDITO'
+								)
+		GROUP BY customer_id
+		) AS A
+	LEFT JOIN (
+			SELECT COUNT(tarjeta.customer_id) AS cantidad_tarjetas_total, tarjeta.customer_id
+			FROM tarjeta
+			GROUP BY customer_id
+			) AS B ON B.customer_id = A.customer_id
+	) AS tarjetas_por_persona
+LEFT JOIN cliente ON cliente.customer_id = tarjetas_por_persona.customer_id
+LEFT JOIN sucursal ON sucursal.branch_id = cliente.branch_id
+GROUP BY cliente.branch_id
+
+CREATE TABLE auditoria_cuenta (
+							movimiento_id INTEGER PRIMARY KEY,
+							old_id INTEGER,
+							new_id INTEGER,
+							old_balance INTEGER,
+							new_balance INTEGER,
+							old_iban TEXT,
+							new_iban TEXT,
+							old_type INTEGER,
+							new_type INTEGER,
+							user_action TEXT,
+							created_at DATE,
+							FOREIGN KEY (old_type)
+							REFERENCES tipo_cuenta(tipo_id),
+							FOREIGN KEY (new_type)
+							REFERENCES tipo_cuenta(tipo_id)
+							)
+
+CREATE TRIGGER actualizacion_de_balance
+AFTER UPDATE OF balance
+ON cuenta
+BEGIN
+	INSERT INTO auditoria_cuenta(old_id, new_id, old_balance, new_balance, old_iban, new_iban, old_type, new_type, user_action, created_at)
+	VALUES (
+		OLD.customer_id, NEW.customer_id, 
+		OLD.balance, NEW.balance, 
+		OLD.iban, NEW.iban, 
+		OLD.tipo_id, NEW.tipo_id,
+		'Updated balance',
+		DATE('now')
+		);
+END
+
+CREATE TRIGGER insertacion_de_cuenta
+AFTER INSERT
+ON cuenta
+BEGIN
+	INSERT INTO auditoria_cuenta(old_id, new_id, old_balance, new_balance, old_iban, new_iban, old_type, new_type, user_action, created_at)
+	VALUES (
+		NULL, NEW.customer_id, 
+		NULL, NEW.balance, 
+		NULL, NEW.iban, 
+		NULL, NEW.tipo_id,
+		'Inserted cuenta',
+		DATE('now')
+		);
+END
+	
+UPDATE cuenta
+SET balance = balance - 10000
+WHERE account_id BETWEEN 10 AND 14
+
+CREATE INDEX clientes_por_dni
+ON cliente(customer_DNI)
+
+CREATE TABLE tipo_operaciones (
+							tipo_id INTEGER PRIMARY KEY,
+							tipo_name TEXT
+							)
+
+CREATE TABLE movimientos (
+						movimiento_id INTEGER PRIMARY KEY,
+						account_id INTEGER,
+						monto INTEGER,
+						tipo_id INTEGER,
+						hora DATETIME,
+						FOREIGN KEY (account_id)
+						REFERENCES cuenta(account_id),
+						FOREIGN KEY (tipo_id)
+						REFERENCES tipo_operaciones(tipo_id)
+						)
+					
+INSERT INTO tipo_operaciones (tipo_name)
+VALUES ('TRANSFERENCIA - ENVIO'), ('TRANSFERENCIA - RECEPCION')
+	
+BEGIN TRANSACTION;
+
+	UPDATE cuenta
+	SET balance = balance - 100000
+	WHERE account_id = 200;
+
+	UPDATE cuenta
+	SET balance = balance + 100000
+	WHERE account_id = 400;
+
+	INSERT INTO movimientos (account_id, monto, tipo_id, hora)
+	VALUES (200, 100000, (
+						SELECT tipo_id
+						FROM tipo_operaciones
+						WHERE tipo_name = 'TRANSFERENCIA - ENVIO'
+						), TIME()),
+			(400, 100000, (
+						SELECT tipo_id
+						FROM tipo_operaciones
+						WHERE tipo_name = 'TRANSFERENCIA - RECEPCION'
+						), TIME());
+
+
+ROLLBACK;
+COMMIT;

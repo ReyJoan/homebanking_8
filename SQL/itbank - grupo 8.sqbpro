@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/tatoyoda600/Downloads/itbank.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="3228"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,16:mainauditoria_cuenta"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="auditoria_cuenta" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="101"/><column index="2" value="46"/><column index="3" value="54"/><column index="4" value="85"/><column index="5" value="93"/><column index="6" value="200"/><column index="7" value="200"/><column index="8" value="65"/><column index="9" value="73"/><column index="10" value="102"/><column index="11" value="81"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="cliente" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort><column index="6" mode="0"/></sort><column_widths><column index="1" value="88"/><column index="2" value="112"/><column index="3" value="133"/><column index="4" value="99"/><column index="5" value="73"/><column index="6" value="72"/><column index="7" value="52"/><column index="8" value="99"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="conjunto_direcciones" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort><column index="2" mode="0"/></sort><column_widths><column index="1" value="165"/><column index="2" value="99"/><column index="3" value="85"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="cuenta" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort><column index="1" mode="0"/></sort><column_widths><column index="1" value="79"/><column index="2" value="88"/><column index="3" value="61"/><column index="4" value="233"/><column index="5" value="52"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="direccion" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="85"/><column index="2" value="220"/><column index="3" value="178"/><column index="4" value="194"/><column index="5" value="116"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="empleado" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort><column index="6" mode="0"/></sort><column_widths><column index="1" value="89"/><column index="2" value="113"/><column index="3" value="134"/><column index="4" value="141"/><column index="6" value="72"/><column index="7" value="99"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="marca_tarjetas" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="67"/><column index="2" value="128"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="movimientos" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="101"/><column index="2" value="79"/><column index="3" value="49"/><column index="4" value="52"/><column index="5" value="65"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="prestamo" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort><column index="2" mode="1"/></sort><column_widths><column index="1" value="54"/><column index="2" value="87"/><column index="3" value="73"/><column index="4" value="74"/><column index="5" value="88"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="sqlite_sequence" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="63"/><column index="2" value="40"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="sucursal" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort><column index="2" mode="0"/></sort><column_widths><column index="1" value="72"/><column index="2" value="110"/><column index="3" value="138"/><column index="4" value="132"/><column index="5" value="85"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tarjeta" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="144"/><column index="2" value="40"/><column index="3" value="140"/><column index="4" value="118"/><column index="5" value="52"/><column index="6" value="67"/><column index="7" value="88"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tipo_cliente" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="52"/><column index="2" value="57"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tipo_cuenta" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="52"/><column index="2" value="173"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tipo_operaciones" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="52"/><column index="2" value="183"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tipo_tarjeta" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="52"/><column index="2" value="76"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">/* Primer problematica */
+/* 
+Eran todas modificaciones a la base de datos, 
+fuimos haciendolas como podiamos,
+reutilizando codigo y dejando cosas que no funcionaron.
+Despues vimos que en las demas hay que guardar el codigo,
+pero ya no nos quedaba nada util para guardar aca
+*/
+
+/* Segunda problematica */
+
+CREATE VIEW vista1
+AS
+SELECT cliente.customer_id, cliente.branch_id, cliente.propietario_id, cliente.tipo_id, cliente.branch_id, cliente.customer_name, cliente.customer_surname, cliente.customer_DNI, CAST((julianday('now') - julianday(cliente.dob)) / 365.25 AS int) AS customer_age
+FROM cliente
+
+SELECT *
+FROM vista1
+WHERE edad &gt; 40
+ORDER BY customer_DNI ASC
+
+SELECT *
+FROM vista1
+WHERE customer_name = &quot;Anne&quot; OR customer_name = &quot;Tyler&quot;
+ORDER BY edad ASC
+
+INSERT INTO cliente (customer_name, customer_surname, customer_DNI, branch_id, dob, tipo_id, propietario_id)
+VALUES ('Lois', 'Stout', '466630534', 80, '1984-07-07', abs(random() % 3) + 1, abs(random() % 500) + 1), 
+('Hall', 'Mcconnel', '52055464', 45, '1968-04-30', abs(random() % 3) + 1, abs(random() % 500) + 1), 
+('Hilel', 'Mclean', '43625213', 77, '1993-*03-28', abs(random() % 3) + 1, abs(random() % 500) + 1), 
+('Jin', 'Cooley', '21207908', 96, '1959-08-24', abs(random() % 3) + 1, abs(random() % 500) + 1), 
+('Gabriel', 'Harmon', '57063950', 27, '1976-04-01', abs(random() % 3) + 1, abs(random() % 500) + 1)
+
+UPDATE cliente
+SET branch_id = 10
+WHERE cliente.customer_id IN (
+								SELECT cliente.customer_id
+								FROM cliente
+								ORDER BY cliente.customer_id DESC
+								LIMIT 5
+								)
+								
+DELETE FROM cliente 
+WHERE customer_name = 'Noel' and customer_surname = 'David'
+
+SELECT loan_type
+FROM (
+	SELECT loan_type, SUM(loan_total)
+	FROM prestamo
+	GROUP BY loan_type
+	)
+LIMIT 1
+
+/* Tercera problematica */
+
+SELECT *
+FROM cuenta
+WHERE balance &lt; 0
+
+SELECT cliente.customer_name, cliente.customer_surname, CAST((julianday('now') - julianday(cliente.dob)) / 365.25 AS int) AS customer_age
+FROM cliente
+WHERE customer_surname LIKE '%Z%'
+
+SELECT cliente.customer_name, cliente.customer_surname, CAST((julianday('now') - julianday(cliente.dob)) / 365.25 AS int) AS customer_age, sucursal.branch_name
+FROM cliente
+INNER JOIN sucursal ON cliente.branch_id = sucursal.branch_id
+WHERE customer_name = 'Brendan'
+ORDER BY sucursal.branch_name
+
+SELECT *
+FROM prestamo
+WHERE loan_total &gt; 8000000
+UNION
+SELECT *
+FROM prestamo
+WHERE loan_type = 'PRENDARIO'
+
+SELECT *
+FROM prestamo
+WHERE loan_total &gt; (
+					SELECT AVG(loan_total)
+					FROM prestamo
+					)
+					
+SELECT COUNT(customer_id)
+FROM cliente
+WHERE CAST((julianday('now') - julianday(dob)) / 365.25 AS int) &lt; 50
+
+SELECT *
+FROM cuenta
+WHERE balance &gt; 800000
+LIMIT 5
+
+SELECT *
+FROM prestamo
+WHERE loan_id IN (
+				SELECT loan_id
+				FROM (
+					SELECT loan_id, strftime('%m', loan_date) AS Month
+					FROM prestamo
+					WHERE Month = '04' OR Month = '06' OR Month = '08'
+					)
+				)
+ORDER BY loan_total
+
+SELECT loan_type, SUM(loan_total) AS loan_total_accu
+FROM prestamo
+GROUP BY prestamo.loan_type
+
+/* Cuarta problematica */
+
+SELECT sucursal.branch_name, COUNT(cliente.customer_id) AS cantidad_clientes
+FROM sucursal
+INNER JOIN cliente ON cliente.branch_id = sucursal.branch_id
+GROUP BY cliente.branch_id
+ORDER BY cantidad_clientes DESC
+
+SELECT (cantidad_clientes * 1.0) / (cantidad_empleados * 1.0) as cantidad_empleados_por_cliente_por_sucursal, A.branch_id
+FROM (
+	SELECT COUNT(cliente.customer_id) AS cantidad_clientes, sucursal.branch_id
+	FROM sucursal
+	LEFT JOIN cliente ON cliente.branch_id = sucursal.branch_id
+	GROUP BY cliente.branch_id
+	) AS A, (
+			SELECT COUNT(empleado.employee_id) AS cantidad_empleados, sucursal.branch_id
+			FROM sucursal
+			LEFT JOIN empleado ON empleado.branch_id = sucursal.branch_id
+			GROUP BY empleado.branch_id
+			) AS B
+WHERE A.branch_id = B.branch_id
+
+
+
+SELECT COUNT(cliente.customer_id) AS cantidad_clientes, sucursal.branch_id
+FROM sucursal,
+		(
+		
+		)
+LEFT JOIN cliente ON cliente.branch_id = sucursal.branch_id
+GROUP BY cliente.branch_id
+
+SELECT SUM(cantidad_tarjetas) AS tarjetas_de_credito, sucursal.branch_name
+FROM (
+	SELECT COUNT(tarjeta.customer_id) AS cantidad_tarjetas, tarjeta.customer_id
+	FROM tarjeta
+	WHERE tarjeta.tipo_id IN (
+							SELECT tipo_tarjeta.tipo_id
+							FROM tipo_tarjeta
+							WHERE tipo_tarjeta.tipo_name = 'CREDITO'
+							)
+	GROUP BY customer_id
+	) AS tarjetas_por_persona
+LEFT JOIN cliente ON cliente.customer_id = tarjetas_por_persona.customer_id
+LEFT JOIN sucursal ON sucursal.branch_id = cliente.branch_id
+GROUP BY cliente.branch_id
+
+SELECT (SUM(cantidad_tarjetas_credito) * 1.0) / (SUM(cantidad_tarjetas_total) * 1.0) AS promedio_de_tarjetas_que_son_de_credito, sucursal.branch_name
+FROM(
+	SELECT cantidad_tarjetas_credito, cantidad_tarjetas_total, A.customer_id
+	FROM (	
+		SELECT COUNT(tarjeta.customer_id) AS cantidad_tarjetas_credito, tarjeta.customer_id
+		FROM tarjeta
+		WHERE tarjeta.tipo_id IN (
+								SELECT tipo_tarjeta.tipo_id
+								FROM tipo_tarjeta
+								WHERE tipo_tarjeta.tipo_name = 'CREDITO'
+								)
+		GROUP BY customer_id
+		) AS A
+	LEFT JOIN (
+			SELECT COUNT(tarjeta.customer_id) AS cantidad_tarjetas_total, tarjeta.customer_id
+			FROM tarjeta
+			GROUP BY customer_id
+			) AS B ON B.customer_id = A.customer_id
+	) AS tarjetas_por_persona
+LEFT JOIN cliente ON cliente.customer_id = tarjetas_por_persona.customer_id
+LEFT JOIN sucursal ON sucursal.branch_id = cliente.branch_id
+GROUP BY cliente.branch_id
+
+CREATE TABLE auditoria_cuenta (
+							movimiento_id INTEGER PRIMARY KEY,
+							old_id INTEGER,
+							new_id INTEGER,
+							old_balance INTEGER,
+							new_balance INTEGER,
+							old_iban TEXT,
+							new_iban TEXT,
+							old_type INTEGER,
+							new_type INTEGER,
+							user_action TEXT,
+							created_at DATE,
+							FOREIGN KEY (old_type)
+							REFERENCES tipo_cuenta(tipo_id),
+							FOREIGN KEY (new_type)
+							REFERENCES tipo_cuenta(tipo_id)
+							)
+
+CREATE TRIGGER actualizacion_de_balance
+AFTER UPDATE OF balance
+ON cuenta
+BEGIN
+	INSERT INTO auditoria_cuenta(old_id, new_id, old_balance, new_balance, old_iban, new_iban, old_type, new_type, user_action, created_at)
+	VALUES (
+		OLD.customer_id, NEW.customer_id, 
+		OLD.balance, NEW.balance, 
+		OLD.iban, NEW.iban, 
+		OLD.tipo_id, NEW.tipo_id,
+		'Updated balance',
+		DATE('now')
+		);
+END
+
+CREATE TRIGGER insertacion_de_cuenta
+AFTER INSERT
+ON cuenta
+BEGIN
+	INSERT INTO auditoria_cuenta(old_id, new_id, old_balance, new_balance, old_iban, new_iban, old_type, new_type, user_action, created_at)
+	VALUES (
+		NULL, NEW.customer_id, 
+		NULL, NEW.balance, 
+		NULL, NEW.iban, 
+		NULL, NEW.tipo_id,
+		'Inserted cuenta',
+		DATE('now')
+		);
+END
+	
+UPDATE cuenta
+SET balance = balance - 10000
+WHERE account_id BETWEEN 10 AND 14
+
+CREATE INDEX clientes_por_dni
+ON cliente(customer_DNI)
+
+CREATE TABLE tipo_operaciones (
+							tipo_id INTEGER PRIMARY KEY,
+							tipo_name TEXT
+							)
+
+CREATE TABLE movimientos (
+						movimiento_id INTEGER PRIMARY KEY,
+						account_id INTEGER,
+						monto INTEGER,
+						tipo_id INTEGER,
+						hora DATETIME,
+						FOREIGN KEY (account_id)
+						REFERENCES cuenta(account_id),
+						FOREIGN KEY (tipo_id)
+						REFERENCES tipo_operaciones(tipo_id)
+						)
+					
+INSERT INTO tipo_operaciones (tipo_name)
+VALUES ('TRANSFERENCIA - ENVIO'), ('TRANSFERENCIA - RECEPCION')
+	
+BEGIN TRANSACTION;
+
+	UPDATE cuenta
+	SET balance = balance - 100000
+	WHERE account_id = 200;
+
+	UPDATE cuenta
+	SET balance = balance + 100000
+	WHERE account_id = 400;
+
+	INSERT INTO movimientos (account_id, monto, tipo_id, hora)
+	VALUES (200, 100000, (
+						SELECT tipo_id
+						FROM tipo_operaciones
+						WHERE tipo_name = 'TRANSFERENCIA - ENVIO'
+						), TIME()),
+			(400, 100000, (
+						SELECT tipo_id
+						FROM tipo_operaciones
+						WHERE tipo_name = 'TRANSFERENCIA - RECEPCION'
+						), TIME());
+
+
+ROLLBACK;
+COMMIT;</sql><current_tab id="0"/></tab_sql></sqlb_project>

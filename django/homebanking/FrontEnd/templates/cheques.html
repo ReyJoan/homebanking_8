@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>ITBANK HomeBanking</title>
+{% endblock %}
+{% block content %}
+<p hidden>Excelencia Asegurada 1959</p>
+<main>
+  <section class="contenedor-inputs">
+    <input type="text" class="input" id="archivo-cheques" placeholder="Archivo" value="cheques.csv">
+    <input type="text" class="input" id="salida-cheques" placeholder="Salida">
+    <input type="text" class="input" id="dni-cheques" placeholder="DNI">
+    <input type="text" class="input" id="tipo-cheques" placeholder="Tipo">
+    <input type="text" class="input" id="estado-cheques" placeholder="Estado">
+    <input type="text" class="input" id="fecha-cheques" placeholder="dd-mm-yyyy:dd-mm-yyyy">
+    <button class="button" id="boton-cheques">Pedir</button>
+  </section>
+  <section class="tabla-cheques">
+    <div class="tabla">
+      <div class="title">
+        <h4>Cheques</h4>
+      </div>
+      <div id="padre-columna">
+        <div class="columnas">
+          <p>Numero</p>
+          <p>Codigo</p>
+          <p>Sucursal</p>
+          <p>Originario</p>
+          <p>Destinatario</p>
+          <p>Valor</p>
+          <p>Emision</p>
+          <p>Pago</p>
+          <p>DNI</p>
+          <p>Tipo</p>
+          <p>Estado</p>
+        </div>
+      </div>
+      <div id="tabla-cheques"></div>
+    </div>
+  </section>
+</main>
+{% endblock %}

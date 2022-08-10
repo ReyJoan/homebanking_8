@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>ITBANK Login</title>
+{% endblock %}
+{% block content %}
+<p hidden id="htmlID">user</p>
+<main>
+  <section class="form-container">
+    <!--Register form-->
+    <form class="register-form forms hidden" id="registerForm">
+      <h1>Registrarse</h1>
+      <div class="form-control">
+        <input
+          type="text"
+          required=""
+          name="name"
+          class="input-field"
+          id="register-name"
+          placeholder="User Name"
+          maxlength="15"
+        />
+      </div>
+      <div class="form-control">
+        <input
+          type="password"
+          required=""
+          name="name"
+          class="input-field"
+          id="register-pass"
+          placeholder="Password"
+          maxlength="15"
+        />
+      </div>
+      <div class="checkbox">
+        <label for="checkReg">Recordar Usuario</label>
+        <input type="checkbox" name="name" id="checkReg" />
+      </div>
+      <button type="submit" class="button" id="register-submit">
+        Registrarse
+      </button>
+    </form>
+
+    <!--Login form-->
+    <form class="login-form forms hidden" id="loginForm">
+      <h1>Iniciar Sesión</h1>
+      <div class="form-control">
+        <input
+          type="text"
+          name="name"
+          class="input-field"
+          required=""
+          id="login-name"
+          placeholder="Nombre de Usuario"
+          maxlength="15"
+        />
+      </div>
+      <div class="form-control">
+        <input
+          type="password"
+          name="name"
+          class="input-field"
+          required=""
+          id="login-pass"
+          placeholder="Contraseña"
+          maxlength="15"
+        />
+      </div>
+      <div class="checkbox">
+        <label for="checkLog">Recordar Usuario</label>
+        <input type="checkbox" name="name" id="checkLog" />
+      </div>
+      <button type="submit" class="button" id="login-submit">Entrar</button>
+    </form>
+
+    <!--Main form-->
+    <form class="main-form forms" id="mainForm">
+      <h1>Bienvenido</h1>
+      <div class="form-control">
+        <label class="main-label">Ingresar</label>
+        <button type="button" class="button" id="main-login-btn">
+          Iniciar Sesión
+        </button>
+      </div>
+      <div class="form-control">
+        <label class="main-label">Crear una cuenta</label>
+        <button type="button" class="button" id="main-register-btn">
+          Registrarse
+        </button>
+      </div>
+    </form>
+  </section>
+</main>
+{% endblock %}

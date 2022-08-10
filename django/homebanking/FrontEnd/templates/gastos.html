@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>ITBANK HomeBanking</title>
+{% endblock %}
+{% block content %}
+<main>
+    <section class="principal">
+        <section class="balance-display">
+            <h3 class="titulo-tot">Total:</h3>
+            <h1 id="gastos-display">$0,00</h1>
+        </section>
+        <section class="output-gastos">
+            <div>
+                <h5>Distribución Equitativa:</h5>
+                <h5 id="distribucion-display">$0,00</h5>
+            </div>
+        </section>
+    </section>
+    <section class="contenedor-inputs">
+        <div class="inputs">
+            <input type="text" class="input" id="nombre" placeholder="Nombre">
+            <input type="text" class="input" id="gasto" placeholder="Gasto">
+        </div>
+            <button class="button" id="boton-gasto">Agregar</button>
+    </section>
+    <section class="tabla-gastos">
+        <div class="tabla">
+            <div class="title">
+                <h4>Gastos</h4>
+            </div>
+            <div id="padre-columna">
+                <div class="columnas">
+                    <p>Nombre</p>
+                    <p>Importe</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

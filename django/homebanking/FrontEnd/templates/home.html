@@ -1,0 +1,114 @@
+
+{% extends 'base.html' %}
+{% block title %}
+<title>ITBANK HomeBanking</title>
+<!-- animation -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<p hidden>Excelencia Asegurada 1959</p>
+<p hidden id="htmlID">home</p>
+<main class="prueba">
+  <div class="card-container">
+    <div class="card card-saldo" data-aos="fade-right" data-aos-duration="1000">
+      <div class="indexar">
+        <h3>Saldo total</h3>
+        <button class="btn-gastos"><a href="{% url 'saldo' %}">Ver transacciones</a></button>
+      </div>
+      <div class="mostrar-saldo">
+        <h3 id="saldo">$3000000</h3>
+      </div>
+    </div>
+    <div class="card card-appgasto" data-aos="fade-left" data-aos-duration="1000">
+    </div>
+    <div class="mini-cart-cont">
+      <div class="mini-card" id="Dolar-Oficial" data-aos="fade-left" data-aos-duration="1000">
+        <p>Dólar Oficial</p>
+      </div>
+      <div class="mini-card" id="Dolar-Bolsa" data-aos="fade-left" data-aos-duration="1000">
+        <p>Dólar Bolsa</p>
+      </div>
+      <div class="mini-card" id="Dolar-Cont" data-aos="fade-left" data-aos-duration="1000">
+        <p>Dólar Contado</p>
+      </div>
+      <div class="mini-card" id="Dolar-Soli" data-aos="fade-left" data-aos-duration="1000">
+        <p>Dólar Solidario</p>
+      </div>
+    </div>
+  </div>
+  <div class="comprar-btn-container">
+    <button class="button" id="Buy-D" data-aos="fade" data-aos-duration="1000">Comprar</button>
+  </div>
+
+  <section class="slider">
+    <a class="slider-icon no-funciona" href="">
+      <i class="fa-solid fa-credit-card"></i>
+      <p>Solicitar tarjeta</p>
+    </a>
+    <a class="slider-icon" href="{% url 'saldo' %}">
+      <i class="fa-solid fa-money-bill-1"></i>
+      <p>Saldo</p>
+    </a>
+    <a class="slider-icon" href="{% url 'cheques' %}">
+      <i class="fa-solid fa-money-bill-transfer"></i>
+      <p>Cheques</p>
+    </a>
+    <a class="slider-icon" href="{% url 'gastos' %}">
+      <i class="fa-solid fa-chart-pie"></i>
+      <p>Aplicación de Gastos</p>
+    </a>
+    <a class="slider-icon no-funciona" href="">
+      <i class="fa-solid fa-dollar"></i>
+      <p>Préstamos</p>
+    </a>
+    <a class="slider-icon no-funciona" href="">
+      <i class="fa-solid fa-wifi"></i>
+      <p>Más servicios</p>
+    </a>
+  </section>
+  <section class="small-container">
+    <div class="row">
+      <div class="col-4">
+        <i class="fa-solid fa-lock fa-2x color-red"></i>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          tempus felis a pharetra euismod. Interdum et malesuada fames ac
+          ante ipsum primis in faucibus. Duis nec elementum dolor. Nunc ut
+          ultrices justo, non interdum tortor.
+        </p>
+      </div>
+      <div class="col-4">
+        <i class="fa-brands fa-youtube fa-2x color-red"></i>
+        <p>
+          Fusce congue elit diam, nec placerat mauris rhoncus at. Nullam
+          convallis, quam non interdum scelerisque, ligula leo porta magna,
+          eget iaculis diam ipsum et neque. Vestibulum suscipit in felis id
+          rutrum. Phasellus pellentesque maximus rhoncus.
+        </p>
+      </div>
+      <div class="col-4">
+        <i class="fa-solid fa-arrow-trend-up fa-2x color-red"></i>
+        <p>
+          Proin pretium consectetur iaculis. Proin rutrum malesuada augue, a
+          facilisis est condimentum id. Nunc sed rutrum mi. Duis ultricies
+          arcu vel iaculis tempus. Suspendisse ac blandit ante. Nulla
+          hendrerit id enim in iaculis.
+        </p>
+      </div>
+      <div class="col-4">
+        <i class="fa-solid fa-bell fa-2x color-red"></i>
+        <p>
+          Ut volutpat massa dolor, in tincidunt est vulputate ut. Etiam ac
+          ligula lectus. Integer eu aliquam justo. Curabitur rhoncus
+          pulvinar purus nec auctor. Suspendisse a ex urna. Maecenas non
+          aliquet lectus.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+{% endblock %}

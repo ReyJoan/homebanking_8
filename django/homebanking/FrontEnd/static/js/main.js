@@ -122,8 +122,9 @@ switch (htmlDetect.textContent) {
 
     //Login button
     submitLog.addEventListener("click", (e) => {
-      e.preventDefault();
+      //e.preventDefault();
       if (verifyUserPass(userLogin.value, passwordLogin.value)) {
+        /*
         signInWithEmailAndPassword(
           auth,
           userLogin.value + "@ignore.us",
@@ -158,6 +159,29 @@ switch (htmlDetect.textContent) {
               errorCode
             );
           });
+          */
+          //window.location.href = "../home";
+          
+          //csrfmiddlewaretoken=AQmAqzCLy9bi3gCYzVzTX0myyM2rJZHhDhGsj07kBaWPyOImOrxAAMzk1EAK3nYl&username=sadasd&password=Password1%21
+        e.preventDefault();
+        let post = `csrfmiddlewaretoken=${document.querySelector('[name="csrfmiddlewaretoken"]').value}&username=${userLogin.value}&password=${passwordLogin.value}`
+
+        const url = "../user/"
+        let xhr = new XMLHttpRequest()
+        
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == XMLHttpRequest.DONE) {
+              window.location.href = JSON.parse(xhr.responseText).url;
+          }
+        }
+        xhr.open('POST', url, true)
+        xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8')
+        xhr.setRequestHeader("X-CSRFToken", document.querySelector('[name="csrfmiddlewaretoken"]').value);
+        xhr.send(post);
+      }
+      else
+      {
+        e.preventDefault();
       }
     });
 

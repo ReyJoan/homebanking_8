@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from http.client import HTTPResponse
+from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from django.urls import reverse
 
 # Create your views here.
 def index(request):
@@ -17,4 +20,9 @@ def saldo(request):
     return render(request, "saldo.html")
 
 def user(request):
-    return render(request, "user.html")
+    for p in request:
+        print(p)
+    if request.method == 'POST':
+        return JsonResponse({'success':'true', 'url':reverse('home')})
+    else:
+        return render(request, "user.html")

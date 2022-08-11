@@ -7,7 +7,8 @@
 <main>
   <section class="form-container">
     <!--Register form-->
-    <form class="register-form forms hidden" id="registerForm">
+    <form class="register-form forms hidden" id="registerForm" action="" method="post">
+      {% csrf_token %}
       <h1>Registrarse</h1>
       <div class="form-control">
         <input
@@ -41,12 +42,13 @@
     </form>
 
     <!--Login form-->
-    <form class="login-form forms hidden" id="loginForm">
+    <form class="login-form forms hidden" id="loginForm" action = "" method = "POST">
+      {% csrf_token %}
       <h1>Iniciar Sesión</h1>
       <div class="form-control">
         <input
           type="text"
-          name="name"
+          name="username"
           class="input-field"
           required=""
           id="login-name"
@@ -57,7 +59,7 @@
       <div class="form-control">
         <input
           type="password"
-          name="name"
+          name="password"
           class="input-field"
           required=""
           id="login-pass"
@@ -67,10 +69,11 @@
       </div>
       <div class="checkbox">
         <label for="checkLog">Recordar Usuario</label>
-        <input type="checkbox" name="name" id="checkLog" />
+        <input type="checkbox" name="rememberUser" id="checkLog" />
       </div>
       <button type="submit" class="button" id="login-submit">Entrar</button>
     </form>
+    {{request.POST}}
 
     <!--Main form-->
     <form class="main-form forms" id="mainForm">

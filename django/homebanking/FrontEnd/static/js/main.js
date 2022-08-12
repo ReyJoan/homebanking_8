@@ -28,45 +28,21 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth();
 
-//Crear Header y Footer
-(function () {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      // En main.css .nav-usuario define limite de 15 caracteres sin problemas
-      console.log("User signed in");
-      document.querySelector("#nav-username").innerHTML = auth.currentUser.email.split('@')[0] + "<i class='fa-solid fa-user'></i>";
-      document.querySelector("#nav-link-username").innerHTML = "<i class='fa-solid fa-user'></i>" + auth.currentUser.email.split('@')[0];
-    } else {
-      // User is signed out
-      console.log("User signed out");
-      document.querySelector("#nav-username").innerHTML = "Usuario" + "<i class='fa-solid fa-user'></i>";
-      document.querySelector("#nav-link-username").innerHTML = "<i class='fa-solid fa-user'></i>" + "Usuario";
-    }
-  })
-})();
-
 //Detecta el html activo y aplica diferente codigo dependiendo de eso
 const htmlDetect = document.querySelector("#htmlID");
 switch (htmlDetect.textContent) {
   //------------------------------------------------------------------------
   case "user":
-    const form1 = document.querySelector("#registerForm");
     const form2 = document.querySelector("#loginForm");
     const form3 = document.querySelector("#mainForm");
 
-    const userRegister = document.querySelector("#register-name");
-    const passwordRegister = document.querySelector("#register-pass");
     const userLogin = document.querySelector("#login-name");
     const passwordLogin = document.querySelector("#login-pass");
 
-    const rememberReg = document.querySelector("#checkReg");
-    const rememberLog = document.querySelector("#checkLog");
-    const submitReg = document.querySelector("#register-submit");
     const submitLog = document.querySelector("#login-submit");
     const botonLog = document.querySelector("#main-login-btn");
     const botonReg = document.querySelector("#main-register-btn");
+    const errorLog = document.querySelector("#errorLogin");
 
     botonLog.addEventListener("click", () => {
       form3.style.display = "none";
@@ -74,104 +50,33 @@ switch (htmlDetect.textContent) {
     });
 
     botonReg.addEventListener("click", () => {
-      form3.style.display = "none";
-      form1.style.display = "block";
-    });
-
-   
-    //Register button
-    submitReg.addEventListener("click", (e) => {
-      e.preventDefault();
-      if (verifyUserPass(userRegister.value, passwordRegister.value)) {
-        createUserWithEmailAndPassword(
-          auth,
-          userRegister.value + "@ignore.us",
-          passwordRegister.value
-        )
-          .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            console.log("Register complete");
-            if (rememberReg.checked == true) {
-              setPersistence(auth, browserLocalPersistence);
-            }
-            else {
-              setPersistence(auth, browserSessionPersistence);
-            }
-            window.location.href = "../home";
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            if (errorCode == "auth/email-already-in-use") {
-              alert("Ya existe una cuenta con ese usuario");
-            }
-            console.log(
-              userRegister.value +
-              "@ignore.us" +
-              "\n" +
-              passwordRegister.value +
-              "\n" +
-              errorMessage +
-              "\n" +
-              errorCode
-            );
-          });
-      }
+      window.location.href = "../register/"
     });
 
     //Login button
     submitLog.addEventListener("click", (e) => {
-      //e.preventDefault();
-      if (verifyUserPass(userLogin.value, passwordLogin.value)) {
-        /*
-        signInWithEmailAndPassword(
-          auth,
-          userLogin.value + "@ignore.us",
-          passwordLogin.value
-        )
-          .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            console.log("Login complete");
-            if (rememberLog.checked == true) {
-              setPersistence(auth, browserLocalPersistence);
-            }
-            else {
-              setPersistence(auth, browserSessionPersistence);
-            }
-            window.location.href = "../home";
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            if (errorCode == "auth/email-already-in-use") {
-              alert("Ya existe una cuenta con ese usuario");
-            }
-            console.log(
-              userRegister.value +
-              "@ignore.us" +
-              "\n" +
-              passwordRegister.value +
-              "\n" +
-              errorMessage +
-              "\n" +
-              errorCode
-            );
-          });
-          */
-          //window.location.href = "../home";
-          
-          //csrfmiddlewaretoken=AQmAqzCLy9bi3gCYzVzTX0myyM2rJZHhDhGsj07kBaWPyOImOrxAAMzk1EAK3nYl&username=sadasd&password=Password1%21
-        e.preventDefault();
-        let post = `csrfmiddlewaretoken=${document.querySelector('[name="csrfmiddlewaretoken"]').value}&username=${userLogin.value}&password=${passwordLogin.value}`
-
+      e.preventDefault();
+      if (verifyLoginFields(userLogin.value, passwordLogin.value)) {
+        let data = {
+          csrfmiddlewaretoken: document.querySelector('[name="csrfmiddlewaretoken"]').value,
+          username: userLogin.value,
+          password: passwordLogin.value
+        }
+        let post = JSON.stringify(data)
+        
         const url = "../user/"
         let xhr = new XMLHttpRequest()
         
         xhr.onreadystatechange = function() {
           if (xhr.readyState == XMLHttpRequest.DONE) {
+            console.log(JSON.parse(xhr.responseText).success)
+            if (JSON.parse(xhr.responseText).success == 'true') {
               window.location.href = JSON.parse(xhr.responseText).url;
+            }
+            else
+            {
+              errorLog.style.display = "block";
+            }
           }
         }
         xhr.open('POST', url, true)
@@ -179,13 +84,9 @@ switch (htmlDetect.textContent) {
         xhr.setRequestHeader("X-CSRFToken", document.querySelector('[name="csrfmiddlewaretoken"]').value);
         xhr.send(post);
       }
-      else
-      {
-        e.preventDefault();
-      }
     });
 
-    function verifyUserPass(username, password) {
+    function verifyLoginFields(username, password) {
       if (username == "" || password == "") {
         alert("Debes ingresar un valor");
         return false;
@@ -219,14 +120,183 @@ switch (htmlDetect.textContent) {
         return false;
       }
 
-      //FALTA VERIFICAR SI EL USUARIO YA ESTA EN USO
+      return true;
+    }
+    break;
+
+  //------------------------------------------------------------------------
+  case "register":
+    const submitReg = document.querySelector("#register-submit");
+    const errorReg = document.querySelector("#errorRegister");
+    const userRegister = document.querySelector("#register-name");
+    const passwordRegister = document.querySelector("#register-pass");
+    const fnameRegister = document.querySelector("#register-firstname");
+    const lnameRegister = document.querySelector("#register-lastname");
+    const dniRegister = document.querySelector("#register-dni");
+    const dobRegister = document.querySelector("#register-dob");
+
+    //Register button
+    submitReg.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (verifyRegisterFields(userRegister.value, passwordRegister.value, fnameRegister.value, lnameRegister.value, dniRegister.value, dobRegister.value)) {
+        let data = {
+          csrfmiddlewaretoken: document.querySelector('[name="csrfmiddlewaretoken"]').value,
+          username: userRegister.value,
+          password: passwordRegister.value,
+          firstname: fnameRegister.value,
+          lastname: lnameRegister.value,
+          dni: dniRegister.value,
+          dob: dobRegister.value
+        }
+        let post = JSON.stringify(data)
+        
+        const url = "../register/"
+        let xhr = new XMLHttpRequest()
+        
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == XMLHttpRequest.DONE) {
+            console.log(JSON.parse(xhr.responseText).success)
+            if (JSON.parse(xhr.responseText).success == 'true') {
+              window.location.href = JSON.parse(xhr.responseText).url;
+            }
+            else
+            {
+              errorReg.style.display = "block";
+            }
+          }
+        }
+        xhr.open('POST', url, true)
+        xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8')
+        xhr.setRequestHeader("X-CSRFToken", document.querySelector('[name="csrfmiddlewaretoken"]').value);
+        xhr.send(post);
+      }
+    });
+
+    function verifyRegisterFields(username, password, firstname, lastname, dni, dob) {
+      if (username == "" || password == "" || firstname == "" || lastname == "" || dni == "" || dob == "") {
+        alert("Debes ingresar un valor");
+        return false;
+      }
+      if (username.match(/[@ ]/)) {
+        alert("Tu usuario no puede contener ni espacio ni '@'");
+        return false;
+      }
+      if (password.length < 8) {
+        alert("Tu contraseña debe tener al menos 8 caracteres");
+        return false;
+      }
+      if (!password.match(/[$@!%*#?&]/)) {
+        alert("Tu contraseña debe tener al menos 1 caracter especial '$@!%*#?&'");
+        return false;
+      }
+      if (!password.match(/[A-Z]/)) {
+        alert("Tu contraseña debe tener al menos 1 letra mayuscula");
+        return false;
+      }
+      if (!password.match(/[0-9]/)) {
+        alert("Tu contraseña debe tener al menos 1 numero");
+        return false;
+      }
+      if (!password.match(/[a-z]/)) {
+        alert("Tu contraseña debe tener al menos 1 letra minuscula");
+        return false;
+      }
+      if (password.includes(username)) {
+        alert("Tu contraseña no puede contener tu usuario");
+        return false;
+      }
+      if (dni.length != 8) {
+        alert("Tu dni debe tener 8 caracteres");
+        return false;
+      }
+      if (!dob.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)) {
+        alert("Tu fecha de nacimiento debe estar en el formato yyyy-mm-dd")
+        return false;
+      }
 
       return true;
     }
     break;
 
   //------------------------------------------------------------------------
- 
+  case "prestamo":
+    const submitPre = document.querySelector("#prestamo-submit");
+    const errorPre = document.querySelector("#errorPrestamo");
+    const montoPre = document.querySelector("#prestamo-monto");
+    const fechaPre = document.querySelector("#prestamo-fecha");
+    const tipoPre = document.querySelector("#prestamo-tipo");
+    let valorMonto = "0"
+
+    submitPre.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (verifyPrestamoFields(montoPre.value, fechaPre.value, tipoPre.value)) {
+        let data = {
+          csrfmiddlewaretoken: document.querySelector('[name="csrfmiddlewaretoken"]').value,
+          monto: valorMonto,
+          fecha: fechaPre.value,
+          tipo: tipoPre.value.toUpperCase()
+        }
+        let post = JSON.stringify(data)
+        
+        const url = "../prestamo/"
+        let xhr = new XMLHttpRequest()
+        
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == XMLHttpRequest.DONE) {
+            if (JSON.parse(xhr.responseText).success == 'true') {
+              alert("Prestamo otorgado con exito")
+              window.location.href = JSON.parse(xhr.responseText).url;
+            }
+            else
+            {
+              alert("Prestamo no pudo ser otorgado")
+              errorPre.style.display = "block";
+            }
+          }
+        }
+        xhr.open('POST', url, true)
+        xhr.setRequestHeader('Content-type', 'application/json; charset=UTF-8')
+        xhr.setRequestHeader("X-CSRFToken", document.querySelector('[name="csrfmiddlewaretoken"]').value);
+        xhr.send(post);
+      }
+    });
+
+    function verifyPrestamoFields(monto, fecha, tipo) {
+      if (monto == "" || fecha == "" || tipo == "") {
+        alert("Debes ingresar un valor");
+        return false;
+      }
+      if (monto.match(/^[0-9]+$/)) { //En caso de no poner coma
+        valorMonto = monto + ".00"
+      }
+      else {
+        if (monto.match(/^[0-9]+([,.][0-9]{1})?$/)) { //En caso de que ingrese numero con 1 digitos despues de la coma
+          valorMonto = monto.replace(',', '.') + "0"; //Poniendolo con punto en vez de coma y metiendole un 0 al final para que el sistema funcione
+        }
+        else {
+          if (monto.match(/^[0-9]+([,.][0-9]{2})?$/)) { //En caso de que ingrese numero con 2 digitos despues de la coma
+            valorMonto = monto.replace(',', '.'); //Poniendolo con punto en vez de coma para que el sistema funcione
+          }
+          else {
+            alert("Debe ingresar un numero");
+            return false
+          }
+        }
+      }
+      if (!fecha.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)) {
+        alert("La fecha debe estar en el formato yyyy-mm-dd")
+        return false;
+      }
+      if (tipo != "personal" && tipo != "hipotecario" && tipo != "prendario") {
+        alert("Ese no es un tipo valido")
+        return false;
+      }
+
+      return true;
+    }
+    break;
+
+  //------------------------------------------------------------------------
   case "saldo":
     let valor = document.getElementById('saldo')
     console.log(valor.innerHTML)

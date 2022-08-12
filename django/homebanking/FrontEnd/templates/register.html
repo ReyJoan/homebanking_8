@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>ITBANK</title>
+{% endblock %}
+{% block content %}
+<p hidden id="htmlID">register</p>
+<main>
+  <!--Register form-->
+  <form class="register-form forms" id="registerForm" action="" method="post" style="width: 100%; height: 34rem; margin-top: 5rem;">
+    {% csrf_token %}
+    <h1>Registrarse</h1>
+    <p class="color-red hidden" id="errorRegister">Usuario ya existente</p>
+    <div class="form-control">
+      <input
+        type="text"
+        required
+        name="username"
+        class="input-field"
+        id="register-name"
+        placeholder="User Name"
+        maxlength="20"
+      />
+    </div>
+    <div class="form-control">
+      <input
+        type="password"
+        required
+        name="password"
+        class="input-field"
+        id="register-pass"
+        placeholder="Password"
+        maxlength="20"
+      />
+    </div>
+    <div class="form-control">
+      <input
+        type="text"
+        required
+        name="firstname"
+        class="input-field"
+        id="register-firstname"
+        placeholder="First Name"
+        maxlength="20"
+      />
+    </div>
+    <div class="form-control">
+      <input
+        type="text"
+        required
+        name="lastname"
+        class="input-field"
+        id="register-lastname"
+        placeholder="Last Name"
+        maxlength="20"
+      />
+    </div>
+    <div class="form-control">
+      <input
+        type="text"
+        required
+        name="dni"
+        class="input-field"
+        id="register-dni"
+        placeholder="DNI"
+        maxlength="8"
+      />
+    </div>
+    <div class="form-control">
+      <input
+        type="text"
+        required
+        name="dob"
+        class="input-field"
+        id="register-dob"
+        placeholder="yyyy-mm-dd (Date of Birth)"
+        maxlength="10"
+      />
+    </div>
+    <button type="submit" class="button" id="register-submit">
+      Registrarse
+    </button>
+  </form>
+</main>
+{% endblock %}

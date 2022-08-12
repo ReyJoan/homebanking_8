@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-<title>ITBANK Login</title>
+<title>ITBANK</title>
 {% endblock %}
 {% block content %}
 <p hidden id="htmlID">user</p>
@@ -10,6 +10,7 @@
     <form class="register-form forms hidden" id="registerForm" action="" method="post">
       {% csrf_token %}
       <h1>Registrarse</h1>
+      <p class="color-red hidden" id="errorRegister">Usuario ya existente</p>
       <div class="form-control">
         <input
           type="text"
@@ -18,7 +19,7 @@
           class="input-field"
           id="register-name"
           placeholder="User Name"
-          maxlength="15"
+          maxlength="20"
         />
       </div>
       <div class="form-control">
@@ -29,12 +30,8 @@
           class="input-field"
           id="register-pass"
           placeholder="Password"
-          maxlength="15"
+          maxlength="20"
         />
-      </div>
-      <div class="checkbox">
-        <label for="checkReg">Recordar Usuario</label>
-        <input type="checkbox" name="name" id="checkReg" />
       </div>
       <button type="submit" class="button" id="register-submit">
         Registrarse
@@ -45,6 +42,7 @@
     <form class="login-form forms hidden" id="loginForm" action = "" method = "POST">
       {% csrf_token %}
       <h1>Iniciar Sesión</h1>
+      <p class="color-red hidden" id="errorLogin">Usuario o contraseña estan incorrectas</p>
       <div class="form-control">
         <input
           type="text"
@@ -53,7 +51,7 @@
           required=""
           id="login-name"
           placeholder="Nombre de Usuario"
-          maxlength="15"
+          maxlength="20"
         />
       </div>
       <div class="form-control">
@@ -64,16 +62,11 @@
           required=""
           id="login-pass"
           placeholder="Contraseña"
-          maxlength="15"
+          maxlength="20"
         />
-      </div>
-      <div class="checkbox">
-        <label for="checkLog">Recordar Usuario</label>
-        <input type="checkbox" name="rememberUser" id="checkLog" />
       </div>
       <button type="submit" class="button" id="login-submit">Entrar</button>
     </form>
-    {{request.POST}}
 
     <!--Main form-->
     <form class="main-form forms" id="mainForm">

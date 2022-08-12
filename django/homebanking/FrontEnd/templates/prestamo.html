@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>ITBANK</title>
+{% endblock %}
+{% block content %}
+<p hidden id="htmlID">prestamo</p>
+<main>
+  <form class="forms" id="prestamoForm" action="" method="post" style="width: 100%; height: 22rem; margin-top: 5rem;">
+    {% csrf_token %}
+    <h1>Pedir Prestamo</h1>
+    <p class="color-red hidden" id="errorPrestamo">Ese monto excede el maximo pre-aprobado para tu usuario</p>
+    <div class="form-control">
+      <input
+        type="text"
+        required
+        name="monto"
+        class="input-field"
+        id="prestamo-monto"
+        placeholder="Monto"
+        maxlength="9"
+      />
+    </div>
+    <div class="form-control">
+      <input
+        type="text"
+        required
+        name="fecha"
+        class="input-field"
+        id="prestamo-fecha"
+        placeholder="yyyy-mm-dd (Fecha)"
+        maxlength="10"
+      />
+    </div>
+    <div class="form-control">
+        <select name="tipo" id="prestamo-tipo">
+            <option value="error">Elige un tipo de prestamo</option>
+            <option value="personal">Personal</option>
+            <option value="hipotecario">Hipotecario</option>
+            <option value="prendario">Prendario</option>
+        </select>
+    </div>
+    <button type="submit" class="button" id="prestamo-submit">
+      Pedir
+    </button>
+  </form>
+</main>
+{% endblock %}

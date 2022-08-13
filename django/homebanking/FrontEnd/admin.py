@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Cliente, Prestamo, Cuenta
+from Common.models import Cliente, Prestamo, Cuenta
 
 # Register your models here.
 @admin.register(Cliente)

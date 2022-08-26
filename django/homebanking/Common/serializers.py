@@ -1,3 +1,4 @@
+from dataclasses import field
 from rest_framework import serializers
 from . import models
 
@@ -21,10 +22,16 @@ class ClienteSerializerReducido(serializers.ModelSerializer):
         fields = ["customer_name", "customer_surname", "branch"]
 
 class PrestamoSerializer(serializers.ModelSerializer):
-    customer = ClienteSerializerReducido()
+    customer = ClienteSerializerReducido(read_only=True)
     class Meta:
         model = models.Prestamo
         fields = ["customer", "loan_type", "loan_date", "loan_total"]
+
+    def create(self, validated_data):
+        validated_data["customer"] = models.Cliente.objects.filter(pk=validated_data["customer"]).first()
+        obj = models.Prestamo(**validated_data)
+        obj.save()
+        return obj
 
 class CuentaSerializer(serializers.ModelSerializer):
     customer = ClienteSerializerReducido()
@@ -39,4 +46,10 @@ class TarjetaSerializer(serializers.ModelSerializer):
     customer = ClienteSerializerReducido()
     class Meta:
         model = models.Tarjeta
-        fields = "__all__"
+        fields = ["numero", "cvv", "tipo", "marca", "customer", "fecha_otorgamiento", "fecha_expiracion"]
+
+class SucursalSerializer(serializers.ModelSerializer):
+    direccion = DireccionSerializer()
+    class Meta:
+        model = models.Sucursal
+        fields = ["branch_number", "branch_name", "branch_address_id", "direccion"]

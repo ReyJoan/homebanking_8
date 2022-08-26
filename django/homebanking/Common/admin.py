@@ -8,7 +8,7 @@ class ClienteAdmin(admin.ModelAdmin):
     
 @admin.register(models.Prestamo)
 class PrestamoAdmin(admin.ModelAdmin):
-    list_display = ('loan_type', 'loan_date', 'loan_total', 'customer')
+    list_display = ('loan_id', 'loan_type', 'loan_date', 'loan_total', 'customer')
     
 @admin.register(models.Cuenta)
 class CuentaAdmin(admin.ModelAdmin):

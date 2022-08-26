@@ -100,9 +100,9 @@ class Cliente(models.Model):
     customer_surname = models.TextField()
     customer_dni = models.TextField(db_column='customer_DNI')  # Field name made lowercase.
     dob = models.TextField()
-    branch_id = models.IntegerField(default=1)
-    tipo_id = models.IntegerField(default=1)
-    direccion_id = models.IntegerField(default=1)
+    branch = models.ForeignKey('Sucursal', on_delete = models.CASCADE, related_name='branchCliente')
+    tipo = models.ForeignKey('TipoCliente', on_delete = models.CASCADE, related_name='tipoCliente')
+    direccion = models.ForeignKey('Direccion', on_delete = models.CASCADE, related_name='direccionCliente')
 
     class Meta:
         managed = False
@@ -114,10 +114,10 @@ class Cliente(models.Model):
 
 class Cuenta(models.Model):
     account_id = models.AutoField(primary_key=True)
-    customer = models.ForeignKey('Cliente', on_delete = models.CASCADE)
+    customer = models.ForeignKey('Cliente', on_delete = models.CASCADE, related_name='clienteCuenta')
     balance = models.FloatField()
     iban = models.TextField()
-    tipo = models.ForeignKey('TipoCuenta', models.CASCADE)
+    tipo = models.ForeignKey('TipoCuenta', on_delete = models.CASCADE, related_name='tipoCuenta')
 
     class Meta:
         managed = False
@@ -134,6 +134,9 @@ class Direccion(models.Model):
     class Meta:
         managed = False
         db_table = 'direccion'
+
+    def __str__(self):
+        return self.pais + ", " + self.provincia + ", " + self.ciudad + ", " + self.calle
 
 
 class DjangoAdminLog(models.Model):
@@ -186,8 +189,8 @@ class Empleado(models.Model):
     employee_surname = models.TextField()
     employee_hire_date = models.TextField()
     employee_dni = models.TextField(db_column='employee_DNI')  # Field name made lowercase.
-    branch_id = models.IntegerField()
-    direccion_id = models.IntegerField()
+    branch = models.ForeignKey('Sucursal', on_delete = models.CASCADE, related_name='branchEmpleado')
+    direccion = models.ForeignKey('Direccion', on_delete = models.CASCADE, related_name='direccionEmpleado')
 
     class Meta:
         managed = False
@@ -202,12 +205,15 @@ class MarcaTarjetas(models.Model):
         managed = False
         db_table = 'marca_tarjetas'
 
+    def __str__(self):
+        return self.marca
+
 
 class Movimientos(models.Model):
     movimiento_id = models.AutoField(primary_key=True)
     account_id = models.IntegerField()
     monto = models.IntegerField()
-    tipo_id = models.IntegerField()
+    tipo = models.ForeignKey('TipoOperaciones', on_delete = models.CASCADE, related_name='tipoOperacion')
     hora = models.DateTimeField()
 
     class Meta:
@@ -220,7 +226,7 @@ class Prestamo(models.Model):
     loan_type = models.TextField()
     loan_date = models.TextField()
     loan_total = models.FloatField()
-    customer = models.ForeignKey('Cliente', on_delete = models.SET_NULL, null=True)
+    customer = models.ForeignKey('Cliente', on_delete = models.SET_NULL, null=True, related_name='clientePrestamo')
 
     class Meta:
         managed = False
@@ -232,11 +238,14 @@ class Sucursal(models.Model):
     branch_number = models.IntegerField()
     branch_name = models.TextField()
     branch_address_id = models.IntegerField()
-    direccion_id = models.IntegerField()
+    direccion = models.ForeignKey('Direccion', on_delete = models.CASCADE, related_name='direccionSucursal')
 
     class Meta:
         managed = False
         db_table = 'sucursal'
+
+    def __str__(self):
+        return self.branch_name
 
 
 class Tarjeta(models.Model):
@@ -244,9 +253,9 @@ class Tarjeta(models.Model):
     cvv = models.IntegerField(db_column='CVV')  # Field name made lowercase.
     fecha_otorgamiento = models.DateField()
     fecha_expiracion = models.DateField()
-    tipo_id = models.IntegerField()
-    marca_id = models.IntegerField()
-    customer = models.ForeignKey('Cliente', on_delete = models.CASCADE)
+    tipo = models.ForeignKey('TipoTarjeta', on_delete = models.CASCADE, related_name='tipoTarjeta')
+    marca = models.ForeignKey('MarcaTarjetas', on_delete = models.CASCADE, related_name='marcaTarjeta')
+    customer = models.ForeignKey('Cliente', on_delete = models.CASCADE, related_name='clienteTarjeta')
 
     class Meta:
         managed = False
@@ -260,6 +269,9 @@ class TipoCliente(models.Model):
     class Meta:
         managed = False
         db_table = 'tipo_cliente'
+
+    def __str__(self):
+        return self.tipo
 
 
 class TipoCuenta(models.Model):
@@ -290,3 +302,6 @@ class TipoTarjeta(models.Model):
     class Meta:
         managed = False
         db_table = 'tipo_tarjeta'
+
+    def __str__(self):
+        return self.tipo_name

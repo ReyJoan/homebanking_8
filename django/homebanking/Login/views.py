@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 import json
 from django.contrib.auth.models import User
-from Common.models import Cliente, Cuenta, TipoCuenta
+from Common import models
 
 # Create your views here.
 def user(request):
@@ -35,14 +35,17 @@ def register(request):
         lastname = received_json.get('lastname', '')
         dni = received_json.get('dni', '')
         dob = received_json.get('dob', '')
+        tipo = models.TipoCliente.objects.get(tipo="CLASSIC")
+        direccion = models.Direccion.objects.get(direccion_id=1)
+        branch = models.Sucursal.objects.get(branch_id=1)
         if username != '' and password != '' and firstname != '' and lastname != '' and dni != '' and dob != '':
             logout(request)
             if User.objects.filter(username=username).exists() == False:
                 user = User.objects.create_user(username=username, password=password)
                 user.save()
-                entry = Cliente(usuario=User.objects.get(username=username), customer_name=firstname, customer_surname=lastname, customer_dni=dni, dob=dob)
+                entry = models.Cliente(usuario=User.objects.get(username=username), customer_name=firstname, customer_surname=lastname, customer_dni=dni, dob=dob, tipo=tipo, direccion=direccion, branch=branch)
                 entry.save()
-                entry2 = Cuenta(customer=Cliente.objects.get(usuario=User.objects.get(username=username)), balance=0.00, iban="??NO_TENGO_IDEA??", tipo=TipoCuenta.objects.get(tipo="Cuenta Corriente"))
+                entry2 = models.Cuenta(customer=models.Cliente.objects.get(usuario=User.objects.get(username=username)), balance=0.00, iban="??NO_TENGO_IDEA??", tipo=models.TipoCuenta.objects.get(tipo="Cuenta Corriente"))
                 entry2.save()
                 user = authenticate(username=username, password=password)
                 login(request, user)
